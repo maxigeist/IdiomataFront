@@ -24,7 +24,7 @@ class Register extends Component{
             swal.fire({
                 icon: 'error',
                 text:"The passwords are different",
-                
+                titleText:"Error",
                 position:"top",
                 padding: "3em 3em 3em 3em"
             })
