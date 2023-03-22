@@ -4,9 +4,12 @@
   box-sizing: border-box;
 }
 .formulario-div{
-  height: 270px;
-  border:  7px ridge;
+  height: 260px;
+  border-radius: 10px;
+  background-color: #4BD5E7;
 }
+
+
 .titulo{
   font-family: "Comic Sans MS";
   width: 100%;
@@ -18,7 +21,13 @@
   font-size: 50px;
 }
 
-
+.formulario-de-registro{
+  margin-top: 10px;
+  height: 310px;
+  border-radius: 10px;
+  background-color: #4BD5E7;
+  width: auto;
+}
 
 
 .formulario{
@@ -27,7 +36,7 @@
   margin: 20px;
   height: 60px;
   border-color: white;
-
+  padding:auto;
 }
 
 .boton-submit{
@@ -60,7 +69,7 @@ a{
 
 
 .boton-submit:hover{
-  background-color: #0099ff
+  background-color: #00ffff;
 ;
 }
 input{

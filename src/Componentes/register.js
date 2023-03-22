@@ -69,7 +69,7 @@ class Register extends Component{
 
                 <h2 className='titulo'>Register</h2>
                 <div className='formulario-de-registro'>
-                    <form action="/"> 
+                    <form className = 'formulario' action="/"> 
                         <input type="text" placeholder="Name" id = 'name' required/>
                         <input type="email" placeholder="Email" id = 'email' required/>
                         <input type="password" placeholder="Password" id='password' required/>
