@@ -1,6 +1,8 @@
 import dict from "../Imagenes/993441.png";
 import "../App.css"
 import {Component} from "react";
+import axios from "axios";
+
 
 
 class Register extends Component{
@@ -18,26 +20,30 @@ class Register extends Component{
 
 
 
-    test(){
+    async test(e){
+        e.preventDefault()
+
         var p = new Register(document.getElementById('name').value, document.getElementById('email').value
         ,document.getElementById('password').value, document.getElementById('password_2').value);
         console.log(p.name)
         console.log(p.email)
         console.log(p.password)
         console.log(p.password_repeat)
-        return p;
+
+        try {
+            const response = await axios.post('http://localhost:3001/api/user', {
+                name: p.name,
+                email: p.email,
+                password: p.password,
+                language: "Italian" 
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-
-
-
     render() {
-
-
-
-
-
-
         return (
             <div className="App">
                 <div className='logo-contenedor'>
