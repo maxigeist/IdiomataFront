@@ -1,42 +1,42 @@
-import './App.css'
-import dict from "./Imagenes/993441.png"
-import Registro from "./Componentes/register"
-import React from 'react';
-import {Link, NavLink, Route, Router, Routes, Switch, useNavigate} from 'react-router-dom';
+
+const express = require('express');
+const app = express();
+
+
+const ingredients = [
+    {
+        "id": "1",
+        "item": "Bacon"
+    },
+    {
+        "id": "2",
+        "item": "Eggs"
+    },
+    {
+        "id": "3",
+        "item": "Milk"
+    },
+    {
+        "id": "4",
+        "item": "Butter"
+    }
+];
+
+app.get('/ingredients', (req, res) =>{
+    res.send(ingredients);
+});
 
 
 
-function App() {
-    const navigate = useNavigate();
+app.listen(3001);
 
 
-    
-  return (
-    <div className="App">
-      <div className='logo-contenedor'>
-        <img
-          className='logo'
-          src = {dict}
-          alt = "logo de Idiomata"
-          />
-      </div>
-      <h1 className="titulo">Idiomata</h1>
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
 
-        <div className='formulario-div'>
-      <form className='formulario'>
-        <input type="email" placeholder = "Email" required/>
-        <input type='password' placeholder = "Password" required/>
-          <button className='boton-submit'>Log In</button>
-          <button onClick={handleClick}></button>
 
-      </form>
-
-           </div>
-    </div>
-  );
-}
-
-export default App;
 
 
 //el src no se puede usar como para modificar en un archivo de css, conviene usar el nombre de la clase que le di a la imagen.

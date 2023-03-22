@@ -1,11 +1,29 @@
-import React from "react";
-import Login from "../login"
+import { Component } from "react";
+import axios from "axios";
 
-function Fill(){
-    var element = "../login".getElementById('email_input')
-    var element2 = "../login".getElementById('password')
-    console.log(element.value)
-    //Estos dos elements contiene la información de lo que se escribió para intentar de iniciar sesión
+
+
+class Data extends Component{
+
+
+    async saveRegisterData(name, email, password, repeat_password){
+        try {
+            const response = await axios.post('http://localhost:3001/api/user', {
+                name: name,
+                email: email,
+                password: password,
+                language: "Italian" 
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    saveLoginData(email, password){
+
+    }
 
 }
-export default Fill;
+
+export default Data;
