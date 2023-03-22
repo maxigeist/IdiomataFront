@@ -1,7 +1,10 @@
 import dict from "../Imagenes/993441.png";
 import "../App.css"
 import {Component} from "react";
+import Data from "./data";
+import swal from "sweetalert2";
 
+const d = new Data();
 
 class Register extends Component{
 
@@ -16,6 +19,26 @@ class Register extends Component{
 
     HandleClick = () => window.location.href="/";
 
+    after_submit(){
+        if(document.getElementById('password').value !== document.getElementById('password_2').value){
+            swal.fire({
+                icon: 'error',
+                text:"The passwords are different",
+                titleText:"Error",
+                position:"top",
+                padding: "3em 3em 3em 3em"
+            })
+            
+            document.getElementById('password_2').value = "";
+
+            
+        }
+        
+        else{
+        d.saveRegisterData(document.getElementById('name').value, document.getElementById('email').value
+        ,document.getElementById('password').value, document.getElementById('password_2').value);
+        }
+    }
 
 
     test(){
@@ -31,13 +54,9 @@ class Register extends Component{
 
 
 
+
+
     render() {
-
-
-
-
-
-
         return (
             <div className="App">
                 <div className='logo-contenedor'>
@@ -50,12 +69,12 @@ class Register extends Component{
 
                 <h2 className='titulo'>Register</h2>
                 <div className='formulario-de-registro'>
-                    <form>
-                        <input type="text" placeholder="Name" id = 'name'  required/>
+                    <form action="/"> 
+                        <input type="text" placeholder="Name" id = 'name' required/>
                         <input type="email" placeholder="Email" id = 'email' required/>
                         <input type="password" placeholder="Password" id='password' required/>
-                        <input type="password" placeholder="Repeat password" id='password_2' required/>
-                        <button className='boton-submit' onClick={this.test}>Enviar</button>
+                        <input class_name = "   " type="password" placeholder="Repeat password" id='password_2' required/>
+                        <button className='boton-submit' onClick={this.after_submit}>Submit</button>
                     </form>
                 </div>
             </div>
@@ -66,3 +85,5 @@ class Register extends Component{
 
 }
 export default Register;
+
+//el atributo action que se pone en el form lo que hace es mandartelo a una ruta una vez que terminaste de completar el formulario

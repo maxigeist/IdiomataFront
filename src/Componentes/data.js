@@ -1,11 +1,18 @@
-import React from "react";
-import Login from "../login"
+import { Component } from "react";
 
-function Fill(){
-    var element = "../login".getElementById('email_input')
-    var element2 = "../login".getElementById('password')
-    console.log(element.value)
-    //Estos dos elements contiene la información de lo que se escribió para intentar de iniciar sesión
+
+
+
+class Data extends Component{
+
+
+    saveRegisterData(name, email, password, repeat_password){
+    }
+
+    saveLoginData(email, password){
+
+    }
 
 }
-export default Fill;
+
+export default Data;
