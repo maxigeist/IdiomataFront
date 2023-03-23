@@ -1,0 +1,116 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.formulario-div{
+  height: 270px;
+  border:  7px ridge;
+}
+.titulo{
+  font-family: "Comic Sans MS";
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+
+
+
+.formulario{
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  height: 60px;
+  border-color: white;
+
+}
+
+.boton-submit{
+  height: 50px;
+  width: 100%;
+  margin-bottom: 4px;
+  border:0;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Arial;
+  background-color: lightgreen;
+}
+a{
+  font-size: 15px;
+  padding-top: 5px;
+  padding-left: 10px;
+  font-weight: bold;
+  font-family: Arial;
+  text-align: center;
+  margin: auto;
+  display: flex;
+  color: black;
+
+
+
+
+
+
+}
+
+
+.boton-submit:hover{
+  background-color: #0099ff
+;
+}
+input{
+  height: 50px;
+  width:auto;
+  margin-bottom: 4px;
+  border:0;
+  display: flex;
+  flex:wrap;
+  flex-direction: column;
+  background-color: white;
+  font-size: 17px;
+  color:black;
+  cursor: text;
+  padding-left: 7px;
+}
+::placeholder{
+  color: black;
+  font-weight: bold;
+}
+
+
+html,body{
+  background-color: #00ffff;
+
+
+}
+
+
+
+.App{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
+  font-family: Lato, sans-serif;
+}
+
+.logo-contenedor{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:20px;
+}
+
+.logo{
+  height: 175px;
+
+}
+
+

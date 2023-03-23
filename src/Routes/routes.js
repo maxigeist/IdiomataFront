@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Login from "../login";
-import Register from "../Componentes/register";
+import Login from "../pages/login";
+import Register from "../pages/register";
 
 
 class OurRoutes extends Component{
