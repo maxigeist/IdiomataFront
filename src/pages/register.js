@@ -63,7 +63,6 @@ class Register extends Component{
 
     handleSubmit(event){
         if(this.state.password !== this.state.password_2){
-            event.preventDefault()
             swal.fire({
                 icon: 'error',
                 text:"The passwords are different",
@@ -74,7 +73,6 @@ class Register extends Component{
             this.setState({password_2: ""});
         } 
         else{
-            event.preventDefault()
             userDataRequester.saveRegisterData(this.name, this.email, this.password, this.password_2);
         }
     }
