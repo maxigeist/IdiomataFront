@@ -34,12 +34,12 @@ class Register extends Component{
 
                 <h2 className='titulo'>Register</h2>
                 <div className='formulario-de-registro'>
-                    <form action="/" className="formulario"> 
+                    <form className="formulario"> 
                         <input type="text" placeholder="Name" id ='name' required onChange={this.handleNameChange}/>
                         <input type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange}/>
                         <input type="password" placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
                         <input type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
-                        <select name = "languages" required onChange={this.handleLanguageChange}>
+                        <select name ="languages" required onChange={this.handleLanguageChange} >
                             <optgroup>
                             <option value="">Language to learn</option>
                             <option>Spanish</option>
@@ -73,7 +73,7 @@ class Register extends Component{
         this.setState({language:event.target.value})
     }
 
-    handleSubmit(event){
+    async handleSubmit(event){
         if(this.state.password !== this.state.password_2){
             swal.fire({
                 icon: 'error',
@@ -95,12 +95,28 @@ class Register extends Component{
             this.setState({password_2: ""});
         }
         else{
-            userDataRequester.saveRegisterData(this.name, this.email, this.password, this.password_2);
-        }
-    }
+            event.preventDefault()
 
-    HandleClick = () => window.location.href="/";
+            userDataRequester.saveRegisterData(this.name, this.email, this.password, this.language);
+            
+            swal.fire({
+                icon: 'success',
+                text:"You can now log in to your account",
+                titleText:"Registration Succesfully",   
+                position:"top",
+                padding: "3em 3em 3em 3em"
+            })
+            await this.delay(3000)
+            this.redirect()
+        }
+            }
+
+            redirect = () => window.location.href="/";
+
+    delay(milliseconds){
+        return new Promise(resolve => {
+            setTimeout(resolve, milliseconds);
+        });
+    }
 }
 export default Register;
-
-//el atributo action que se pone en el form lo que hace es mandartelo a una ruta una vez que terminaste de completar el formulario
