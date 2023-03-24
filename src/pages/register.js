@@ -33,7 +33,7 @@ class Register extends Component{
 
                 <h2 className='titulo'>Register</h2>
                 <div className='formulario-de-registro'>
-                    <form action="/"> 
+                    <form> 
                         <input type="text" placeholder="Name" id ='name' required onChange={this.handleNameChange}/>
                         <input type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange}/>
                         <input type="password" placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
@@ -61,7 +61,7 @@ class Register extends Component{
         this.setState({password_2: event.target.value})
     }
 
-    handleSubmit(event){
+    async handleSubmit(event){
         if(this.state.password !== this.state.password_2){
             swal.fire({
                 icon: 'error',
@@ -73,11 +73,28 @@ class Register extends Component{
             this.setState({password_2: ""});
         } 
         else{
-            userDataRequester.saveRegisterData(this.name, this.email, this.password, this.password_2);
-        }
-    }
+            event.preventDefault()
 
-    HandleClick = () => window.location.href="/";
+            userDataRequester.saveRegisterData(this.name, this.email, this.password, this.password_2);
+            swal.fire({
+                icon: 'success',
+                text:"You can now log in to your account",
+                titleText:"Registration Succesfully",   
+                position:"top",
+                padding: "3em 3em 3em 3em"
+            })
+            await this.delay(3000)
+            this.redirect()
+        }
+            }
+
+            redirect = () => window.location.href="/";
+
+    delay(milliseconds){
+        return new Promise(resolve => {
+            setTimeout(resolve, milliseconds);
+        });
+    }
 }
 export default Register;
 
