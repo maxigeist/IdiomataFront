@@ -23,7 +23,11 @@
 
 .formulario-de-registro{
   margin-top: 10px;
+<<<<<<< HEAD:src/style/App.css
   height: 350px;
+=======
+  height: 310px;
+>>>>>>> 596cd93ed2ea234252020846a8c679d12f162e9e:src/App.css
   border-radius: 10px;
   background-color: #4BD5E7;
   width: auto;
@@ -53,6 +57,7 @@
   font-family: Arial;
   background-color: lightgreen;
 }
+<<<<<<< HEAD:src/style/App.css
 
 
 select{
@@ -70,6 +75,8 @@ select{
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   
 }
+=======
+>>>>>>> 596cd93ed2ea234252020846a8c679d12f162e9e:src/App.css
 
 
 .boton-submit:hover{
@@ -82,11 +89,18 @@ input{
   margin-bottom: 4px;
   border:0;
   display: flex;
+<<<<<<< HEAD:src/style/App.css
+=======
+  background-color: white;
+>>>>>>> 596cd93ed2ea234252020846a8c679d12f162e9e:src/App.css
   font-size: 17px;
   color:black;
   cursor: text;
   padding-left: 7px;
+<<<<<<< HEAD:src/style/App.css
   box-shadow: none;
+=======
+>>>>>>> 596cd93ed2ea234252020846a8c679d12f162e9e:src/App.css
   
   
 }
