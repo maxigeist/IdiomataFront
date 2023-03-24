@@ -34,7 +34,7 @@ class Login extends Component{
                         <input type="text" placeholder = "Email" required id="email_input" />
                         <input type='password' placeholder = "Password" id='password' required/>
                         <button className='boton-submit' onClick={this.input_data}>Log In</button>
-                        <button className='boton-submit' onClick={this.HandleClick}> Register</button>
+                        <button className='boton-submit' onClick={this.HandleClick}>Sign Up</button>
                     </form>
                 </div>
 

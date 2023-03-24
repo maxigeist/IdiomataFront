@@ -19,7 +19,7 @@ class Register extends Component{
 
     HandleClick = () => window.location.href="/";
 
-    after_submit(){
+    after_submit(form){
         if(document.getElementById('password').value !== document.getElementById('password_2').value){
             swal.fire({
                 icon: 'error',
@@ -28,17 +28,23 @@ class Register extends Component{
                 position:"top",
                 padding: "3em 3em 3em 3em"
             })
-            
             document.getElementById('password_2').value = "";
-
-            
         }
         
         else{
-        d.saveRegisterData(document.getElementById('name').value, document.getElementById('email').value
-        ,document.getElementById('password').value, document.getElementById('password_2').value);
-        }
+            d.saveRegisterData(document.getElementById('name').value, document.getElementById('email').value
+            ,document.getElementById('password').value, document.getElementById('password_2').value);      
     }
+    }
+    after_correct_submit(form){
+
+        swal.fire("The user has been registered");
+
+    }
+    handleSubmit(form) {
+        alert('A name was submitted: ' + this.state.value);
+        
+      }
 
 
     test(){
@@ -69,12 +75,12 @@ class Register extends Component{
 
                 <h2 className='titulo'>Register</h2>
                 <div className='formulario-de-registro'>
-                    <form className = 'formulario' action="/"> 
+                    <form className = 'formulario' id='register-form' action="/" onSubmit={this.after_submit}> 
                         <input type="text" placeholder="Name" id = 'name' required/>
                         <input type="email" placeholder="Email" id = 'email' required/>
                         <input type="password" placeholder="Password" id='password' required/>
-                        <input class_name = "   " type="password" placeholder="Repeat password" id='password_2' required/>
-                        <button className='boton-submit' onClick={this.after_submit}>Submit</button>
+                        <input class_name = "" type="password" placeholder="Repeat password" id='password_2' required/>
+                        <button className='boton-submit'>Submit</button>
                     </form>
                 </div>
             </div>
