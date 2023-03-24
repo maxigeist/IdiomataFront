@@ -23,7 +23,7 @@
 
 .formulario-de-registro{
   margin-top: 10px;
-  height: 310px;
+  height: 350px;
   border-radius: 10px;
   background-color: #4BD5E7;
   width: auto;
@@ -43,12 +43,32 @@
 .boton-submit{
   height: 50px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 4px;
   border:0;
   font-size: 20px;
   font-weight: bold;
   font-family: Arial;
   background-color: lightgreen;
+}
+
+
+select{
+  background-color: white;
+  justify-content: center;
+  font-size: 17px;
+  color: black;
+  width: 100%;
+  height: 35px;
+  margin-top: 2px;
+  margin-bottom: 6px;
+  font-weight: bold;
+  border-radius: 0px;
+  border: 0px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
 }
 
 
@@ -62,11 +82,11 @@ input{
   margin-bottom: 4px;
   border:0;
   display: flex;
-  background-color: white;
   font-size: 17px;
   color:black;
   cursor: text;
   padding-left: 7px;
+  box-shadow: none;
   
   
 }
@@ -96,7 +116,7 @@ html,body{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin:20px;
+  margin:10px;
 }
 
 .logo{
