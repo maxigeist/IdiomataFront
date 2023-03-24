@@ -97,7 +97,7 @@ class Register extends Component{
         else{
             event.preventDefault()
 
-            userDataRequester.saveRegisterData(this.name, this.email, this.password, this.language);
+            userDataRequester.saveRegisterData(this.state.name, this.state.email, this.state.password, this.state.language);
             
             swal.fire({
                 icon: 'success',
