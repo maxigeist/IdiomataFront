@@ -39,15 +39,18 @@ class Register extends Component{
                         <input type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange}/>
                         <input type="password" placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
                         <input type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
-                        <select name ="languages" required onChange={this.handleLanguageChange} >
-                            <optgroup>
-                            <option value="">Language to learn</option>
-                            <option>Spanish</option>
-                            <option>Italian</option>
-                            <option>French</option>
-                            </optgroup>
-                        </select>
-                        <button className='boton-submit' onClick={this.handleSubmit}>Submit</button>
+                        
+                            <select className="languages" required onChange={this.handleLanguageChange} >
+                                <option value="">Language to learn</option>
+                                <option>Spanish</option>
+                                <option>Italian</option>
+                                <option>French</option>
+                            </select>
+                        
+                        
+                        
+                        
+                        <button className='boton-submit' onClick={this.handleSubmit}>Create Account</button>
                     </form>
                 </div>
             </div>

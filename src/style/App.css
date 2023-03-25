@@ -52,26 +52,27 @@
   font-weight: bold;
   font-family: Arial;
   background-color: lightgreen;
+  
+  margin-top: 5px;
 }
 
-
-select{
-  background-color: white;
-  justify-content: center;
-  font-size: 17px;
-  color: black;
+.languages{
   width: 100%;
-  height: 35px;
-  margin-top: 2px;
-  margin-bottom: 6px;
+  appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 180px;
+  background-position-y: 50%;
+  border: none;
+  padding-left: 7px;
+  height:40px;
   font-weight: bold;
-  border-radius: 0px;
-  border: 0px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 17px;
+  align-items: center;
+  text-align: center;
   
 }
-
-
 .boton-submit:hover{
   background-color: rgb(41, 222, 28);
   cursor:pointer;
@@ -86,9 +87,13 @@ input{
   color:black;
   cursor: text;
   padding-left: 7px;
-  box-shadow: none;
+  border-bottom:1px solid #fff;
+  background-color: #00ffff00;
   
-  
+}
+
+input, select:focus{
+  outline: none;
 }
 ::placeholder{
   color: black;
