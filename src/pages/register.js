@@ -18,8 +18,10 @@ class Register extends Component{
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handlePassword2Change = this.handlePassword2Change.bind(this);
         this.handleLanguageChange= this.handleLanguageChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    
 
     render() {
         return (
@@ -31,13 +33,13 @@ class Register extends Component{
                         alt="logo de Idiomata"
                     />
                 </div>
-
+                
                 <h2 className='titulo'>Register</h2>
                 <div className='formulario-de-registro'>
                     <form className="formulario"> 
                         <input type="text" placeholder="Name" id ='name' required onChange={this.handleNameChange}/>
                         <input type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange}/>
-                        <input type="password" placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
+                        <input type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
                         <input type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
                         
                             <select className="languages" required onChange={this.handleLanguageChange} >
@@ -49,8 +51,9 @@ class Register extends Component{
                         
                         
                         
-                        
-                        <button className='boton-submit' onClick={this.handleSubmit}>Create Account</button>
+                        <div className="custom-buttons">
+                        <button className='buttons-submit' onClick={this.handleSubmit}>Create Account</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -60,7 +63,7 @@ class Register extends Component{
     handleNameChange(event){
         this.setState({name: event.target.value})
     }
-
+    
     handleEmailChange(event){
         this.setState({email: event.target.value})
     }

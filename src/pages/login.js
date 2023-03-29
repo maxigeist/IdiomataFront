@@ -22,8 +22,8 @@ class Login extends Component{
                     <form className='formulario'>
                         <input type="text" placeholder = "Email" required id="email_input" />
                         <input type='password' placeholder = "Password" id='password' required/>
-                        <button className='boton-submit' onClick={this.HandleLogin}>Log In</button>
-                        <button className='boton-submit' onClick={this.HandleRegister}> Register</button>
+                        <button className='buttons-login' onClick={this.HandleLogin}>Log In</button>
+                        <button className='buttons-login' onClick={this.HandleRegister}> Register</button>
                     </form>
                 </div>
             </div>

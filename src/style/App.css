@@ -4,9 +4,17 @@
   box-sizing: border-box;
 }
 .formulario-div{
-  height: 260px;
+  height: 200px;
   border-radius: 10px;
   background-color: #4BD5E7;
+}
+.App{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
+  font-family: Lato, sans-serif;
 }
 
 
@@ -40,21 +48,35 @@
   
 }
 
-.boton-submit{
-  height: 50px;
-  width: 100%;
-  display: flex;
+button{
+  border-radius: 17px;
+  border: 0;
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
-  border:0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   font-family: Arial;
   background-color: lightgreen;
-  
   margin-top: 5px;
+  
 }
+button:hover{
+  background-color: rgb(41, 222, 28);
+  cursor:pointer;
+}
+.buttons-login{
+  height: 50px;
+  width: 44%;
+  margin: 5px;
+
+}
+.buttons-submit{
+  height: 50px;
+  width: 100%;
+  display: flex;
+}
+
 
 .languages{
   width: 100%;
@@ -62,21 +84,16 @@
   background: transparent;
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
   background-repeat: no-repeat;
-  background-position-x: 180px;
+  background-position-x: 160px;
   background-position-y: 50%;
   border: none;
   padding-left: 7px;
   height:40px;
   font-weight: bold;
   font-size: 17px;
-  align-items: center;
-  text-align: center;
-  
+
 }
-.boton-submit:hover{
-  background-color: rgb(41, 222, 28);
-  cursor:pointer;
-}
+
 input{
   height: 50px;
   width:auto;
@@ -106,15 +123,6 @@ html,body{
 }
 
 
-
-.App{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  padding-top: 15px;
-  font-family: Lato, sans-serif;
-}
 
 .logo-contenedor{
   width: 100%;
