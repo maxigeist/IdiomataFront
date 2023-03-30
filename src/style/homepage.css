@@ -1,0 +1,51 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 5px solid black;
+}
+
+.logo{
+    margin: 5px;
+    height: 125px;
+    width: auto;
+    display: flex;
+
+}
+
+ul {
+    list-style-type: none;
+    margin-left: 50px;
+}
+ 
+li{
+    float: left;
+    padding-right: 200px;
+    margin-top: 85px;
+    font-size: 30px;
+    Font-family: 'JelleeBold';
+    font-weight: bold;
+  }
+
+.Account-li{
+    margin-left: 120px;
+    padding-right: 0px;
+}
+
+.Games-display{
+    display: block;
+    margin: 0;
+    padding: 0;
+    border-right: 5px solid black;
+    position: absolute;
+}
+
+.game-button{
+    
+    display: block;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 17px;
+
+
+}

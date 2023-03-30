@@ -36,6 +36,7 @@ class Login extends Component{
         var element = document.getElementById('email_input').value;
         var element2 = document.getElementById('password').value;
         console.log(element);
+        window.location.href="/homepage"
         //Estos dos elements contiene la información de lo que se escribió para intentar de iniciar sesión
     }
 }
