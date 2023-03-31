@@ -1,10 +1,10 @@
 import dictImg from "../resources/993441.png";
 import "../style/App.css";
 import {Component} from "react";
-import Data from "../util/data";
+import Requester from "../util/requester";
 import swal from "sweetalert2";
 
-const userDataRequester = new Data();
+const userDataRequester = new Requester();
 
 
 class Register extends Component{
@@ -20,8 +20,6 @@ class Register extends Component{
         this.handleLanguageChange= this.handleLanguageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    
 
     render() {
         return (
@@ -42,14 +40,12 @@ class Register extends Component{
                         <input type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
                         <input type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
                         
-                            <select className="languages" required onChange={this.handleLanguageChange} >
-                                <option value="">Language to learn</option>
-                                <option>Spanish</option>
-                                <option>Italian</option>
-                                <option>French</option>
-                            </select>
-                        
-                        
+                        <select className="languages" required onChange={this.handleLanguageChange} >
+                            <option value="">Language to learn</option>
+                            <option>Spanish</option>
+                            <option>Italian</option>
+                            <option>French</option>
+                        </select>
                         
                         <div className="custom-buttons">
                         <button className='buttons-submit' onClick={this.handleSubmit}>Create Account</button>
