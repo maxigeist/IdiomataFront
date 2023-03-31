@@ -1,0 +1,47 @@
+import axios from "axios";
+
+class Requester{
+
+    /**
+     * Makes an http request to create a user
+     * 
+     * @param {String} name
+     * @param {String} email 
+     * @param {String} password 
+     * @param {String} language
+     * 
+     */
+    async saveRegisterData(name, email, password, language){
+        try {
+            const response = await axios.post('http://localhost:3001/api/user', {
+                name: name,
+                email: email,
+                password: password,
+                language: language 
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    /**
+     * Makes an http request to login a user. Returns a token as credential.
+     * 
+     * @param {String} email 
+     * @param {String} password 
+     * 
+     * @returns {String} The resulting token
+     */
+    async LoginUser(email, password){
+        const response = await axios.post('http://localhost:3001/api/auth/login', {
+            email: email,
+            password: password
+        })
+
+        return response.data.token;
+    }
+
+}
+
+export default Requester;
