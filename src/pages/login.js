@@ -36,16 +36,18 @@ class Login extends Component{
                 <div className='formulario-div'>
                     <form className='formulario'>
                         <input type="text" placeholder = "Email"  id="email_input" required onChange={this.handleEmailChange}/>
-                        <input type='password' placeholder = "Password" id='password' required onChange={this.andlePasswordChange}/>
+                        <input type='password' placeholder = "Password" id='password' required onChange={this.handlePasswordChange}/>
                         <button className='buttons-login' onClick={this.handleLogin} >Log In</button>
-                        <button className='buttons-login' onSubmit={this.goToRegister} > Register</button>
+                        <button className='buttons-login' onClick={this.goToRegister} > Register</button>
                     </form>
                 </div>
             </div>
         );
     }
 
-    goToRegister = () => window.location.href="/register";
+    goToRegister = () => {
+        window.location.href="/register"
+    };
 
     /**
      * Requests login and if successful, saves token to DOM and redirects to homepage.
