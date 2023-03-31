@@ -2,7 +2,7 @@ import {Component} from "react";
 import dictImg from "../resources/993441.png";
 import "../style/App.css";
 import Requester from "../util/requester";
-import {getTokenFromDom, saveTokenToDom} from "../util/domHandler"
+import { saveTokenToDom} from "../util/domHandler"
 import Swal from "sweetalert2";
 
 const userDataRequester = new Requester();
