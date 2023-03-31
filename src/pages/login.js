@@ -35,10 +35,10 @@ class Login extends Component{
 
                 <div className='formulario-div'>
                     <form className='formulario'>
-                        <input type="text" placeholder = "Email"  id="email_input" required onChange={this.handleEmailChange}/>
-                        <input type='password' placeholder = "Password" id='password' required onChange={this.handlePasswordChange}/>
-                        <button className='buttons-login' onClick={this.handleLogin} >Log In</button>
-                        <button className='buttons-login' onClick={this.goToRegister} > Register</button>
+                        <input className="form-input" type="text" placeholder = "Email"  id="email_input" required onChange={this.handleEmailChange}/>
+                        <input className="form-input" type='password' placeholder = "Password" id='password' required onChange={this.handlePasswordChange}/>
+                        <button className='main-buttons buttons-login' onClick={this.handleLogin} >Log In</button>
+                        <button className='main-buttons buttons-login' onClick={this.goToRegister} > Register</button>
                     </form>
                 </div>
             </div>

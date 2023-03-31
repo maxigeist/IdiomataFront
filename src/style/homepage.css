@@ -5,22 +5,22 @@
 }
 
 .logo{
-    margin: 5px;
-    height: 125px;
+    margin: 2%;
+    height: 100px;
     width: auto;
     display: flex;
 
 }
 
-ul {
+.ul-nav {
     list-style-type: none;
     margin-left: 50px;
 }
  
-li{
+.nav-li{
     float: left;
     margin-right: 150px;
-    margin-top: 85px;
+    margin-top: 70px;
     margin-bottom: 10px;
     font-size: 30px;
     Font-family: 'JelleeBold';
@@ -30,7 +30,7 @@ li{
     transition: top ease 0.5s;
   }
 
-li:hover{
+.nav-li:hover{
 
     color: #D79700;
     top: -10px;
@@ -39,8 +39,12 @@ li:hover{
 }
 
 .Account-li{
-    margin-left: 255px;
+    
     padding-right: 0px;
+    box-sizing: border-box;
+    position: absolute;
+    left: 85%;
+    margin-bottom: 0;
     
 }
 
@@ -58,7 +62,19 @@ li:hover{
     justify-content: center;
     text-align: center;
     align-items: center;
-    border-radius: 17px;
+    height: 220px;
+    width: 100%;
+    background-color: #D79700;
+    font-family: 'JelleeBold';
+    font-weight: bold;
+    font-size: 22px;
+    border-bottom: 5px solid black;
+}
+
+.game-button:hover{
+    background-color: #ffb300;
+
+
 }
 
 
@@ -67,3 +83,11 @@ li:hover{
 
 }
 
+.main-title{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 20%;
+    width: auto;
+
+}

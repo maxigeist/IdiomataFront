@@ -14,11 +14,11 @@ class homepage extends Component{
                     alt="logo"
                     ></img>
                     <nav>
-                        <ul>
-                            <li className="home-li" onClick={this.handleClick}>Home</li>
-                            <li>Stats</li>
-                            <li>Chat</li>
-                            <li className="Account-li">Account</li>
+                        <ul className="ul-nav">
+                            <li className = "nav-li home-li" onClick={this.handleClick}>Home</li>
+                            <li className="nav-li">Stats</li>
+                            <li className="nav-li">Chat</li>
+                            <li className="nav-li Account-li">Account</li>
                         </ul>
                     </nav>
                 
@@ -26,12 +26,11 @@ class homepage extends Component{
                 <div className="Games-display">
                     
                     <button className="game-button">Read and Write</button>
-                    <button className="game-button">Listen</button>
+                    <button className="game-button">Memotest</button>
                     <button className="game-button">Play</button>
-                     
-
                 </div>
-        
+
+                        <h1 className="main-title">Start playing right now!</h1>
                 
             </div>
 

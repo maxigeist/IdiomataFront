@@ -35,10 +35,10 @@ class Register extends Component{
                 <h2 className='titulo'>Register</h2>
                 <div className='formulario-de-registro'>
                     <form className="formulario"> 
-                        <input type="text" placeholder="Name" id ='name' required onChange={this.handleNameChange}/>
-                        <input type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange}/>
-                        <input type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
-                        <input type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
+                        <input className="form-input" type="text" placeholder="Name" id ='name' required onChange={this.handleNameChange}/>
+                        <input className="form-input" type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange}/>
+                        <input className="form-input" type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
+                        <input className="form-input" type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
                         
                         <select className="languages" required onChange={this.handleLanguageChange} >
                             <option value="">Language to learn</option>
@@ -46,10 +46,7 @@ class Register extends Component{
                             <option>Italian</option>
                             <option>French</option>
                         </select>
-                        
-                        <div className="custom-buttons">
-                        <button className='buttons-submit' onClick={this.handleSubmit}>Create Account</button>
-                        </div>
+                        <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>Create Account</button>
                     </form>
                 </div>
             </div>
