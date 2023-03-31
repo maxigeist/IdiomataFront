@@ -15,7 +15,7 @@ class homepage extends Component{
                     ></img>
                     <nav>
                         <ul>
-                            <li>Home</li>
+                            <li className="home-li" onClick={this.handleClick}>Home</li>
                             <li>Stats</li>
                             <li>Chat</li>
                             <li className="Account-li">Account</li>
@@ -38,7 +38,13 @@ class homepage extends Component{
         );
 
 
+        
+
     }
+    
+    handleClick =  () => window.location.href = "/homepage"
+
+    
 
     
 

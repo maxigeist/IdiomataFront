@@ -67,12 +67,12 @@ button{
   font-size: 18px;
   font-weight: bold;
   font-family: Arial;
-  background-color: lightgreen;
+  background-color: rgb(41, 222, 28);
   margin-top: 5px;
   
 }
 button:hover{
-  background-color: rgb(41, 222, 28);
+  background-color: #58FF33;
   cursor:pointer;
 }
 .buttons-login{

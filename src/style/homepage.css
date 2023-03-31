@@ -19,16 +19,29 @@ ul {
  
 li{
     float: left;
-    padding-right: 200px;
+    margin-right: 150px;
     margin-top: 85px;
+    margin-bottom: 10px;
     font-size: 30px;
     Font-family: 'JelleeBold';
-    font-weight: bold;
+    cursor:pointer;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
   }
 
+li:hover{
+
+    color: #D79700;
+    top: -10px;
+    
+
+}
+
 .Account-li{
-    margin-left: 120px;
+    margin-left: 255px;
     padding-right: 0px;
+    
 }
 
 .Games-display{
@@ -46,6 +59,11 @@ li{
     text-align: center;
     align-items: center;
     border-radius: 17px;
+}
 
+
+.home-li{
+    border-bottom: 4px solid #D79700;
 
 }
+
