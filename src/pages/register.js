@@ -23,6 +23,7 @@ class Register extends Component{
 
     render() {
         return (
+            <body className="Register-body">
             <div className="App">
                 <div className='logo-contenedor'>
                     <img
@@ -50,6 +51,7 @@ class Register extends Component{
                     </form>
                 </div>
             </div>
+            </body>
         );
     }
 

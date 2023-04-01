@@ -6,8 +6,7 @@
 .formulario-div{
   height: 220px;
   border-radius: 10px;
-  
-  border: #4BD5E7 solid 5px;
+  border: #2e5894 solid 5px;
   border-radius: 10px;
 }
 .App{
@@ -17,6 +16,10 @@
   justify-content: center;
   padding-top: 15px;
   font-family: Lato, sans-serif;
+  
+  
+  
+  width: auto;
 }
 
 
@@ -35,7 +38,7 @@
   margin-top: 10px;
   height: 365px;
   width: auto;
-  border: #4BD5E7 solid 5px;
+  border: #2e5894 solid 5px;
   border-radius: 10px;
   width: auto;
 }
@@ -102,13 +105,18 @@
   margin-bottom: 4px;
   border:0;
   display: flex;
-  font-size: 17px;
+  font-size: 19px;
   color:black;
   cursor: text;
   padding-left: 7px;
-  border-bottom:2px dotted #4BD5E7;
+  border-bottom:2px dotted black;
   background-color: #00ffff00;
+  font-weight: bold;
   
+}
+
+.form-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #000;
 }
 
 .form-input, .languages:focus{
@@ -122,7 +130,8 @@
 
 
 html,body{
-  background-color: #2fa1da;
+  background-color: #1199ff;
+
 }
 /*possible bg colors:
   - #2e5894
@@ -147,3 +156,21 @@ html,body{
 }
 
 
+.Body-princ{
+  background-image: url("../resources/mapa.png");
+  background-position: center;
+  background-position-y: 70px;
+  background-size:40%;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+.Register-body{
+  background-image: url("../resources/books.webp");
+  background-position: left;
+  background-position-y: 250px;
+  background-size:35%;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+
+
+}

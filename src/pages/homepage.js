@@ -8,6 +8,7 @@ class homepage extends Component{
     render(){
 
         return(
+            
             <div className="principal-container">
                 <div className="header">
                     <img className="logo" src={dictImg}
@@ -25,7 +26,7 @@ class homepage extends Component{
                     </div>
                 <div className="Games-display">
                     
-                    <button className="game-button">Read and Write</button>
+                    <button className="game-button">La re calcada concha de mi reputísima madre</button>
                     <button className="game-button">Memotest</button>
                     <button className="game-button">Play</button>
                 </div>
@@ -33,6 +34,7 @@ class homepage extends Component{
                         <h1 className="main-title">Start playing right now!</h1>
                 
             </div>
+            
 
         );
 
