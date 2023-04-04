@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getTokenFromDom } from "./domHandler";
 
 class Requester{
 
@@ -42,6 +43,20 @@ class Requester{
         return response.data.token;
     }
 
+    async isAuth(){
+        try{
+            const result = await axios.post('http://localhost:3001/api/auth/login', {}, {
+                headers: {Authorization: "Bearer "+ getTokenFromDom()}
+            })
+
+            if(result.status === 200) return true;
+            else return false;
+        }catch(error){
+            console.log(error)
+        }
+
+    }
 }
+
 
 export default Requester;
