@@ -43,6 +43,7 @@ class Requester{
         return response.data.token;
     }
 
+    //TODO document function
     async isAuth(){
         try{
             const result = await axios.post('http://localhost:3001/api/auth/login', {}, {
