@@ -1,9 +1,9 @@
 import { Component } from "react";
 import "../style/homepage.css"
 import dictImg from "../resources/993441.png";
+import "../style/raw.css"
 
-
-class homepage extends Component{
+class readAndWrite extends Component{
 
     render(){
 
@@ -26,12 +26,12 @@ class homepage extends Component{
                     </div>
                 <div className="Games-display">
                     
-                    <button className="game-button" onClick={this.handleRaWClick}>Read and Write</button>
-                    <button className="game-button">Memotest</button>
-                    <button className="game-button">Play</button>
+                    <button className="game-button raw-button">Read and Write</button>
+                    <button className="game-button-rawpage">Memotest</button>
+                    <button className="game-button-rawpage">Play</button>
                 </div>
 
-                        <h1 className="main-title">Start playing right now!</h1>
+                       <input className="raw-input"></input>
                 
             </div>
             
@@ -45,8 +45,7 @@ class homepage extends Component{
     
     handleClick =  () => window.location.href = "/homepage"
 
-    handleRaWClick = () => window.location.href = "/readAndWrite"
-       
+    
 
     
 
@@ -54,4 +53,4 @@ class homepage extends Component{
 }
 
 
-export default homepage;
+export default readAndWrite;
