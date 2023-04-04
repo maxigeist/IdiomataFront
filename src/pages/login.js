@@ -60,7 +60,7 @@ class Login extends Component{
         const token = await userDataRequester.LoginUser(this.state.email, this.state.password);
         if(token){
             saveTokenToDom(token);
-            window.location.href="/home";
+            window.location.href="/homepage";
         }
         else{
             Swal.fire({
