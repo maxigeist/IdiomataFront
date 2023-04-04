@@ -31,17 +31,20 @@ class Requester{
      * @param {String} email 
      * @param {String} password 
      * 
-     * @returns {String} The resulting token
+     * @returns {String} The resulting token or null if not found
      */
     async LoginUser(email, password){
-        const response = await axios.post('http://localhost:3001/api/auth/login', {
-            email: email,
-            password: password
-        })
+        try{
+            const response = await axios.post('http://localhost:3001/api/auth/login', {
+                email: email,
+                password: password
+            })
 
-        return response.data.token;
+            return response.data.token;
+        }catch(error){
+            return null;
+        }
     }
-
 }
 
 export default Requester;
