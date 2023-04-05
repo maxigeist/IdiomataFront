@@ -35,7 +35,7 @@ class homepage extends Component{
                     </div>
                 <div className="Games-display">
                     
-                    <button className="game-button">La re calcada concha de mi reputísima madre</button>
+                    <button className="game-button" onClick={this.handleRaWClick}>Read and Write</button>
                     <button className="game-button">Memotest</button>
                     <button className="game-button">Play</button>
                 </div>
@@ -58,7 +58,7 @@ class homepage extends Component{
                 position:"top",
                 padding: "3em 3em 3em 3em"
             })
-
+   
             await this.delay(3000)
             window.location.href = "/"
         }
@@ -69,6 +69,8 @@ class homepage extends Component{
             setTimeout(resolve, milliseconds);
         });
     }
+
+    handleRaWClick = () => window.location.href = "/readAndWrite"
 }
 
 

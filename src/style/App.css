@@ -6,8 +6,9 @@
 .formulario-div{
   height: 220px;
   border-radius: 10px;
-  border: #2e5894 solid 5px;
   border-radius: 10px;
+  background-color: rgb(31, 122, 218, 0.7)  ;
+  
 }
 .App{
   display: flex;
@@ -112,12 +113,9 @@
   border-bottom:2px dotted black;
   background-color: #00ffff00;
   font-weight: bold;
-  
+  position: relative;
 }
 
-.form-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #000;
-}
 
 .form-input, .languages:focus{
   outline: none;
@@ -163,6 +161,7 @@ html,body{
   background-size:40%;
   background-repeat: no-repeat;
   min-height: 100vh;
+  
 }
 .Register-body{
   background-image: url("../resources/books.webp");
