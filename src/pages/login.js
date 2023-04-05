@@ -23,7 +23,7 @@ class Login extends Component{
 
     render(){
         return(
-            <body className="Body-princ">
+            <div className="Body-princ">
             <div className="App">
                 <div className='logo-contenedor'>
                     <img
@@ -43,7 +43,7 @@ class Login extends Component{
                     </form>
                 </div>
             </div>
-            </body>
+            </div>
         );
     }
 

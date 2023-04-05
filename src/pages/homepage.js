@@ -50,6 +50,7 @@ class homepage extends Component{
 
     //If user token is not valid, redirects to login page
     async handleAuth(){
+
         if(!await userRequester.isAuth()) {
             Swal.fire({
                 icon: 'error',

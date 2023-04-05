@@ -46,17 +46,20 @@ class Requester{
             return null;
         }
     }
+
     //TODO document function
     async isAuth(){
         try{
-            const result = await axios.post('http://localhost:3001/api/auth/login', {}, {
+            const result = await axios.get('http://localhost:3001/api/auth', {
                 headers: {Authorization: "Bearer "+ getTokenFromDom()}
             })
 
             if(result.status === 200) return true;
-            else return false;
+
+            else return false
+
         }catch(error){
-            console.log(error)
+            return false
         }
 
     }
