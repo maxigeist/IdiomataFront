@@ -47,7 +47,12 @@ class Requester{
         }
     }
 
-    //TODO document function
+    /**
+     * Makes an http request to verify token validity. The token used is the one stored in the DOM
+     * 
+     * 
+     * @returns {boolean} true if the request is successful, false otherwise.
+     */
     async isAuth(){
         try{
             const result = await axios.get('http://localhost:3001/api/auth', {
