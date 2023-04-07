@@ -2,7 +2,8 @@ import dictImg from "../resources/993441.png";
 import "../style/App.css";
 import {Component} from "react";
 import UserRequester from "../util/requester/userRequester";
-import swal from "sweetalert2";
+import { alert } from "../util/alert";
+import { delay } from "../util/delay";
 
 const userDataRequester = new UserRequester();
 
@@ -23,7 +24,7 @@ class Register extends Component{
 
     render() {
         return (
-            <body className="Register-body">
+            <div className="Register-body">
             <div className="App">
                 <div className='logo-contenedor'>
                     <img
@@ -51,7 +52,7 @@ class Register extends Component{
                     </form>
                 </div>
             </div>
-            </body>
+            </div>
         );
     }
 
@@ -76,48 +77,25 @@ class Register extends Component{
 
     async handleSubmit(event){
         if(this.state.password !== this.state.password_2){
-            swal.fire({
-                icon: 'error',
-                titleText:"The passwords are different",
-                text:"Error",
-                position:"top",
-                padding: "3em 3em 3em 3em"
-            })
+            alert('error',"The passwords are different","Error")
             this.setState({password_2: ""});
         } 
         else if(this.state.language === ""){
-            swal.fire({
-                icon: 'error',
-                titleText:"You have to pick a language",
-                text:"Error",
-                position:"top",
-                padding: "3em 3em 3em 3em"
-            })
+
+            alert('error',"You have to pick a language","Error")
             this.setState({password_2: ""});
         }
         else{
             event.preventDefault()
 
             userDataRequester.saveRegisterData(this.state.name, this.state.email, this.state.password, this.state.language);
-            
-            swal.fire({
-                icon: 'success',
-                text:"You can now log in to your account",
-                titleText:"Registration Succesfully",   
-                position:"top",
-                padding: "3em 3em 3em 3em"
-            })
-            await this.delay(3000)
+
+            alert('success', "You can now log in to your account", "Registration Succesfully")
+            await delay(3000)
             this.redirect()
         }
-            }
-
-            redirect = () => window.location.href="/";
-
-    delay(milliseconds){
-        return new Promise(resolve => {
-            setTimeout(resolve, milliseconds);
-        });
     }
+
+    redirect = () => window.location.href="/";
 }
 export default Register;

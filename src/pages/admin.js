@@ -2,7 +2,7 @@ import { Component } from "react";
 import "../style/admin.css"
 import AdminRequester from "../util/requester/adminRequester";
 import { saveTokenToDom } from "../util/domHandler";
-import Swal from "sweetalert2";
+import { alert } from "../util/alert";
 
 const adminRequester = new AdminRequester(); 
 
@@ -40,13 +40,7 @@ class Admin extends Component{
             window.location.href = "/adminpage";
         }
         else{
-            Swal.fire({
-                icon: 'error',
-                titleText:"Login failed",
-                text: "Check your email and password",
-                position:"top",
-                padding: "3em 3em 3em 3em"
-            })
+            alert('error', "Login failed", "Check your email and password")
         }
     }
 

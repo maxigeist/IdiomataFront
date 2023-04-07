@@ -3,7 +3,7 @@ import dictImg from "../resources/993441.png";
 import "../style/App.css";
 import UserRequester from "../util/requester/userRequester";
 import { saveTokenToDom} from "../util/domHandler"
-import Swal from "sweetalert2";
+import { alert } from "../util/alert";
 
 const userDataRequester = new UserRequester();
 
@@ -64,13 +64,7 @@ class Login extends Component{
             window.location.href="/homepage";
         }
         else{
-            Swal.fire({
-                icon: 'error',
-                titleText:"Login failed",
-                text: "Check your email and password",
-                position:"top",
-                padding: "3em 3em 3em 3em"
-            })
+            alert('error', "Login failed", "Check your email and password")
         }
 
     }
