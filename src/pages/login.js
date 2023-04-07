@@ -19,6 +19,7 @@ class Login extends Component{
         this.goToRegister = this.goToRegister.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
+        this.handleAdminLogin = this.handleAdminLogin.bind(this);
     }
 
     render(){
@@ -39,7 +40,8 @@ class Login extends Component{
                         <input className="form-input" type="text" placeholder = "Email"  id="email_input" required autoComplete="off" onChange={this.handleEmailChange}/>
                         <input className="form-input password-input" type='password' placeholder = "Password" id='password' required onChange={this.handlePasswordChange}/>
                         <button className='main-buttons buttons-login' onClick={this.handleLogin} >Log In</button>
-                        <button className='main-buttons buttons-login' onClick={this.goToRegister} > Register</button>
+                        <button className='main-buttons buttons-login' onClick={this.goToRegister} > Register</button> 
+                        <p className="admin-p">Log in as  <label  onClick ={this.handleAdminLogin}className="admin-log-in">Admin</label></p>
                     </form>
                 </div>
             </div>
@@ -47,7 +49,7 @@ class Login extends Component{
         );
     }
 
-    goToRegister = () => {
+    goToRegister = (e) => {
         window.location.href="/register"
     };
 
@@ -81,5 +83,7 @@ class Login extends Component{
     handlePasswordChange(event){
         this.setState({password: event.target.value})
     }
+
+    handleAdminLogin = () => window.location.href = "/admin";
 }
 export default Login;
