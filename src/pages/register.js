@@ -1,10 +1,10 @@
 import dictImg from "../resources/993441.png";
 import "../style/App.css";
 import {Component} from "react";
-import Requester from "../util/requester";
+import UserRequester from "../util/requester/userRequester";
 import swal from "sweetalert2";
 
-const userDataRequester = new Requester();
+const userDataRequester = new UserRequester();
 
 
 class Register extends Component{

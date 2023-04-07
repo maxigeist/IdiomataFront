@@ -1,7 +1,7 @@
 import axios from "axios";
-import { getTokenFromDom } from "./domHandler";
+import { getTokenFromDom } from "../domHandler";
 
-class Requester{
+class UserRequester{
 
     /**
      * Makes an http request to create a user
@@ -70,5 +70,4 @@ class Requester{
     }
 }
 
-
-export default Requester;
+export default UserRequester;

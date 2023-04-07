@@ -1,10 +1,10 @@
 import { Component } from "react";
 import "../style/homepage.css"
 import dictImg from "../resources/993441.png";
-import Requester from "../util/requester";
+import UserRequester from "../util/requester/userRequester";
 import Swal from "sweetalert2";
 
-const userRequester = new Requester()
+const userRequester = new UserRequester()
 
 class homepage extends Component{
 
