@@ -1,16 +1,19 @@
 import { Component } from "react";
 import "../style/adminpage.css"
 import Swal from "sweetalert2";
+import AdminRequester from "../util/requester/adminRequester";
+import { removeTokenFfromDom } from "../util/domHandler";
+import { AdminPageAuth } from "../util/pageAuth";
 
-
-
-
+const adminRequester = new AdminRequester();
 
 class AdminHub extends Component{
 
     constructor(props){
         super(props)
         this.state = {to:""}
+
+        this.handleAuth()
 
         this.handleFirstOp = this.handleFirstOp.bind(this);
         this.handleLogOut = this.handleLogOut.bind(this);
@@ -77,14 +80,19 @@ class AdminHub extends Component{
             confirmButtonText:"Yes"
           }).then((value) =>{
             if(value.isConfirmed){
+                adminRequester.logOut()
+                removeTokenFfromDom()
                 window.location.href = "/admin"
             }
           })
     }
 
+    async handleAuth(){
+        const invalid = await AdminPageAuth();
+        if(invalid)
+            window.location.href = "/admin";
     }
-
-
+}
 
 export default AdminHub;
 
