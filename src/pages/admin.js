@@ -17,7 +17,7 @@ class Admin extends Component{
                     <label className="admin-label">Username</label>
                     <input className="admin-input"></input>
                     <label className="admin-label">Password</label>
-                    <input className="admin-input" ></input>
+                    <input type="password" className="admin-input" ></input>
                     <button className="submit-button" onClick={this.handleLogIn} >Log In</button>
                 </form>
             </div>

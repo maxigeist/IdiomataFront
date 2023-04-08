@@ -38,6 +38,8 @@
     border-radius: 10px;
     padding: 5px;
     border: 1px solid rgb(11, 201, 11);
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
 }
 
 .submit-button:hover{

@@ -4,6 +4,33 @@
     box-sizing: border-box;
   }
 
+.Header{
+    display: flex;
+    flex-wrap: wrap;
+    
+    justify-content: center;
+    
+}
+.Log-out{
+    position: absolute;
+    right: 0vmax;
+    border-radius: 10px;
+    border: 2px solid red;
+    margin: 5px;
+    padding: 2px;
+    color: red;
+    font-weight: bold;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+    
+}
+
+.Log-out:hover{
+    background-color: red;
+    color: white;
+    
+}
+
 
 .h1-title{
     display: flex;
@@ -29,6 +56,40 @@
     cursor: pointer;
     color: rgba(0, 0, 0, 0.584);
 }
+
+
+.CateLan-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.CateLan-box{
+    width: auto;
+    margin-left: 200px;
+}
+
+.CateLan-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.inp{
+    margin-bottom: 10px;
+}
+
+.add{
+    background-color: green;
+}
+
+.delete{
+    background-color: red;
+}
+
+.modify{
+    background-color: blue;
+}
+
 
 .opt_label:hover{
     color: black;
