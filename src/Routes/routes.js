@@ -22,7 +22,6 @@ class OurRoutes extends Component{
                     <Route exact path ="/adminpage" Component={AdminHub}></Route>
                 </Routes>
             </BrowserRouter>
-
         );
     }
 }

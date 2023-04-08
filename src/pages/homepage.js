@@ -1,10 +1,8 @@
 import { Component } from "react";
 import "../style/homepage.css"
 import dictImg from "../resources/993441.png";
-import Requester from "../util/requester";
-import Swal from "sweetalert2";
+import { pageAuth } from "../util/pageAuth";
 
-const userRequester = new Requester()
 
 class homepage extends Component{
 
@@ -50,29 +48,12 @@ class homepage extends Component{
 
     //If user token is not valid, redirects to login page
     async handleAuth(){
-
-        if(!await userRequester.isAuth()) {
-            Swal.fire({
-                icon: 'error',
-                titleText:"Session expired",
-                text: "You must login again",
-                position:"top",
-                padding: "3em 3em 3em 3em"
-            })
-   
-            await this.delay(3000)
-            window.location.href = "/"
-        }
-    }
-
-    delay(milliseconds){
-        return new Promise(resolve => {
-            setTimeout(resolve, milliseconds);
-        });
+        const invalid = await pageAuth();
+        if(invalid)
+            window.location.href = "/";
     }
 
     handleRaWClick = () => window.location.href = "/readAndWrite"
 }
-
 
 export default homepage;

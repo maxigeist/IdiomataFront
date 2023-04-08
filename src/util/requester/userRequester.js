@@ -1,7 +1,7 @@
 import axios from "axios";
-import { getTokenFromDom } from "./domHandler";
+import { getTokenFromDom } from "../domHandler";
 
-class Requester{
+class UserRequester{
 
     /**
      * Makes an http request to create a user
@@ -47,7 +47,12 @@ class Requester{
         }
     }
 
-    //TODO document function
+    /**
+     * Makes an http request to verify token validity. The token used is the one stored in the DOM
+     * 
+     * 
+     * @returns {boolean} true if the request is successful, false otherwise.
+     */
     async isAuth(){
         try{
             const result = await axios.get('http://localhost:3001/api/auth', {
@@ -65,5 +70,4 @@ class Requester{
     }
 }
 
-
-export default Requester;
+export default UserRequester;
