@@ -1,54 +1,3 @@
-.header{
-    display: flex;
-    flex-direction: row;
-    border-bottom: 5px solid black;
-}
-
-.logo{
-    margin: 2%;
-    height: 100px;
-    width: auto;
-    display: flex;
-
-}
-
-.ul-nav {
-    list-style-type: none;
-    margin-left: 50px;
-}
- 
-.nav-li{
-    
-    float: left;
-    margin-right: 150px;
-    margin-top: 70px;
-    margin-bottom: 10px;
-    font-size: 30px;
-    Font-family: 'JelleeBold';
-    cursor:pointer;
-    position: relative;
-    top: 0;
-    transition: top ease 0.5s;
-  }
-
-.nav-li:hover{
-
-    color: #D79700;
-    top: -10px;
-    
-
-}
-
-.Account-li{
-    
-    padding-right: 0px;
-    box-sizing: border-box;
-    position: absolute;
-    left: 85%;
-    margin-bottom: 0;
-    
-}
-
 .Games-display{
     display: block;
     margin: 0;
@@ -66,7 +15,7 @@
     height: 220px;
     width: 200px;
     background-color: #D79700;
-    font-family: 'JelleeBold';
+    font-family: Lato, sans-serif;
     font-weight: bold;
     font-size: 22px;
     padding-right: 4px;
@@ -77,10 +26,6 @@
 .game-button:hover{
     background-color: #ffb300;
     border-right: 5px solid #2fa1da;
-}
-.home-li{
-    border-bottom: 4px solid #D79700;
-
 }
 
 .main-title{

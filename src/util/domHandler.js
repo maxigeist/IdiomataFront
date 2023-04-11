@@ -17,3 +17,7 @@ export function saveTokenToDom(token){
 export function getTokenFromDom(){
     return localStorage.getItem("currentToken")
 }
+
+export function deleteTokenFromDom(){
+    return localStorage.removeItem("currentToken")
+}

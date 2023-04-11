@@ -47,6 +47,18 @@ class Requester{
         }
     }
 
+    async logOutUser(){
+        try {
+            const response = await axios.delete('http://localhost:3001/api/auth/logout', {
+                headers: {Authorization: "Bearer "+ getTokenFromDom()}
+            })
+
+            return response.status
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     //TODO document function
     async isAuth(){
         try{
@@ -62,6 +74,19 @@ class Requester{
             return false
         }
 
+    }
+
+
+    //returns json with user information
+    async getUserData(){
+        try {
+            const data = await axios.get('http://localhost:3001/api/user/userData', {
+                headers: {Authorization: "Bearer: "+ getTokenFromDom()}
+            })
+            return data
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
