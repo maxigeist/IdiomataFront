@@ -1,14 +1,14 @@
 import { Component } from "react";
 import NavBar from "../components/navbar";
 import "../style/account.css"
-import Requester from "../util/requester";
+import UserRequester from "../util/requester/userRequester";
 import { getTokenFromDom, deleteTokenFromDom} from "../util/domHandler"
 import Swal from "sweetalert2";
 
 
 class account extends Component{
 
-    requester = new Requester();
+    requester = new UserRequester();
 
     
     
@@ -59,6 +59,8 @@ class account extends Component{
             })
         }
     }
+
+
 
 }
 

@@ -1,0 +1,48 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+.Admin-form-div{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top: 20%;
+    
+
+}
+.Admin-form{
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.admin-label{
+    width: 100%;
+    font-weight: bold;
+
+    font-size: 20px;
+}
+.admin-input{
+    text-align: center;
+
+}
+.submit-button{
+    margin: 5%;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid rgb(11, 201, 11);
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+}
+
+.submit-button:hover{
+    background-color: rgb(11, 201, 11);
+    color: black;
+}

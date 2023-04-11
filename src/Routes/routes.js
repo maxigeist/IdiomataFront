@@ -4,7 +4,8 @@ import Login from "../pages/login";
 import Register from "../pages/register";
 import homepage from "../pages/homepage";
 import readAndWrite from "../pages/readAndWrite";
-import account from "../pages/account";
+import Admin from "../pages/admin";
+import AdminHub from "../pages/adminhub";
 
 
 class OurRoutes extends Component{
@@ -18,9 +19,10 @@ class OurRoutes extends Component{
                     <Route exact path ="homepage" Component={homepage}></Route>
                     <Route exact path ="/readAndWrite" Component={readAndWrite}></Route>
                     <Route exact path = "/account" Component={account}></Route>
+                    <Route exact path ="/admin" Component={Admin}></Route>
+                    <Route exact path ="/adminpage" Component={AdminHub}></Route>
                 </Routes>
             </BrowserRouter>
-
         );
     }
 }
