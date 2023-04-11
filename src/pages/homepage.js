@@ -1,6 +1,5 @@
 import { Component } from "react";
 import "../style/homepage.css"
-import UserRequester from "../util/requester/userRequester";
 import NavBar from "../components/navbar";
 import { pageAuth } from "../util/pageAuth";
 
