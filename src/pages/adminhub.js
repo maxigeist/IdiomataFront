@@ -2,7 +2,7 @@ import { Component } from "react";
 import "../style/adminpage.css"
 import Swal from "sweetalert2";
 import AdminRequester from "../util/requester/adminRequester";
-import { removeTokenFfromDom } from "../util/domHandler";
+import { deleteTokenFromDom } from "../util/domHandler";
 import { AdminPageAuth } from "../util/pageAuth";
 
 const adminRequester = new AdminRequester();
@@ -81,7 +81,7 @@ class AdminHub extends Component{
           }).then((value) =>{
             if(value.isConfirmed){
                 adminRequester.logOut()
-                removeTokenFfromDom()
+                deleteTokenFromDom()
                 window.location.href = "/admin"
             }
           })

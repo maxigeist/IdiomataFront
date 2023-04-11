@@ -6,6 +6,7 @@ import homepage from "../pages/homepage";
 import readAndWrite from "../pages/readAndWrite";
 import Admin from "../pages/admin";
 import AdminHub from "../pages/adminhub";
+import account from "../pages/account";
 
 
 class OurRoutes extends Component{
