@@ -94,6 +94,30 @@ class UserRequester{
             console.log(error)
         }
     }
+
+    async changeUserPassword(newPassword){
+        try {
+            const update = await axios.put('http://localhost:3001/api/user/updatePassword',
+                {password: newPassword},
+                {headers: {Authorization: "Bearer: "+ getTokenFromDom()}}
+            )
+            return update.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async changeUserEmail(newEmail){
+        try {
+            const update = await axios.put('http://localhost:3001/api/user/updateEmail',
+                {email: newEmail},
+                {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
+                )
+            return update.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default UserRequester;
