@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import AdminRequester from "../util/requester/adminRequester";
 import { deleteTokenFromDom } from "../util/domHandler";
 import { AdminPageAuth } from "../util/pageAuth";
+import CateLan from "./adminHubComp/CateLan";
 
 const adminRequester = new AdminRequester();
 
@@ -38,7 +39,12 @@ class AdminHub extends Component{
             
         );
         }
-    handleFirstOp(event){
+
+
+        /*
+        We can take out the alert from here it is optional to leave it
+        */
+    async handleFirstOp(event){
         if(this.state.to === "" || this.state.to === event.target.className){
             var getclass = event.target.className;
             var label = document.querySelector(`.${getclass}` ) 
@@ -49,22 +55,10 @@ class AdminHub extends Component{
             this.setState({to: event.target.className})
         }
         else{
-            Swal.fire({
-                type:'warning',
-                icon:"warning",
-                title: `¿Do you want to stop affecting ${this.state.to} and start affecting ${event.target.className}?`,
-                showConfirmButton:true,
-                showDenyButton:true,
-                confirmButtonText:"Yes"
-            }).then(async (value)=>{
-                if(value.isConfirmed){
-                    document.querySelector(`.${this.state.to}`).style.color = "black"
-                    await(this.setState({to: event.target.className}));
-                    this.handleFirstOp(event)
-                    
-                    }
-                }
-            )
+            document.querySelector(`.${this.state.to}`).style.color = "black"
+            await(this.setState({to: event.target.className}));
+            this.handleFirstOp(event)
+
             
         }
     }
@@ -102,13 +96,7 @@ class FirstOp extends Component{
         super(props);
         this.state = {type: "", first_field:"", second_field:"", thirst_field:"",fourth_field:"", fifth_field:"", sixth_field:""};
         
-
-        this.handleButtonCatLang = this.handleButtonCatLang.bind(this);
-        this.handleFirstField = this.handleFirstField.bind(this);
-        this.handleSecondField = this.handleSecondField.bind(this);
-        
-
-           
+       
     }
 
     render(){
@@ -116,30 +104,8 @@ class FirstOp extends Component{
         //Como tienen el mismo ABM uso el mismo código para los dos
         if(this.props.to === "Category" || this.props.to === "Language"){
             return(
-                <div className="CateLan-container">
-                    <div className="CateLan-box">
-                        <form className="CateLan-form add">
-                            <label className="inp" > Add {this.props.to}</label>
-                            <input className="inp"placeholder="Enter name" required onChange={this.handleFirstField}></input>
-                            <button className="add" onClick={this.handleButtonCatLang}>Submit</button>
-                        </form>
-                    </div>
-                    <div className="CateLan-box">
-                        <form className="CateLan-form delete">
-                            <label className="inp">Delete {this.props.to}</label>
-                            <input className="inp" placeholder="Enter name" required onChange={this.handleFirstField}></input>
-                            <button className="delete" onClick={this.handleButtonCatLang}>Submit</button>
-                    </form>
-                    </div>
-                    <div className="CateLan-box">
-                        <form className="CateLan-form modify">
-                            <label className="inp">Modify {this.props.to}</label>
-                            <input className="inp" placeholder="Enter name" required onChange={this.handleFirstField}></input>
-                            <input className="inp" placeholder="Enter new name" required onChange={this.handleSecondField}></input>
-                            <button className="modify" onClick={this.handleButtonCatLang}>Submit</button>
-                        </form>
-                    </div>
-                </div>
+                <CateLan to={this.props.to}></CateLan>
+                
             );
         }
 
@@ -148,42 +114,7 @@ class FirstOp extends Component{
         }
 
     }
-    //Hay que hacer una función que dependiendo el boton que se toque de los forms, hace lo que hace. 
 
-
-    //Este botón se va a encargar de el ABM del category y word
-    handleButtonCatLang(event){
-        console.log(event.target.className)
-
-        if(event.target.className === "modify"){
-            /*We are going to, first grab the first field and use it to check if there is a category or 
-            language that has the same name that the admin wrote. If this matches we are going to grab that register
-            and change its name to the one in second Field.
-            */
-        }
-        else{
-            if(event.target.className === "add"){
-                //Right here we are going to get the firstfield, and add it to the database
-            }
-
-            else if(event.target.className==="delete"){
-                //Right here we are going to get the firstfield, and delete it from the database
-
-            }
-        }
-
-    }
-
-
-    handleFirstField(event){
-        this.setState({first_field: event.target.value})
-    }
-
-    handleSecondField(event){
-        this.setState({second_field: event.target.value})
-    }
-
-    
 
 }
 
