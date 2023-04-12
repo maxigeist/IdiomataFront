@@ -151,13 +151,14 @@ html,body{
 
 
 .Body-princ{
-  background: url("../resources/school2.png") right bottom   , url("../resources/school.png") left bottom;
-  background-size:47%;
+  background: url("../resources/school2.png") right top   , url("../resources/school.png") left bottom;
+  background-size:41%;
   background-repeat: no-repeat;
-  background-position-y: 300px, 318px;
+  background-position-y: 310px, 330px;
   min-height: 100vh;
   
 }
+
 .Register-body{
   background-image: url("../resources/books.webp");
   background-position: left;
@@ -172,6 +173,7 @@ html,body{
   align-items: center;
   justify-content: center;
   text-align: center;
+  font-weight: bold;
   
 }
 
