@@ -3,7 +3,6 @@ import NavBar from "../components/navbar";
 import "../style/account.css"
 import UserRequester from "../util/requester/userRequester";
 import { getTokenFromDom, deleteTokenFromDom} from "../util/domHandler"
-import {alert} from "../util/alert";
 import Swal from "sweetalert2";
 
 
@@ -49,15 +48,23 @@ class account extends Component{
     async handleLogOut(){
         
         const token = getTokenFromDom();
-        const status = await this.requester.logOutUser()
 
-        if (status === 200){
-            deleteTokenFromDom(token);
-            window.location.href = "/";
-        }
-        else{
-            alert('error', 'LogOut failed', 'An error occurred')
-        }
+
+        Swal.fire({
+            icon: 'warning',
+            titleText: 'Are you sure you want to LogOut?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, LogOut',
+            cancelButtonText: 'Cancel',
+        })
+        .then(result => {
+            if(result.value){
+                this.requester.logOutUser();        
+                deleteTokenFromDom(token);
+                window.location.href = "/";
+            }
+            }
+        )
     }
 
     async handlePasswordChange(){
