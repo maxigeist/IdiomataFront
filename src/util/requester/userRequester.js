@@ -47,6 +47,19 @@ class UserRequester{
         }
     }
 
+    async logOutUser(){
+        try {
+            const response = await axios.delete('http://localhost:3001/api/auth/logout', {
+                headers: {Authorization: "Bearer "+ getTokenFromDom()}
+            })
+
+            return response.status
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    
     /**
      * Makes an http request to verify token validity. The token used is the one stored in the DOM
      * 
@@ -67,6 +80,19 @@ class UserRequester{
             return false
         }
 
+    }
+
+
+    //returns json with user information
+    async getUserData(){
+        try {
+            const data = await axios.get('http://localhost:3001/api/user/userData', {
+                headers: {Authorization: "Bearer: "+ getTokenFromDom()}
+            })
+            return data
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 

@@ -37,6 +37,16 @@ class AdminRequester{
         }
 
     }
+
+    async logOut(){
+        try{
+            await axios.get('http://localhost:3001/api/auth/admin/logout', {
+                headers: {Authorization: "Bearer "+ getTokenFromDom()}
+            })
+        }catch(error){
+            console.log(error)
+        }
+    }
 }
 
 export default AdminRequester;

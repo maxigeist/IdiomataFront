@@ -65,7 +65,7 @@
     height: 220px;
     width: 200px;
     background-color: #D79700;
-    font-family: 'JelleeBold';
+    font-family: Lato, sans-serif;
     font-weight: bold;
     font-size: 22px;
     padding-right: 4px;
@@ -76,10 +76,6 @@
 .game-button:hover{
     background-color: #ffb300;
     border-right: 5px solid #2fa1da;
-}
-.home-li{
-    border-bottom: 4px solid #D79700;
-
 }
 
 .main-title{

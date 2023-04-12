@@ -9,11 +9,15 @@ export function saveTokenToDom(token){
 }
 
 /**
- * This function saves a token passed as an argument to the windows dom
+ * This function gets the user token saved in Dom
  * 
  * @returns {String} A token if stored
  * 
  */
 export function getTokenFromDom(){
     return localStorage.getItem("currentToken")
+}
+
+export function deleteTokenFromDom(){
+    return localStorage.removeItem("currentToken")
 }
