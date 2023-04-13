@@ -4,12 +4,14 @@
     box-sizing: border-box;
   }
 
+.btn{
+    margin: 0.5%;
+}
+
 .Header{
     display: flex;
     flex-wrap: wrap;
-    
     justify-content: center;
-    
 }
 .Log-out{
     position: absolute;
@@ -21,7 +23,6 @@
     color: red;
     font-weight: bold;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    
     
 }
 
@@ -46,17 +47,29 @@
     text-align: center;
 }
 
-
+/* 
 #label{
-    margin-left: 16%;
-    margin-bottom: 4%;
+    margin-left: 28vh;
+    margin-bottom: 4vh;
     font-size: 25px;
     color: rgba(0, 0, 0, 0.606);
     text-decoration: underline 2px;
     cursor: pointer;
     color: rgba(0, 0, 0, 0.584);
+} */
+
+.nav-link{
+    color: lightblue;
+    margin-bottom: 10%;
+    
 }
 
+.nav-link:hover{
+    cursor:pointer;
+    color: lightblue;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
 
 .CateLan-container{
     display: flex;
@@ -65,7 +78,7 @@
 
 .CateLan-box{
     width: auto;
-    margin-left: 200px;
+    margin-left: 30vh;
 }
 
 .CateLan-form{
@@ -96,7 +109,7 @@
   }
 #lista-1{
     float: left;
-    margin-left: 22%;
+    margin-left: 20vh;
     font-size: 25px;
     text-decoration: underline 2px;
 

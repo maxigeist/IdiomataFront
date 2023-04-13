@@ -44,9 +44,10 @@ class Register extends Component{
                         
                         <select className="languages" required onChange={this.handleLanguageChange} >
                             <option value="">Language to learn</option>
-                            <option>Spanish</option>
+                            
+                            {/* <option>Spanish</option>
                             <option>Italian</option>
-                            <option>French</option>
+                            <option>French</option> */}
                         </select>
                         <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>Create Account</button>
                     </form>

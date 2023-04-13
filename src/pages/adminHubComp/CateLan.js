@@ -10,6 +10,9 @@ const categorydataRequester = new categoryRequester();
 const languagedataRequester = new languageRequester();
 
 
+
+
+
 class CateLan extends Component{
 
     constructor(props){
@@ -29,35 +32,35 @@ class CateLan extends Component{
     render(){
         return(
             <div className="CateLan-container">
-            <div className="CateLan-box">
-                <form className="CateLan-form add">
-                    <label className="inp" > Add {this.props.to}</label>
-                    <input className="inp"placeholder="Enter name" required onChange={this.handleFirstField}></input>
-                    <button className="add" onClick={this.handleAddButton}>Submit</button>
+                <div className="CateLan-box">
+                    <form className="CateLan-form add">
+                        <label className="inp" > Add {this.props.to}</label>
+                        <input className="inp"placeholder="Enter name" required onChange={this.handleFirstField}></input>
+                        <button className="add" onClick={this.handleAddButton}>Submit</button>
+                    </form>
+                </div>
+                <div className="CateLan-box">
+                    <form className="CateLan-form delete">
+                        <label className="inp">Delete {this.props.to}</label>
+                        <input className="inp" placeholder="Enter name" required onChange={this.handleFirstField}></input>
+                        <button className="delete" onClick={this.handleDeleteButton}>Submit</button>
                 </form>
+                </div>
+                <div className="CateLan-box">
+                    <form className="CateLan-form modify">
+                        <label className="inp">Modify {this.props.to}</label>
+                        <input className="inp" placeholder="Enter name" required onChange={this.handleFirstField}></input>
+                        <input className="inp" placeholder="Enter new name" required onChange={this.handleSecondField}></input>
+                        <button className="modify" onClick={this.handleModifyButton}>Submit</button>
+                    </form>
+                </div>
+
             </div>
-            <div className="CateLan-box">
-                <form className="CateLan-form delete">
-                    <label className="inp">Delete {this.props.to}</label>
-                    <input className="inp" placeholder="Enter name" required onChange={this.handleFirstField}></input>
-                    <button className="delete" onClick={this.handleDeleteButton}>Submit</button>
-            </form>
-            </div>
-            <div className="CateLan-box">
-                <form className="CateLan-form modify">
-                    <label className="inp">Modify {this.props.to}</label>
-                    <input className="inp" placeholder="Enter name" required onChange={this.handleFirstField}></input>
-                    <input className="inp" placeholder="Enter new name" required onChange={this.handleSecondField}></input>
-                    <button className="modify" onClick={this.handleModifyButton}>Submit</button>
-                </form>
-            </div>
-        </div>
 
 
         );
     }
     //Hay que hacer una función que dependiendo el boton que se toque de los forms, hace lo que hace. 
-
 
     //We have to put an if in each function beacuse we are going to use both of them for language and for category, so depending on 
     //the prop we are going to use each data requester. 
@@ -104,11 +107,11 @@ class CateLan extends Component{
     handleModifyButton(event){
         event.preventDefault()
         try{
-            (this.props.to === "Category") ? categorydataRequester.modifyCategory(this.state.first_field, this.state.second_field) :
+            (this.props.to === "Category") ? categorydataRequester.modifyCategory(this.state.first_field, this.state.second_field) : languagedataRequester.modifyLanguage(this.state.first_field, this.state.second_field);
         Swal.fire({
             icon :"success",
-            title : "The category was modifed",
-            timer:4000
+            title : `The ${this.props.to} was modifed`,
+            timer:3000
         }
         )
         }
@@ -137,7 +140,9 @@ class CateLan extends Component{
     }
 
 
-
 }
+
+
+
 
 export default CateLan;

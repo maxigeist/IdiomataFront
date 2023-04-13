@@ -30,9 +30,24 @@ class languageRequester{
 
     async deleteLanguage(name){
         try{
-            const response = await axios.post('http://localhost:3001/api/language',{
-                name:name
+            const response = await axios.delete('http://localhost:3001/api/language',{
+                data:{
+                    name:name
 
+                }
+            });
+            console.log(response);
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
+    async modifyLanguage(name, new_name){
+        try{
+            const response = await axios.put('http://localhost:3001/api/language',{
+                name: name,
+                newname:new_name
             });
             console.log(response);
         }
@@ -40,8 +55,16 @@ class languageRequester{
             console.log(error);
         }
 
+    }
 
-
+    async getAllLanguages(){
+        try{
+            const response = await axios.get('http://localhost:3001/api/language')
+                return response.data;   
+        }
+        catch(error){
+            console.log(error)
+        }
     }
 
 

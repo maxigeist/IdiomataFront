@@ -6,6 +6,7 @@ import { deleteTokenFromDom } from "../util/domHandler";
 import { AdminPageAuth } from "../util/pageAuth";
 import CateLan from "./adminHubComp/CateLan";
 
+
 const adminRequester = new AdminRequester();
 
 class AdminHub extends Component{
@@ -22,17 +23,38 @@ class AdminHub extends Component{
     render(){
         return(
             <div>
-                <div className="Admin-options">
-                    <div className="Header">
-                    <h1 className="h1-title">ABM</h1>
-                    <button className="Log-out" onClick={this.handleLogOut}>Log out</button>
+                
+                    <div>
+                    <div class = "position-absolute top-0 start-50 translate-middle-x">
+                    <h1 className="display-6">ABM</h1>
                     </div>
-                        <h2 className="h1-title">¿Who do you want to affect?</h2>
-                        <label className="Category" id="label"onClick={this.handleFirstOp}>Category</label> 
-                        <label className="Word"id="label" onClick={this.handleFirstOp}>Word</label>
-                        <label className="Language" id="label" onClick={this.handleFirstOp}>Language</label>
-                        <label className="User" id="label" onClick={this.handleFirstOp}>User</label>
-                </div>
+                    <div class="d-flex flex-column align-items-end">
+                    <button type="button" class="btn btn-danger float-right btn-sm" onClick={this.handleLogOut}>Log out</button>
+                    </div>
+                    </div>
+                        
+                        <div>
+                        <ul class="nav d-flex justify-content-evenly ">
+                            
+                            <li class="nav-item">
+                                <label class="nav-link fs-2 " id="Category" onClick={this.handleFirstOp}>Category</label>
+                            </li>
+                            <li class="nav-item">
+                                <label class="nav-link fs-2" >Word</label>
+                            </li>
+                            <li class="nav-item">
+                                <label class="nav-link fs-2" id="Language"onClick={this.handleFirstOp} >Language</label>
+                            </li>
+                            <li class="nav-item">
+                                <label class="nav-link fs-2">User</label>
+                            </li>
+                        </ul>
+                            {/* <ul className="nav justify-content-center"></ul>
+                            <li className="Category nav-item" onClick={this.handleFirstOp}>Category</li> 
+                            <li className="Word nav-item"onClick={this.handleFirstOp}>Word</li>
+                            <li className="Language nav-item"onClick={this.handleFirstOp}>Language</li>
+                            <li className="User nav-item" onClick={this.handleFirstOp}>User</li> */}
+                        </div>
                         <div className="first-op"><FirstOp to = {this.state.to}></FirstOp></div>
                                             
             </div>
@@ -45,18 +67,18 @@ class AdminHub extends Component{
         We can take out the alert from here it is optional to leave it
         */
     async handleFirstOp(event){
-        if(this.state.to === "" || this.state.to === event.target.className){
-            var getclass = event.target.className;
-            var label = document.querySelector(`.${getclass}` ) 
+        if(this.state.to === "" || this.state.to === event.target.id){
+            var getclass = event.target.id;
+            var label = document.querySelector(`#${getclass}` ) 
             label.style.color = "white";
             
             var firstop = document.querySelector(".first-op")
             firstop.style.display = "flex";
-            this.setState({to: event.target.className})
+            this.setState({to: event.target.id})
         }
         else{
-            document.querySelector(`.${this.state.to}`).style.color = "black"
-            await(this.setState({to: event.target.className}));
+            document.querySelector(`#${this.state.to}`).style.color = "lightblue"
+            await(this.setState({to: event.target.id}));
             this.handleFirstOp(event)
 
             
