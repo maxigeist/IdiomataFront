@@ -5,7 +5,7 @@ import AdminRequester from "../util/requester/adminRequester";
 import { deleteTokenFromDom } from "../util/domHandler";
 import { AdminPageAuth } from "../util/pageAuth";
 import CateLan from "./adminHubComp/CateLan";
-
+import { Word } from "./adminHubComp/Word";
 
 const adminRequester = new AdminRequester();
 
@@ -118,7 +118,7 @@ class FirstOp extends Component{
         super(props);
         this.state = {type: "", first_field:"", second_field:"", thirst_field:"",fourth_field:"", fifth_field:"", sixth_field:""};
         
-       
+
     }
 
     render(){
@@ -132,7 +132,9 @@ class FirstOp extends Component{
         }
 
         if(this.props.to === "Word"){
-            <div className="Word-Container"></div>
+            return(
+                <Word/>
+            )
         }
 
     }
