@@ -70,7 +70,7 @@ class account extends Component{
     async handlePasswordChange(){
         Swal.fire({
             title: 'Insert new password',
-            input: 'text',
+            input: 'password',
             showCancelButton: true,
             confirmButtonText: 'Save',
             cancelButtonText: 'Cancel',
