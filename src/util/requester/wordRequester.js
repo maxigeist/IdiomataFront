@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class WordRequester{
+export class WordRequester{
 
     async getWords(language, category, difficulty, limit){
         try {

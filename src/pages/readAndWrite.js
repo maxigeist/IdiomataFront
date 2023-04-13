@@ -10,11 +10,6 @@ class readAndWrite extends Component{
 
     wordRequester = new WordRequester();
 
-    async loadWords(){
-        const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty)
-        this.setState({words: words})
-    }
-
     constructor(props){
         super(props)
 
@@ -24,9 +19,11 @@ class readAndWrite extends Component{
         this.showWords = this.showWords.bind(this)
     }
 
+    async componentDidMount(){
+        await this.loadWords()
+    }
+
     render(){
-        console.log(this.state.language)
-        console.log(this.state.shownword)
         return(
             <div className="principal-container">
                 <NavBar/>
@@ -34,19 +31,26 @@ class readAndWrite extends Component{
                 <div required onChange={this.handleLanguageChange}>
                     <LanguageSelector/>
                 </div>
-                <div>{this.state.shownword}</div>
+                <div className="raw-input">{this.state.shownword}</div>
                 <input className="raw-input"></input>
             </div>
         );
     }
 
-    handleLanguageChange(event){
+    async loadWords(){
+        const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty)
+        this.setState({words: words})
+    }
+
+    async handleLanguageChange(event){
         this.setState({language:event.target.value});
-        this.loadWords();
+        await this.loadWords();
+        this.showWords();
     }
 
     showWords(){
         const word = this.state.words[Math.floor(Math.random()*this.state.words.length)]
+        console.log(word.inEnglish)
         this.setState({shownword: word.inEnglish})
     }
 }
