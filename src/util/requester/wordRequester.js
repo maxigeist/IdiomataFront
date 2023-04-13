@@ -1,7 +1,21 @@
 import axios from "axios";
 
-export class WordRequester{
-    
+class WordRequester{
+
+    async getWords(language, category, difficulty, limit){
+        try {
+            const response = await axios.get('http://localhost:3001/api/word', {
+                language: language,
+                category: category,
+                difficulty: difficulty,
+                limit: limit,
+            })
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async createWord(word, category){
         try{
             const response = await axios.post("http://localhost:3001/api/word", {
@@ -28,3 +42,5 @@ export class WordRequester{
         }
     }
 }
+
+export default WordRequester

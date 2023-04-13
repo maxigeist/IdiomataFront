@@ -2,6 +2,7 @@ import { Component } from "react";
 import "../style/homepage.css"
 import NavBar from "../components/navbar";
 import { pageAuth } from "../util/pageAuth";
+import GamesDisplay from "../components/gamesdisplay";
 
 
 class homepage extends Component{
@@ -16,12 +17,7 @@ class homepage extends Component{
         return(
             <div className="principal-container">
                 <NavBar selected = "home"/>
-                <div className="Games-display">
-                    
-                    <button className="game-button" onClick={this.handleRaWClick}>Read and Write</button>
-                    <button className="game-button">Memotest</button>
-                    <button className="game-button">Play</button>
-                </div>
+                <GamesDisplay/>
 
                 <h1 className="main-title">Start playing right now!</h1>
                 
@@ -35,8 +31,6 @@ class homepage extends Component{
         if(invalid)
             window.location.href = "/";
     }
-
-    handleRaWClick = () => window.location.href = "/readAndWrite"
 }
 
 export default homepage;
