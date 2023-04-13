@@ -5,6 +5,7 @@ import AdminRequester from "../util/requester/adminRequester";
 import { deleteTokenFromDom } from "../util/domHandler";
 import { AdminPageAuth } from "../util/pageAuth";
 import CateLan from "./adminHubComp/CateLan";
+import { Word } from "./adminHubComp/Word";
 
 const adminRequester = new AdminRequester();
 
@@ -27,7 +28,6 @@ class AdminHub extends Component{
                     <h1 className="h1-title">ABM</h1>
                     <button className="Log-out" onClick={this.handleLogOut}>Log out</button>
                     </div>
-                        <h2 className="h1-title">¿Who do you want to affect?</h2>
                         <label className="Category" id="label"onClick={this.handleFirstOp}>Category</label> 
                         <label className="Word"id="label" onClick={this.handleFirstOp}>Word</label>
                         <label className="Language" id="label" onClick={this.handleFirstOp}>Language</label>
@@ -96,7 +96,7 @@ class FirstOp extends Component{
         super(props);
         this.state = {type: "", first_field:"", second_field:"", thirst_field:"",fourth_field:"", fifth_field:"", sixth_field:""};
         
-       
+
     }
 
     render(){
@@ -110,7 +110,9 @@ class FirstOp extends Component{
         }
 
         if(this.props.to === "Word"){
-            <div className="Word-Container"></div>
+            return(
+                <Word/>
+            )
         }
 
     }
