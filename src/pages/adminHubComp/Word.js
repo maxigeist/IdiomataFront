@@ -3,7 +3,7 @@ import { WordRequester } from "../../util/requester/wordRequester";
 
 const wordRequester = new WordRequester()
 
-
+//This class renders 3 React components, one for each use case
 export class Word extends React.Component{
 
     render(){
@@ -16,6 +16,7 @@ export class Word extends React.Component{
         )}
 }
 
+//Component for creating new word
 class AddWord extends React.Component{
     constructor(props){
         super(props)
@@ -64,6 +65,7 @@ class AddWord extends React.Component{
     }
 }
 
+//Component for creating new translation
 class AddTranslation extends React.Component{
     constructor(props){
         super(props)
@@ -138,12 +140,17 @@ class AddTranslation extends React.Component{
     }
 }
 
+
+//Component for searching word info
 class SearchWord extends React.Component{
 
     constructor(props){
         super(props)
 
-        this.state = {word: "", status: "",  category: "", translations: []}
+        this.state = {word: "", status: "",  category: "", translations: [], result: ""}
+
+        this.handleWordChange = this.handleWordChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     render(){
@@ -159,6 +166,11 @@ class SearchWord extends React.Component{
 
                     <button className="btn btn-primary" onClick={this.handleSubmit}>Search</button>
 
+                    <br/>
+                    <br/>
+
+                   <SearchResult wordInfo={this.state.result}/>
+                    
                 </div>
             </div>
         </div>
@@ -169,8 +181,52 @@ class SearchWord extends React.Component{
         this.setState({word: event.target.value})
     }
 
+    //Search the word and grab the info
     async handleSubmit(){
-        wordRequester.searchWord(this.state.word)
+        const data = await wordRequester.searchWord(this.state.word)
+        this.setState({result: data})
+    }
+}
+
+
+//Component for displaying word info
+class SearchResult extends React.Component{
+    constructor(props){
+        super(props)
+
+        this.languages = []
+        this.translationsByLang = []
+    }
+    
+    render(){
+        if(!this.props.wordInfo) return("")
+
+        this.loadInfo()
+
+        return(
+            <ul>
+                {this.translationsByLang}
+            </ul>
+        )
+    }
+
+    // Creates a react component for each language with its translations
+    loadInfo(){
+        this.languages = []
+        this.translationsByLang = []
+
+        for (let i = 0; i < this.props.wordInfo.length; i++) {
+            const listElement = this.props.wordInfo[i]
+
+            const translations = listElement.translations.map((translation) => translation.translated)
+
+            this.languages.push(listElement.name)
+
+            const reactListItem = <li key={listElement.name}>{listElement.name}: {translations.map((translation) => translation + " ")}</li>
+
+            this.translationsByLang.push(reactListItem);
+            
+        }
     }
 }
 
