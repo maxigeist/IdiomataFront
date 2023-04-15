@@ -30,8 +30,11 @@ class categoryRequester{
     async deleteCategory(name){
         try{
             const response = await axios.delete('http://localhost:3001/api/category',{
-                name:name
+                data:{
+                    name:name
+                }
             });
+                
             console.log(response);
         }
         catch(error){
@@ -57,6 +60,9 @@ class categoryRequester{
             console.log(error);
         }
     }
+
+
+    
 }
 
 
