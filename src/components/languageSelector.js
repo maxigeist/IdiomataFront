@@ -10,8 +10,9 @@ class LanguageSelector extends Component{
     constructor(props){
         super(props)
 
-        this.state = {languages: [], chosen:""}
-        this.componentDidMount = this.componentDidMount.bind(this);
+        this.state = {languages: []}
+
+        
         this.makeSelectOptions = this.makeSelectOptions.bind(this);
         this.makeLiOptions = this.makeLiOptions.bind(this);
     }
@@ -19,29 +20,24 @@ class LanguageSelector extends Component{
     async componentDidMount(){
         const languages = await this.requester.getAllLanguages();
         this.setState({languages: languages})
-        
     }
 
     render(){
-        if(this.props.type === "option"){
-            return(
-                <select required className="languages" onChange={this.props.func}>
-                    <option value="">Choose language</option>
-                    <this.makeSelectOptions/>
-                </select>
-                )
-            }
+        return(
+            <select required className="languages" onChange={this.props.func}>
+                <option value="">Choose language</option>
+                <this.makeSelectOptions/>
+            </select>
+        )
+    }
 
-        else if(this.props.type === "li"){ 
-            return(
-                <this.makeLiOptions/>
-            )
+
 
 
         
 
-        }
-    }
+        
+    
         
 
     makeSelectOptions(){
@@ -52,21 +48,6 @@ class LanguageSelector extends Component{
             options
         )
     }
-
-    makeLiOptions(){
-        const options = this.state.languages.map((language, index) => (
-    
-        <li className="list-group-item" id={language} onClick={this.props.func}key={index} value={language}>{this.state.languages[index]}</li>
-        ));
-        return(
-        
-            options
-            
-        )
-
-    }
-
-
 }
 
 export default LanguageSelector;

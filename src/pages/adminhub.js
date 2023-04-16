@@ -40,10 +40,10 @@ class AdminHub extends Component{
                                 <label class="nav-link fs-2 " id="Category" onClick={this.handleFirstOp}>Category</label>
                             </li>
                             <li class="nav-item">
-                                <label class="nav-link fs-2" >Word</label>
+                                <label class="nav-link fs-2" id="Word" onClick={this.handleFirstOp}>Word</label>
                             </li>
                             <li class="nav-item">
-                                <label class="nav-link fs-2" id="Language"onClick={this.handleFirstOp} >Language</label>
+                                <label class="nav-link fs-2" id="Language" onClick={this.handleFirstOp} >Language</label>
                             </li>
                             <li class="nav-item">
                                 <label class="nav-link fs-2">User</label>
@@ -66,7 +66,7 @@ class AdminHub extends Component{
         /*
         We can take out the alert from here it is optional to leave it
         */
-    async handleFirstOp(event){
+    handleFirstOp(event){
         if(this.state.to === "" || this.state.to === event.target.id){
             var getclass = event.target.id;
             var label = document.querySelector(`#${getclass}` ) 
@@ -78,7 +78,7 @@ class AdminHub extends Component{
         }
         else{
             document.querySelector(`#${this.state.to}`).style.color = "lightblue"
-            await(this.setState({to: event.target.id}));
+            (this.setState({to: event.target.id}));
             this.handleFirstOp(event)
 
             

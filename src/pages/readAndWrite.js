@@ -13,10 +13,12 @@ class readAndWrite extends Component{
     constructor(props){
         super(props)
 
-        this.state = {language: "", category: "", difficulty: "", words:[], shownword:""}
+        this.state = {language: "", category: "", difficulty: "", words:[], shownword:"", translations: [], wordInput: "", limit: undefined}
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this)
         this.showWords = this.showWords.bind(this)
+        this.handleWordInput = this.handleWordInput.bind(this)
+        this.handleCheck = this.handleCheck.bind(this)
     }
 
     async componentDidMount(){
@@ -24,34 +26,54 @@ class readAndWrite extends Component{
     }
 
     render(){
+        console.log(this.state.words)
+        //console.log(this.state.language)
         return(
             <div className="principal-container">
                 <NavBar/>
                 <GamesDisplay/>
-                <div required onChange={this.handleLanguageChange}>
-                    <LanguageSelector/>
-                </div>
+                <LanguageSelector handleLanguageChange={this.handleLanguageChange}/>
+                <button className="raw-input" onClick={this.showWords}>Next Word</button>
                 <div className="raw-input">{this.state.shownword}</div>
-                <input className="raw-input"></input>
+                <input className="raw-input" onChange={this.handleWordInput}></input>
+                <button className="raw-input" onClick={this.handleCheck}>Check</button>
             </div>
         );
     }
 
     async loadWords(){
-        const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty)
+        console.log(this.state.language)
+        const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty, this.state.limit)
         this.setState({words: words})
     }
 
-    async handleLanguageChange(event){
-        this.setState({language:event.target.value});
-        await this.loadWords();
-        this.showWords();
+    handleLanguageChange(language){
+        this.setState({language: language}, async() => {await this.loadWords()});
+        //await this.loadWords();
+        //this.showWords();
     }
 
     showWords(){
         const word = this.state.words[Math.floor(Math.random()*this.state.words.length)]
         console.log(word.inEnglish)
         this.setState({shownword: word.inEnglish})
+        console.log(word.translations)
+        this.setState({translations: word.translations})
+    }
+
+    handleWordInput(event){
+        this.setState({wordInput: event.target.value})
+    }
+
+    handleCheck(){
+        for (const translation in this.state.translations) {
+            if (Object.hasOwnProperty.call(this.state.translations, translation)) {
+                const element = this.state.translations[translation];
+                if(element === this.state.wordInput){
+
+                }
+            }
+        }
     }
 }
 
