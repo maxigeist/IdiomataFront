@@ -29,7 +29,7 @@ class AdminHub extends Component{
                     <h1 className="display-6">ABM</h1>
                     </div>
                     <div class="d-flex flex-column align-items-end">
-                    <button type="button" class="btn btn-danger float-right btn-sm" onClick={this.handleLogOut}>Log out</button>
+                    <button type="button" class="btn btn-danger float-right btn-sm bts" onClick={this.handleLogOut}>Log out</button>
                     </div>
                     </div>
                         

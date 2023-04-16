@@ -4,7 +4,7 @@
     box-sizing: border-box;
   }
 
-.btn{
+.bts{
     margin: 0.5%;
 }
 
@@ -68,13 +68,10 @@
     cursor:pointer;
     color: lightblue;
     background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
-.CateLan-container{
-    display: flex;
-    flex-direction: row;
-}
+
 
 .CateLan-box{
     width: auto;
@@ -141,6 +138,16 @@
 .delete-cont{
     display: none;
     justify-content: center;
-    
-    
+}
+.list-group:hover{
+    cursor: pointer;
+}
+.div-1{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top:10%;
+    position: center;
+
+
 }
