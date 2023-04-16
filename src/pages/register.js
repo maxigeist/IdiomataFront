@@ -4,8 +4,11 @@ import {Component} from "react";
 import UserRequester from "../util/requester/userRequester";
 import { alert } from "../util/alert";
 import { delay } from "../util/delay";
+import LanguageSelector from "../components/languageSelector";
+
 
 const userDataRequester = new UserRequester();
+
 
 
 class Register extends Component{
@@ -41,14 +44,7 @@ class Register extends Component{
                         <input className="form-input" type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange}/>
                         <input className="form-input" type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
                         <input className="form-input" type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
-                        
-                        <select className="languages" required onChange={this.handleLanguageChange} >
-                            <option value="">Language to learn</option>
-                            
-                            {/* <option>Spanish</option>
-                            <option>Italian</option>
-                            <option>French</option> */}
-                        </select>
+                        <LanguageSelector type="option" func ={this.handleLanguageChange}></LanguageSelector>
                         <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>Create Account</button>
                     </form>
                 </div>
@@ -65,7 +61,7 @@ class Register extends Component{
         this.setState({email: event.target.value})
     }
 
-    handlePasswordChange(event){
+    handlePasswordChange(event){  
         this.setState({password: event.target.value})
     }
 

@@ -4,6 +4,22 @@
     box-sizing: border-box;
   }
 
+.form-div{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+    margin-top: 20%;
+    
+}
+
+.butt{
+    margin: 1%;
+    
+}
+
+
 .Admin-form-div{
     display: flex;
     justify-content: center;

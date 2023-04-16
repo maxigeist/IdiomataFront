@@ -1,6 +1,8 @@
 import { Component } from "react";
 import languageRequester from "../util/requester/languageRequester";
 
+
+
 class LanguageSelector extends Component{
 
     requester = new languageRequester();
@@ -10,9 +12,9 @@ class LanguageSelector extends Component{
 
         this.state = {languages: []}
 
-        this.makeSelectOptions = this.makeSelectOptions.bind(this)
-        this.handleLanguageChange = this.handleLanguageChange.bind(this)
-
+        
+        this.makeSelectOptions = this.makeSelectOptions.bind(this);
+        this.makeLiOptions = this.makeLiOptions.bind(this);
     }
 
     async componentDidMount(){
@@ -22,12 +24,21 @@ class LanguageSelector extends Component{
 
     render(){
         return(
-            <select required className="raw-input" onChange={this.handleLanguageChange}>
+            <select required className="languages" onChange={this.props.func}>
                 <option value="">Choose language</option>
                 <this.makeSelectOptions/>
             </select>
         )
     }
+
+
+
+
+        
+
+        
+    
+        
 
     makeSelectOptions(){
         const options = this.state.languages.map((language, index) => (
@@ -36,11 +47,6 @@ class LanguageSelector extends Component{
         return(
             options
         )
-    }
-
-    handleLanguageChange(event){
-        const language = event.target.value;
-        this.props.handleLanguageChange(language);
     }
 }
 

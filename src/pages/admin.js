@@ -19,14 +19,28 @@ class Admin extends Component{
 
     render(){
         return(
-            <div className="Admin-form-div">
-                <form className="Admin-form">
-                    <label className="admin-label">Email</label>
-                    <input className="admin-input" onChange={this.handleEmailChange}></input>
-                    <label className="admin-label">Password</label>
-                    <input type="password" onChange={this.handlePasswordChange} className="admin-input" ></input>
-                    <button className="submit-button" onClick={this.handleLogIn} >Log In</button>
-                </form>
+            // <div className="Admin-form-div">
+            //     <form className="Admin-form">
+            //         <label className="admin-label">Email</label>
+            //         <input className="admin-input" onChange={this.handleEmailChange}></input>
+            //         <label className="admin-label">Password</label>
+            //         <input type="password" onChange={this.handlePasswordChange} className="admin-input" ></input>
+            //         <button className="submit-button" onClick={this.handleLogIn} >Log In</button>
+            //     </form>
+            // </div>
+            <div className="form-div">
+                <div class="form-floating mb-3 col-sm">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={this.handleEmailChange}/>
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" onChange={this.handlePasswordChange}/>
+                    <label for="floatingPassword">Password</label>
+                </div>
+                
+                <button type="button" class="btn btn-success btn-lg butt" onClick={this.handleLogIn}>Log In</button>
+                
+                
             </div>
         );
     }

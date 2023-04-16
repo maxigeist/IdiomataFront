@@ -2,6 +2,9 @@ import { Component } from "react";
 import categoryRequester from "../../util/requester/categoryRequester";
 import languageRequester from "../../util/requester/languageRequester";
 import Swal from "sweetalert2";
+import LanguageSelector from "../../components/languageSelector";
+
+
 
 
 
@@ -13,132 +16,200 @@ const languagedataRequester = new languageRequester();
 
 
 
+
 class CateLan extends Component{
 
     constructor(props){
         super(props);
-        this.state = {first_field:"", second_field:""};
+        this.state = {active:"", languages:[], categories:[]};
 
+        
         this.handleAddButton = this.handleAddButton.bind(this);
         this.handleDeleteButton = this.handleDeleteButton.bind(this);
         this.handleModifyButton = this.handleModifyButton.bind(this);
+        this.refresh = this.refresh.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        
+        this.makeLiOptions = this.makeLiOptions.bind(this);
+        this.makeActive = this.makeActive.bind(this);
+        this.forceUpdate = this.forceUpdate.bind(this);
+    }
 
-        this.handleFirstField = this.handleFirstField.bind(this);
-        this.handleSecondField = this.handleSecondField.bind(this);
-
-
+    async componentDidMount(){
+        const languages = await languagedataRequester.getAllLanguages();
+        this.setState({languages: languages})
+        const categories = await categorydataRequester.getAllCategories();
+        this.setState({categories: categories})
     }
 
     render(){
         return(
-            <div className="CateLan-container">
-                <div className="CateLan-box">
-                    <form className="CateLan-form add">
-                        <label className="inp" > Add {this.props.to}</label>
-                        <input className="inp"placeholder="Enter name" required onChange={this.handleFirstField}></input>
-                        <button className="add" onClick={this.handleAddButton}>Submit</button>
-                    </form>
-                </div>
-                <div className="CateLan-box">
-                    <form className="CateLan-form delete">
-                        <label className="inp">Delete {this.props.to}</label>
-                        <input className="inp" placeholder="Enter name" required onChange={this.handleFirstField}></input>
-                        <button className="delete" onClick={this.handleDeleteButton}>Submit</button>
-                </form>
-                </div>
-                <div className="CateLan-box">
-                    <form className="CateLan-form modify">
-                        <label className="inp">Modify {this.props.to}</label>
-                        <input className="inp" placeholder="Enter name" required onChange={this.handleFirstField}></input>
-                        <input className="inp" placeholder="Enter new name" required onChange={this.handleSecondField}></input>
-                        <button className="modify" onClick={this.handleModifyButton}>Submit</button>
-                    </form>
-                </div>
-
-            </div>
-
-
+            
+                <this.makeLiOptions/>
+            
         );
     }
-    //Hay que hacer una función que dependiendo el boton que se toque de los forms, hace lo que hace. 
 
-    //We have to put an if in each function beacuse we are going to use both of them for language and for category, so depending on 
-    //the prop we are going to use each data requester. 
     async handleAddButton(event){
         event.preventDefault()
-        try{
-            (this.props.to === "Category") ? categorydataRequester.createCategory(this.state.first_field) : languagedataRequester.createLanguage(this.state.first_field);
-            //I do an inline if to check if we are with category or with language
-
         Swal.fire({
-            icon :"success",
-            title : `The ${this.props.to} was created`,
-            timer:3000
-        }
-        )
+            title:`Insert new ${this.props.to}`,
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            cancelButtonText: 'Cancel',
+        }).then(result => {
+            if(result.value){
+                (this.props.to === "Category") ? categorydataRequester.createCategory(result.value) : languagedataRequester.createLanguage(result.value);
+                Swal.fire({
+                    icon: 'success',
+                    titleText: `New ${this.props.to} created`,
+                    position:"top",
+                    padding: "3em 3em 3em 3em"
+                })
+                
+                
+            }
+            this.refresh();
+            
 
+        })
+        
         }
-        catch(error){
-            console.log("error")
-        }
-    }
+        
 
-    handleDeleteButton(event){
+    async handleDeleteButton(event){
         event.preventDefault()
         try{
-            (this.props.to === "Category") ? categorydataRequester.deleteCategory(this.state.first_field) : languagedataRequester.deleteLanguage(this.state.first_field);
+            (this.props.to === "Category") ? categorydataRequester.deleteCategory(this.state.active) : languagedataRequester.deleteLanguage(this.state.active);
         
         Swal.fire({
             icon :"success",
             title : `The ${this.props.to} was deleted`,
             timer:3000
-        }
-        )
-
+        })
+        
         }
         catch(error){
             console.log("error")
         }
+        this.refresh();
         
-
+        
     }
 
 
-    handleModifyButton(event){
+    async handleModifyButton(event){
         event.preventDefault()
-        try{
-            (this.props.to === "Category") ? categorydataRequester.modifyCategory(this.state.first_field, this.state.second_field) : languagedataRequester.modifyLanguage(this.state.first_field, this.state.second_field);
         Swal.fire({
-            icon :"success",
-            title : `The ${this.props.to} was modifed`,
-            timer:3000
+            title:`Insert new name for the ${this.props.to}`,
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            cancelButtonText: 'Cancel',
+        }).then(result => {
+            if(result.value){
+                (this.props.to === "Category") ? categorydataRequester.modifyCategory(this.state.active, result.value) : languagedataRequester.modifyLanguage(this.state.active,result.value);
+                Swal.fire({
+                    icon: 'success',
+                    titleText: `Name of the ${this.props.to} changed`,
+                    position:"top",
+                    padding: "3em 3em 3em 3em"
+                })
+                
+            }
+            this.refresh();
+            
+            
+        })
+        
+    }
+
+
+    makeLiOptions(){
+        
+        
+        var options ="";
+        if(this.props.to === "Language"){
+            options = this.state.languages.map((language, index) => (
+            
+            <li className="list-group-item " id={language}onClick={this.makeActive}key={index} value={language}>{this.state.languages[index]}</li>
+            
+        ));
         }
+        else{
+            
+            options = this.state.categories.map((category, index) => (
+                <li className="list-group-item " id={category}onClick={this.makeActive}key={index} value={category}>{this.state.categories[index]}</li>
+            ));
+        }
+
+    
+        return(
+            <div class="d-flex div-1 col-sm">
+                <div class="w-25 ms-5">
+                    <ul className="list-group">
+                    {options}
+                    {/* <LanguageSelector type="li" func={this.makeActive}/> */}
+                    </ul>
+                </div>
+                <div class="row-cols-lg-5 w-25">
+                <button class="btn btn-danger fs-5 bts" onClick={this.handleDeleteButton}><i class="bi bi-trash"></i></button>
+                <button class= "btn btn-secondary fs-5 bts" onClick={this.handleModifyButton}><i class="bi bi-pencil"></i></button>
+                <button class= "btn btn-success fs-5 bts" onClick={this.handleAddButton}><i class="bi bi-plus-square"></i></button>
+                                                
+                </div>
+
+            </div>
+            
+            
         )
-        }
-        catch(error){
-            console.log("error")
-        }
+    }
+
+    async makeActive(event){
+        this.inactiveElements();
+        event.target.classList.add("active");
+        await this.setState({active: event.target.id});
+    }
+
+    //Hay que ver una forma de poder refrescar la tabla, porque si no, no se actualiza.
+
+    async refresh(){
+        this.inactiveElements();
+        await this.componentDidMount();
+        
+        
         
 
 
+        // document.querySelector(".li-options").replace(<this.makeLiOptions/>);
+        
+        // window.location.reload();
+        // return(
+        //     <CateLan to={this.props.to}/>
+        // );
+        
+        
+        
+        // this.componentDidMount();
+        // this.makeActive();
+        
+        
+        // this.forceUpdate();
+        // // x.style.display = "block";
     }
+    // forceUpdte(event){
+    //     event.preventDefault();
+    //     this.forceUpdate();
+    // }
 
-    //Este botón se va a encargar de el ABM del category y word
+    inactiveElements(){
+        document.querySelectorAll(".list-group-item").forEach((element) => {
+            element.classList.remove("active")
+            }
+        )
 
-
-
-
-
-
-
-    handleFirstField(event){
-        this.setState({first_field: event.target.value})
     }
-
-    handleSecondField(event){
-        this.setState({second_field: event.target.value})
-    }
-
 
 }
 
