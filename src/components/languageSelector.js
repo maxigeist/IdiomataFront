@@ -12,9 +12,8 @@ class LanguageSelector extends Component{
 
         this.state = {languages: []}
 
-        
+        this.componentDidMount = this.componentDidMount.bind(this)
         this.makeSelectOptions = this.makeSelectOptions.bind(this);
-        this.makeLiOptions = this.makeLiOptions.bind(this);
     }
 
     async componentDidMount(){
@@ -24,21 +23,12 @@ class LanguageSelector extends Component{
 
     render(){
         return(
-            <select required className="languages" onChange={this.props.func}>
+            <select required className="languages raw-input" onChange={this.props.func}>
                 <option value="">Choose language</option>
                 <this.makeSelectOptions/>
             </select>
         )
     }
-
-
-
-
-        
-
-        
-    
-        
 
     makeSelectOptions(){
         const options = this.state.languages.map((language, index) => (

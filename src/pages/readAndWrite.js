@@ -30,7 +30,7 @@ class readAndWrite extends Component{
             <div className="principal-container">
                 <NavBar/>
                 <GamesDisplay/>
-                <LanguageSelector handleLanguageChange={this.handleLanguageChange}/>
+                <LanguageSelector func={this.handleLanguageChange}/>
                 <button className="raw-input" onClick={this.showWords}>Next Word</button>
                 <div className="raw-input">{this.state.shownword}</div>
                 <input className="raw-input" onChange={this.handleWordInput}></input>
@@ -44,8 +44,8 @@ class readAndWrite extends Component{
         this.setState({words: words}, async () => {if(this.state.words.length !== 0) this.showWords()})
     }
 
-    handleLanguageChange(language){
-        this.setState({language: language}, async() => {await this.loadWords()});
+    handleLanguageChange(event){
+        this.setState({language: event.target.value}, async() => {await this.loadWords()});
     }
 
     showWords(){
