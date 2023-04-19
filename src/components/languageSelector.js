@@ -23,7 +23,7 @@ class LanguageSelector extends Component{
 
     render(){
         return(
-            <select required className="languages raw-input" onChange={this.props.func}>
+            <select required className="languages" onChange={this.props.func}>
                 <option value="">Choose language</option>
                 <this.makeSelectOptions/>
             </select>
