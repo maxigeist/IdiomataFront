@@ -1,6 +1,7 @@
 
 import { Component } from "react";
 import ReadAndWrite from "../pages/readAndWrite";
+import "../style/homepage.css"
 
 
 
@@ -17,7 +18,7 @@ class GamesDisplay extends Component{
 
         return(
             
-            <div className="d-flex" style={{height:"100%"}}>
+            <div className="d-flex" style={{height:"100%", width:"100%"}}>
                 
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style={{width: "auto",height:"100%"}}>
 
@@ -25,28 +26,28 @@ class GamesDisplay extends Component{
     <ul class="nav nav-pills flex-column mb-auto justify-content-between" >
         
         
-    <li class="nav-item mb-5" >
-    <a href = "#" class="nav-link text-white text-align-center" style={{justifyContent:"center"}} onClick={this.handleRaWClick} >
-    <svg class="bi me-2" width="16" height="16"></svg>
+    <li class="nav-item mb-5 press" >
+    <li class="nav-link text-white" style={{justifyContent:"center", textAlign:"center"}} onClick={this.handleRaWClick} >
+    <i class="bi bi-pencil-square" style={{paddingRight:"10px"}}></i>
     Read and Write
-    </a>
     </li>
-    <li class="nav-item mb-5">
-    <a href=" " class="nav-link text-white">
-    <svg class="bi me-2" width="16" height="16"></svg>
+    </li>
+    <li class="nav-item mb-5 press">
+    <li class="nav-link text-white">
+    <i class="bi bi-file" style={{paddingRight:"10px"}}></i>
     Memotest
-    </a>
     </li>
-    <li className="nav-item mb-5">
-    <a href=" " class="nav-link text-white">
+    </li>
+    <li className="nav-item mb-5 press">
+    <li class="nav-link text-white">
     <svg class="bi me-2" width="16" height="16"></svg>
     Audio
-    </a>
+    </li>
     </li>
     
     </ul>
     </div>
-        <div className="RAW-div" style = {{display:"none"}}>
+        <div className="RAW-div" style = {{display:"none", width:"100%"}}>
         <ReadAndWrite/>
 
         </div>

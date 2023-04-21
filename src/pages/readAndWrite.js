@@ -32,11 +32,11 @@ class ReadAndWrite extends Component{
     render(){
         console.log(this.state.wordInput)
         return(
-            <div className="principal-container">
+            <div className="principal-container w-100">
                 
                 
 
-                <div className="container col-3 p-4">
+                <div className="container col-3 p-4 ">
                     <div className="card">
                         <h4 className="card-header">Hello</h4>
                         <div className="card-body">
