@@ -18,17 +18,17 @@ class lanOptions{
 
 
     //Hay que ver una forma de levantar los datos del array y hacer las options
+
     render(){
-
         return(
-            {for(language in this.state.languages){
-                return <select></select>
-            }}
-
-
-
+            <div></div>
         );
-
-
     }
+
+
+
+
 }
+
+
+    

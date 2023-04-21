@@ -27,7 +27,7 @@ class LanguageSelector extends Component{
                 <option value="">Choose language</option>
                 <this.makeSelectOptions/>
             </select>
-        )
+        );
     }
 
     makeSelectOptions(){

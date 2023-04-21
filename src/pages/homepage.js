@@ -15,13 +15,16 @@ class homepage extends Component{
 
     render(){
         return(
-            <div className="principal-container">
+            <section>
+                <div className="principal-container">
                 <NavBar selected = "home"/>
-                <GamesDisplay/>
+                {/* <h1 className="main-title">Start playing right now!</h1> */}
+                </div>
+                <div className="game">
+                    <GamesDisplay/>
+                </div>
+            </section>
 
-                <h1 className="main-title">Start playing right now!</h1>
-                
-            </div>
         );
     }
 

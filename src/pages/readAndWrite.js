@@ -7,7 +7,7 @@ import WordRequester from "../util/requester/wordRequester";
 import LanguageSelector from "../components/languageSelector";
 import {FaCheck, FaTimes} from 'react-icons/fa';
 
-class readAndWrite extends Component{
+class ReadAndWrite extends Component{
 
     wordRequester = new WordRequester();
 
@@ -29,9 +29,10 @@ class readAndWrite extends Component{
     render(){
         console.log(this.state.wordInput)
         return(
-            <div className="principal-container">
-                <NavBar/>
-                <GamesDisplay/>
+            <div className="principal-container" >
+                {/* <NavBar/> */}
+                <div className="RaW-div">
+                {/* <GamesDisplay/> */}
                 <LanguageSelector func={this.handleLanguageChange}/>
                 <button className="raw-input" onClick={this.showWords}>Next Word</button>
                 <div className="raw-input">{this.state.shownword}</div>
@@ -41,6 +42,7 @@ class readAndWrite extends Component{
                 {this.state.answerCorrectly === false && <FaTimes className="raw-input" style={{color: 'red'}}/>}
                 {this.state.answerCorrectly === true && <p className="raw-input">Well done!</p>}
                 {this.state.answerCorrectly === false && <p className="raw-input">You answered incorrectly, the correct answer is "{this.state.correctAnswer}".</p>}
+                </div>
             </div>
         );
     }
@@ -84,4 +86,4 @@ class readAndWrite extends Component{
 }
 
 
-export default readAndWrite;
+export default ReadAndWrite;

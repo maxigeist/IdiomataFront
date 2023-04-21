@@ -19,19 +19,31 @@ class NavBar extends Component{
 
         return(
             <div className="header">
-                    <img className="logo" src={dictImg}
-                    alt="logo"
-                    ></img>
+                    
+                    
+                    <div class="w-100">
                     <nav>
-                        <ul className="ul-nav">
-                            <li className ={"nav-li " + this.selected.home} onClick={this.redirectHomePage}>Home</li>
-                            <li className={"nav-li " + this.selected.stats}>Stats</li>
-                            <li className={"nav-li " + this.selected.chat}>Chat</li>
-                            <li className={"nav-li Account-li " + this.selected.account} onClick={this.redirectAccountPage}>Account</li>
-                        </ul>
-                    </nav>
-                
+                    <img src={dictImg} class="logo-img rounded float-start" alt="logo"></img>
+                    <ul className="nav pt-5">
+                    
+                    <div class="d-flex justify-content-evenly w-75">
+                            <li className ={"nav-li " + this.selected.home + " nav-link fs-2"} onClick={this.redirectHomePage}>Home</li>
+                            <li className={"nav-li " + this.selected.stats + " nav-link fs-2"} >Stats</li>
+                            <li className={"nav-li " + this.selected.chat + " nav-link fs-2"}>Chat</li>
                     </div>
+
+                    
+                        
+                    <div class="ms-auto me-5">
+                        <li className={"nav-li Account-li " + this.selected.account + " nav-link fs-2"} onClick={this.redirectAccountPage}>Account</li>
+                    </div>
+                    </ul>
+                    
+                    
+                    
+                    </nav>
+                    </div>
+            </div>
         )
 
     }
