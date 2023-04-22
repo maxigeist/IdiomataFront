@@ -8,6 +8,8 @@ import LanguageSelector from "../components/languageSelector";
 //TODO remove unused packagae
 import {FaCheck, FaTimes} from 'react-icons/fa';
 import { StatsRequester } from "../util/requester/statsRequester";
+import { pageAuth } from "../util/pageAuth";
+import Swal from "sweetalert2";
 
 class ReadAndWrite extends Component{
 
@@ -16,6 +18,8 @@ class ReadAndWrite extends Component{
 
     constructor(props){
         super(props)
+
+        this.handleAuth()
 
         this.state = {language: "", category: "", difficulty: "", words:[], shownword:"", translations: [], wordInput: "", limit: undefined, answerCorrectly: null, correctAnswer: "", validation: ""}
 
@@ -36,9 +40,9 @@ class ReadAndWrite extends Component{
                 
                 
 
-                <div className="container col-3 p-4 ">
+                <div className="container col-5 p-4 ">
                     <div className="card">
-                        <h4 className="card-header">Hello</h4>
+                        <h4 className="card-header">Word Prompt</h4>
                         <div className="card-body">
                             <LanguageSelector func={this.handleLanguageChange}/>
                             <div className="form-label">{this.state.shownword}</div>
@@ -73,6 +77,7 @@ class ReadAndWrite extends Component{
         this.setState({answerCorrectly: null})
         this.setState({correctAnswer: ""})
         this.setState({wordInput: ""})
+        this.setState({validation: ""})
     }
 
     handleWordInput(event){
@@ -97,6 +102,19 @@ class ReadAndWrite extends Component{
         this.setState({answerCorrectly: false})
         this.setState({validation: 'is-invalid'})
 
+    }
+
+    //If user token is not valid, redirects to login page
+    async handleAuth(){
+        const invalid = await pageAuth();
+        if(invalid)
+            Swal.fire({
+                icon: "warning",
+                titleText: "Session expired",
+                text: "You must login again",
+                position:"top",
+                padding: "3em 3em 3em 3em"
+            }).then(() => {window.location.href = "/";})      
     }
 }
 

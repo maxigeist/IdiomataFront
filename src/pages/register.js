@@ -5,6 +5,8 @@ import UserRequester from "../util/requester/userRequester";
 import { alert } from "../util/alert";
 import { delay } from "../util/delay";
 import LanguageSelector from "../components/languageSelector";
+import Swal from "sweetalert2";
+
 
 
 const userDataRequester = new UserRequester();
@@ -87,12 +89,15 @@ class Register extends Component{
 
             userDataRequester.saveRegisterData(this.state.name, this.state.email, this.state.password, this.state.language);
 
-            alert('success', "You can now log in to your account", "Registration Succesfully")
-            await delay(3000)
-            this.redirect()
+            Swal.fire({
+                icon: 'success',
+                titleText: "You can now log in to your account",
+                text: "Registration Succesfully",
+                position:"top",
+                padding: "3em 3em 3em 3em"
+            }).then(() => {window.location.href="/";})
         }
     }
 
-    redirect = () => window.location.href="/";
 }
 export default Register;
