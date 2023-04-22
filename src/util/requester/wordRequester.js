@@ -3,12 +3,12 @@ import axios from "axios";
 export class WordRequester{
 
     async getWords(language, category, difficulty, limit){
-        console.log(language)
+        if(category.length === 0) category = undefined
         try {
             const response = await axios.post('http://localhost:3001/api/word/wordlist', {
                 language: language,
+                category: category
         } );
-            console.log(response.data);
             return response.data
         } catch (error) {
             console.log(error)

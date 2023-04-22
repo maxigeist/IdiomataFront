@@ -104,7 +104,13 @@ class AdminHub extends Component{
     async handleAuth(){
         const invalid = await AdminPageAuth();
         if(invalid)
-            window.location.href = "/admin";
+        Swal.fire({
+            icon: "warning",
+            titleText: "Session expired",
+            text: "You must login again",
+            position:"top",
+            padding: "3em 3em 3em 3em"
+        }).then(() => {window.location.href = "/admin";})
     }
 }
 
