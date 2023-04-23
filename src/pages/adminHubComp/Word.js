@@ -3,6 +3,7 @@ import { WordRequester } from "../../util/requester/wordRequester";
 import CategorySelector from "../../components/categorySelector";
 import { alert } from "../../util/alert";
 import LanguageSelector from "../../components/languageSelector";
+import Swal from "sweetalert2";
 
 const wordRequester = new WordRequester()
 
@@ -201,8 +202,12 @@ class SearchWord extends React.Component{
 
     //Search the word and grab the info
     async handleSubmit(){
-        const data = await wordRequester.searchWord(this.state.word)
-        this.setState({result: data})
+        const response = await wordRequester.searchWord(this.state.word)
+        console.log(response)
+        if(response.status !== 200){
+            alert("error", "Word not found", "")
+        }
+        this.setState({result: response.data})
     }
 }
 
@@ -217,7 +222,7 @@ class SearchResult extends React.Component{
         this.state = {translation: 0}
 
         this.handleTranslationChange = this.handleTranslationChange.bind(this)
-       // this.handleTranslationDelete = this.handleTranslationDelete.bind(this)
+        this.handleTranslationDelete = this.handleTranslationDelete.bind(this)
     }
     
     render(){
@@ -236,7 +241,7 @@ class SearchResult extends React.Component{
                 <label className="form-label">Enter translation id:</label>
                 <input className="form-control shadow-none" onChange={this.handleTranslationChange}></input>
                 <br/>
-                <button type="button" className="btn btn-danger" >Delete</button>
+                <button type="button" className="btn btn-danger" onClick={this.handleTranslationDelete}>Delete</button>
             </div>
         )
     }
@@ -264,5 +269,11 @@ class SearchResult extends React.Component{
         this.setState({translation: event.target.value})
     }
 
+    async handleTranslationDelete(){
+        const response = await wordRequester.deleteTranslation(this.state.translation)
+        if(response === 200){
+            alert('success', 'Translation deleted successfully', '')
+        }
+    }
 }
 

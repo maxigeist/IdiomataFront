@@ -44,9 +44,10 @@ export class WordRequester{
     async searchWord(word){
         try{
             const response = await axios.get("http://localhost:3001/api/word/translation/" + word)
-            return response.data
+            return response
         }catch(error){
             console.log(error)
+            return error
         }
     }
 
@@ -64,7 +65,7 @@ export class WordRequester{
     async deleteTranslation(translationId){
         try {
             const response = await axios.delete("http://localhost:3001/api/word/translation", {
-                id: translationId
+                data: {id: Number(translationId)}
             })
             return response.status
         } catch (error) {
