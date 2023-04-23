@@ -46,8 +46,8 @@ class AddWord extends React.Component{
 
                     <br/>
                     
-                    <button className="btn btn-primary m-3" onClick={this.handleSubmit}>Add</button>
-                    <button className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
+                    <button className="btn btn-success m-1 fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-plus-square"></i></button>
+                    <button className="btn btn-danger fs-5 w-25" onClick={this.handleDelete}><i class="bi bi-trash"></i></button>
                 </div>
             </div>
         </div>
@@ -125,7 +125,7 @@ class AddTranslation extends React.Component{
 
                     <br/>
 
-                    <button className="btn btn-primary" onClick={this.handleSubmit}>Add</button>
+                    <button className="btn btn-success fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-plus-square"></i></button>
                 </div>
             </div>
         </div>
@@ -183,7 +183,7 @@ class SearchWord extends React.Component{
 
                     <br/>
 
-                    <button className="btn btn-primary m-3" onClick={this.handleSubmit}>Search</button>
+                    <button className="btn btn-primary fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-search"></i></button>
                     <br/>
                     <br/>
 
@@ -236,7 +236,7 @@ class SearchResult extends React.Component{
                 <label className="form-label">Enter translation id:</label>
                 <input className="form-control shadow-none" onChange={this.handleTranslationChange}></input>
                 <br/>
-                <button type="button" className="btn btn-danger" >Delete</button>
+                <button type="button" className="btn btn-danger fs-5 w-25"><i class="bi bi-trash"></i></button>
             </div>
         )
     }

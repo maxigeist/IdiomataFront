@@ -17,7 +17,7 @@ class homepage extends Component{
     render(){
         return(
             <div style={{height:"100vh", width:"100%"}}>
-                <div className="principal-container" style={{height:"20%"}}>
+                <div className="principal-container">
                 <NavBar selected = "home"/>
                 {/* <h1 className="main-title">Start playing right now!</h1> */}
                 </div>

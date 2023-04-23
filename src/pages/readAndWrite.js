@@ -40,8 +40,8 @@ class ReadAndWrite extends Component{
                 
             
 
-                <div className="container p-4 raw-div">
-                    <div className="card raw-div">
+                <div className="container p-4 col-6">
+                    <div className="card  border-primary">
                         <h4 className="card-header">Word Prompt</h4>
                         <div className="card-body">
                             <LanguageSelector func={this.handleLanguageChange}/>
