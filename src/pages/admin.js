@@ -15,6 +15,7 @@ class Admin extends Component{
         this.handleLogIn = this.handleLogIn.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleBack = this.handleBack.bind(this)
     }
 
     render(){
@@ -39,6 +40,7 @@ class Admin extends Component{
                 </div>
                 
                 <button type="button" class="btn btn-success btn-lg butt" onClick={this.handleLogIn}>Log In</button>
+                <button type="button" className="btn btn-primary" onClick={this.handleBack}>Back</button>
                 
                 
             </div>
@@ -64,6 +66,10 @@ class Admin extends Component{
 
     handlePasswordChange(e){
         this.setState({password: e.target.value})
+    }
+
+    handleBack(){
+        window.location.href = "/";
     }
 }
 

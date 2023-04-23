@@ -1,5 +1,7 @@
 import React from "react";
 import { WordRequester } from "../../util/requester/wordRequester";
+import { alert } from "../../util/alert";
+import LanguageSelector from "../../components/languageSelector";
 
 const wordRequester = new WordRequester()
 
@@ -25,13 +27,14 @@ class AddWord extends React.Component{
         this.handleWordChange = this.handleWordChange.bind(this)
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     render(){
         return (
         <div className="container col-3">
             <div className="card">
-                <h4 className="card-header">Add Word</h4>
+                <h4 className="card-header">Add/Delete Word</h4>
                 <div className="p-2">
                     <label className="form-label">Enter word in english</label>
                     <input className="form-control shadow-none" onChange={this.handleWordChange}/>
@@ -45,8 +48,9 @@ class AddWord extends React.Component{
                     </select>
 
                     <br/>
-
-                    <button className="btn btn-primary" onClick={this.handleSubmit}>Add</button>
+                    
+                    <button className="btn btn-primary m-3" onClick={this.handleSubmit}>Add</button>
+                    <button className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
                 </div>
             </div>
         </div>
@@ -61,7 +65,23 @@ class AddWord extends React.Component{
     }
 
     async handleSubmit(){
-        await wordRequester.createWord(this.state.addWordInput, this.state.addWordCategory)
+        const status = await wordRequester.createWord(this.state.addWordInput, this.state.addWordCategory)
+        if(status === 200){
+            alert('success', 'Word added successfully', '')
+        }
+        else{
+            alert('error', 'An error occurred', 'An error occurred when adding word')
+        }
+    }
+
+    async handleDelete(){
+        const status = await wordRequester.deleteWord(this.state.addWordInput)
+        if(status === 200){
+            alert('success', 'Word deleted successfully', '')
+        }
+        else{
+            alert('error', 'An error occurred', 'The word was not deleted correctly')
+        }
     }
 }
 
@@ -104,11 +124,7 @@ class AddTranslation extends React.Component{
 
                     <br/>
 
-                    <select className="form-select shadow-none" onChange={this.handleLangChange}>
-                        <option>Select Language</option>
-                        <option value={"italian"}>Italian</option>
-                        <option value={"spanish"}>Spanish</option>
-                    </select>
+                    <LanguageSelector func={this.handleLangChange}/>
 
                     <br/>
 
@@ -136,7 +152,13 @@ class AddTranslation extends React.Component{
     }
 
     async handleSubmit(){
-        wordRequester.addTranslation(this.state.word, this.state.translation, this.state.dif, this.state.lang)
+        const status = await wordRequester.addTranslation(this.state.word, this.state.translation, this.state.dif, this.state.lang)
+        if(status === 200){
+            alert('success', 'Translation added successfully', '')
+        }
+        else{
+            alert('error', 'An error occurred', 'An error occurred when adding translation')
+        }
     }
 }
 
@@ -164,8 +186,7 @@ class SearchWord extends React.Component{
 
                     <br/>
 
-                    <button className="btn btn-primary" onClick={this.handleSubmit}>Search</button>
-
+                    <button className="btn btn-primary m-3" onClick={this.handleSubmit}>Search</button>
                     <br/>
                     <br/>
 
@@ -196,6 +217,10 @@ class SearchResult extends React.Component{
 
         this.languages = []
         this.translationsByLang = []
+        this.state = {translation: 0}
+
+        this.handleTranslationChange = this.handleTranslationChange.bind(this)
+       // this.handleTranslationDelete = this.handleTranslationDelete.bind(this)
     }
     
     render(){
@@ -204,9 +229,18 @@ class SearchResult extends React.Component{
         this.loadInfo()
 
         return(
-            <ul>
-                {this.translationsByLang}
-            </ul>
+            <div>
+                <ul>
+                    {this.translationsByLang}
+                </ul>
+                <br/>
+                <h5>Delete translation by id:</h5>
+                <br/>
+                <label className="form-label">Enter translation id:</label>
+                <input className="form-control shadow-none" onChange={this.handleTranslationChange}></input>
+                <br/>
+                <button type="button" className="btn btn-danger" >Delete</button>
+            </div>
         )
     }
 
@@ -218,7 +252,7 @@ class SearchResult extends React.Component{
         for (let i = 0; i < this.props.wordInfo.length; i++) {
             const listElement = this.props.wordInfo[i]
 
-            const translations = listElement.translations.map((translation) => translation.translated)
+            const translations = listElement.translations.map((translation) => {return [translation.translated, " id: " + translation.id]})
 
             this.languages.push(listElement.name)
 
@@ -228,5 +262,10 @@ class SearchResult extends React.Component{
             
         }
     }
+
+    handleTranslationChange(event){
+        this.setState({translation: event.target.value})
+    }
+
 }
 
