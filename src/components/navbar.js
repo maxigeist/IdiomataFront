@@ -3,6 +3,7 @@ import dictImg from "../resources/993441.png";
 import "../style/navbar.css"
 
 
+
 class NavBar extends Component{
 
     selected = {home: "", stats: "", chat: "", account: ""}
@@ -18,26 +19,29 @@ class NavBar extends Component{
     render(){
 
         return(
-            <div className="header">
+            <div className="header" >
                     
                     
                     <div class="w-100">
                     <nav>
                     <img src={dictImg} class="logo-img rounded float-start" alt="logo"></img>
-                    <ul className="nav pt-5">
+
+                    <div className="pt-5">
+                    <ul className="nav " data-bs-theme="dark">
                     
                     <div class="d-flex justify-content-evenly w-75">
-                            <li className ={"nav-li " + this.selected.home + " nav-link fs-2"} onClick={this.redirectHomePage}>Home</li>
-                            <li className={"nav-li " + this.selected.stats + " nav-link fs-2"} >Stats</li>
-                            <li className={"nav-li " + this.selected.chat + " nav-link fs-2"}>Chat</li>
+                            <li className ={"nav-li " + this.selected.home + " nav-link fs-2"} onClick={this.redirectHomePage}><i class="bi bi-joystick navicon"></i>Play</li>
+                            <li className={"nav-li " + this.selected.stats + " nav-link fs-2"} ><i class="bi bi-bar-chart-fill navicon" ></i>Stats</li>
+                            <li className={"nav-li " + this.selected.chat + " nav-link fs-2"}><i class="fa-solid fa-user-group navicon"></i>Chat</li>
                     </div>
 
                     
                         
                     <div class="ms-auto me-5">
-                        <li className={"nav-li Account-li " + this.selected.account + " nav-link fs-2"} onClick={this.redirectAccountPage}>Account</li>
+                        <li className={"nav-li Account-li " + this.selected.account + " nav-link fs-2"} onClick={this.redirectAccountPage}><i class="bi bi-person-circle navicon"></i>Account</li>
                     </div>
                     </ul>
+                    </div>
                     
                     
                     

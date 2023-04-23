@@ -1,3 +1,8 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 .raw-button{
     border-right: 5px solid #2fa1da;
     background-color: #ffb300;
@@ -38,6 +43,6 @@
     border-right: 5px solid black ;
 
 }
-.RaW-div{
-    display: flex;
+.raw-div{
+    height: 100%;
 }
