@@ -31,15 +31,24 @@ class account extends Component{
         return(
             <div>
                 <NavBar selected = "account"/>
-                <div>
-                    <h1 className="profile">Name: {this.state.name}</h1>
-                    <h2 className="profile">Email: {this.state.email}</h2>
-                    <label onClick={this.handleEmailChange}>Change Email</label>
-                    <h3 className="profile">Password: ****</h3>
-                    <label onClick={this.handlePasswordChange}>Change Password</label>
-                </div>
-                <div>
-                    <button onClick={this.handleLogOut}>LogOut</button>
+                <div className="col-6 p-4">
+                    <div className="card">
+                        <h3 className="card-header mb-3">Profile</h3>
+                        <div className="card-body">
+                            <h4 className="mb-5">Name: {this.state.name}</h4>
+                            <div className="row mb-5">
+                                <h4 className="col">Email: {this.state.email}</h4>
+                                <button onClick={this.handleEmailChange} type="button" className="btn btn-warning col-2">Change</button>
+                            </div>
+                            <div className="row mb-5">
+                                <h4 className="col">Password: ****</h4>
+                                <button onClick={this.handlePasswordChange} type="button" className="btn btn-warning col-2">Change</button>
+                            </div>
+                            <div>
+                                <button onClick={this.handleLogOut} type="button" className="btn btn-danger">LogOut</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
