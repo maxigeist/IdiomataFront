@@ -37,12 +37,12 @@ class ReadAndWrite extends Component{
 
     render(){
         return(
-            <div className="principal-container w-100">
+            <div className="principal-container w-100 h-100">
                 
-                
+            
 
-                <div className="container col-5 p-4 ">
-                    <div className="card">
+                <div className="container p-4 raw-div">
+                    <div className="card raw-div">
                         <h4 className="card-header">Word Prompt</h4>
                         <div className="card-body">
                             <div className="container">

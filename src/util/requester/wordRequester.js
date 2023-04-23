@@ -49,6 +49,28 @@ export class WordRequester{
             console.log(error)
         }
     }
+
+    async deleteWord(word){
+        try {
+            const response = await axios.delete("http://localhost:3001/api/word", {
+                data:{inEnglish: word}
+            })
+            return response.status
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deleteTranslation(translationId){
+        try {
+            const response = await axios.delete("http://localhost:3001/api/word/translation", {
+                id: translationId
+            })
+            return response.status
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default WordRequester

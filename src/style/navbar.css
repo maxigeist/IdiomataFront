@@ -1,13 +1,16 @@
 .header{
     display: flex;
     flex-direction: row;
-    border-bottom: 5px solid black;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.772);
 }
 
 .logo-img{
     margin: 1%;
+    margin-left: 4%;
     width: 8%;
     height: auto;
+    opacity: 95%;
+    
 
 }
 
@@ -22,9 +25,7 @@
     font-size: 35px;
     Font-family: Lato, sans-serif;
     font-weight: bold; */
-    padding-left: 0;
-    padding-right: 0;
-
+    color: black;
     cursor:pointer;
     position: relative;
     top: 0;
@@ -33,22 +34,16 @@
 
 .nav-li:hover{
 
-   color: #D79700;
+   color: white;
    top: -10px;
-    
-
 }
-/* 
-.Account-li{
-    
-    padding-right: 0px;
-    box-sizing: border-box;
-    position: absolute;
-    left: 85%;
-    margin-bottom: 0;
-    
-} */
+
+.navicon{
+    padding: 5px;
+}
+
 
 .selected-li{
-    border-bottom: 4px solid #D79700;
+    /* border-bottom: 4px solid #D79700; */
+    color: white;
 }

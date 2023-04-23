@@ -16,15 +16,15 @@ class homepage extends Component{
 
     render(){
         return(
-            <section>
-                <div className="principal-container">
+            <div style={{height:"100vh", width:"100%"}}>
+                <div className="principal-container" style={{height:"20%"}}>
                 <NavBar selected = "home"/>
                 {/* <h1 className="main-title">Start playing right now!</h1> */}
                 </div>
                 <div className="game">
                     <GamesDisplay/>
                 </div>
-            </section>
+            </div>
 
         );
     }
