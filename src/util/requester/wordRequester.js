@@ -3,12 +3,12 @@ import axios from "axios";
 export class WordRequester{
 
     async getWords(language, category, difficulty, limit){
-        console.log(language)
+        if(category.length === 0) category = undefined
         try {
             const response = await axios.post('http://localhost:3001/api/word/wordlist', {
                 language: language,
+                category: category
         } );
-            console.log(response.data);
             return response.data
         } catch (error) {
             console.log(error)
@@ -44,9 +44,10 @@ export class WordRequester{
     async searchWord(word){
         try{
             const response = await axios.get("http://localhost:3001/api/word/translation/" + word)
-            return response.data
+            return response
         }catch(error){
             console.log(error)
+            return error
         }
     }
 
@@ -64,7 +65,7 @@ export class WordRequester{
     async deleteTranslation(translationId){
         try {
             const response = await axios.delete("http://localhost:3001/api/word/translation", {
-                id: translationId
+                data: {id: Number(translationId)}
             })
             return response.status
         } catch (error) {

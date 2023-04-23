@@ -1,7 +1,5 @@
 import UserRequester from "./requester/userRequester"
 import AdminRequester from "./requester/adminRequester"
-import { delay } from "./delay";
-import { alert } from "./alert";
 
 const userRequester = new UserRequester();
 const adminRequester = new AdminRequester();
@@ -28,9 +26,6 @@ export async function pageAuth(){
 export async function AdminPageAuth(){
 
     if(!await adminRequester.isAuth()) {
-        alert("warning", "Session expired", "You must login again")
-
-        await delay(3000)
         return true
     }
 

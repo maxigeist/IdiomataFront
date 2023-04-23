@@ -10,6 +10,7 @@ import {FaCheck, FaTimes} from 'react-icons/fa';
 import { StatsRequester } from "../util/requester/statsRequester";
 import { pageAuth } from "../util/pageAuth";
 import Swal from "sweetalert2";
+import CategorySelector from "../components/categorySelector";
 
 class ReadAndWrite extends Component{
 
@@ -24,6 +25,7 @@ class ReadAndWrite extends Component{
         this.state = {language: "", category: "", difficulty: "", words:[], shownword:"", translations: [], wordInput: "", limit: undefined, answerCorrectly: null, correctAnswer: "", validation: ""}
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this)
+        this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.showWords = this.showWords.bind(this)
         this.handleWordInput = this.handleWordInput.bind(this)
         this.handleCheck = this.handleCheck.bind(this)
@@ -34,7 +36,6 @@ class ReadAndWrite extends Component{
     }
 
     render(){
-        console.log(this.state.wordInput)
         return(
             <div className="principal-container w-100 h-100">
                 
@@ -44,7 +45,17 @@ class ReadAndWrite extends Component{
                     <div className="card  border-primary">
                         <h4 className="card-header">Word Prompt</h4>
                         <div className="card-body">
-                            <LanguageSelector func={this.handleLanguageChange}/>
+                            <div className="container">
+                                <div className="row">
+                                <div className="col-6">
+                                    <LanguageSelector func={this.handleLanguageChange}/>
+                                </div>
+                                <div className="col-6">
+                                    <CategorySelector func={this.handleCategoryChange}/>
+                                </div>
+                                </div>
+                                
+                            </div>
                             <div className="form-label">{this.state.shownword}</div>
                             <input className={"form-control shadow-none " + this.state.validation} onChange={this.handleWordInput} value={this.state.wordInput}></input>
                             <br/>
@@ -67,6 +78,11 @@ class ReadAndWrite extends Component{
 
     handleLanguageChange(event){
         this.setState({language: event.target.value}, async() => {await this.loadWords()});
+    }
+
+    handleCategoryChange(event){
+        console.log("Category: ", event.target.value)
+        this.setState({category: event.target.value}, async() => {await this.loadWords()});
     }
 
     showWords(){
