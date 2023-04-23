@@ -8,6 +8,7 @@
     margin: 0.5%;
 }
 
+
 .Header{
     display: flex;
     flex-wrap: wrap;
@@ -58,13 +59,14 @@
     color: rgba(0, 0, 0, 0.584);
 } */
 
-.nav-link{
+.navbar{
     color: lightblue;
     margin-bottom: 10%;
+    padding:10px;
     
 }
 
-.nav-link:hover{
+.navbar:hover{
     cursor:pointer;
     color: lightblue;
     background-color: rgba(0, 0, 0, 0.2);

@@ -37,16 +37,16 @@ class AdminHub extends Component{
                         <ul class="nav d-flex justify-content-evenly ">
                             
                             <li class="nav-item">
-                                <label class="nav-link fs-2 " id="Category" onClick={this.handleFirstOp}>Category</label>
+                                <label class="nav-link fs-2 navbar" id="Category" onClick={this.handleFirstOp}>Category</label>
                             </li>
                             <li class="nav-item">
-                                <label class="nav-link fs-2" id="Word" onClick={this.handleFirstOp}>Word</label>
+                                <label class="nav-link fs-2 navbar" id="Word" onClick={this.handleFirstOp}>Word</label>
                             </li>
                             <li class="nav-item">
-                                <label class="nav-link fs-2" id="Language" onClick={this.handleFirstOp} >Language</label>
+                                <label class="nav-link fs-2 navbar" id="Language" onClick={this.handleFirstOp} >Language</label>
                             </li>
                             <li class="nav-item">
-                                <label class="nav-link fs-2">User</label>
+                                <label class="nav-link fs-2 navbar">User</label>
                             </li>
                         </ul>
                             {/* <ul className="nav justify-content-center"></ul>
@@ -68,18 +68,16 @@ class AdminHub extends Component{
         */
     handleFirstOp(event){
         if(this.state.to === "" || this.state.to === event.target.id){
-            var getclass = event.target.id;
-            var label = document.querySelector(`#${getclass}` ) 
-            label.style.color = "white";
             
+            document.querySelector(`#${event.target.id}`).style.color = "white";
             var firstop = document.querySelector(".first-op")
             firstop.style.display = "flex";
             this.setState({to: event.target.id})
         }
         else{
-            document.querySelector(`#${this.state.to}`).style.color = "lightblue"
+            document.querySelector(`#${this.state.to}`).style.color = "lightblue";
             (this.setState({to: event.target.id}));
-            this.handleFirstOp(event)
+            document.querySelector(`#${event.target.id}`).style.color = "white";
 
             
         }
@@ -126,7 +124,7 @@ class FirstOp extends Component{
         //Como tienen el mismo ABM uso el mismo código para los dos
         if(this.props.to === "Category" || this.props.to === "Language"){
             return(
-                <CateLan to={this.props.to}></CateLan>
+                <CateLan to={this.props.to}/>
                 
             );
         }

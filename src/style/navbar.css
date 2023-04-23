@@ -4,28 +4,27 @@
     border-bottom: 5px solid black;
 }
 
-.logo{
-    margin: 2%;
-    height: 100px;
-    width: auto;
-    display: flex;
+.logo-img{
+    margin: 1%;
+    width: 8%;
+    height: auto;
 
 }
 
-.ul-nav {
-    list-style-type: none;
-    margin-left: 50px;
- }
+
 
 .nav-li{
     
-    float: left;
+    /* float: left;
     margin-right: 150px;
     margin-top: 70px;
     margin-bottom: 10px;
     font-size: 35px;
     Font-family: Lato, sans-serif;
-    font-weight: bold;
+    font-weight: bold; */
+    padding-left: 0;
+    padding-right: 0;
+
     cursor:pointer;
     position: relative;
     top: 0;
@@ -39,7 +38,7 @@
     
 
 }
-
+/* 
 .Account-li{
     
     padding-right: 0px;
@@ -48,7 +47,7 @@
     left: 85%;
     margin-bottom: 0;
     
-}
+} */
 
 .selected-li{
     border-bottom: 4px solid #D79700;

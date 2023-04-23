@@ -30,6 +30,7 @@ class Admin extends Component{
             //     </form>
             // </div>
             <div className="form-div">
+                
                 <div class="form-floating mb-3 col-sm">
                     <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={this.handleEmailChange}/>
                     <label for="floatingInput">Email address</label>

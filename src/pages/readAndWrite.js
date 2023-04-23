@@ -5,16 +5,23 @@ import NavBar from "../components/navbar";
 import GamesDisplay from "../components/gamesdisplay";
 import WordRequester from "../util/requester/wordRequester";
 import LanguageSelector from "../components/languageSelector";
+//TODO remove unused packagae
 import {FaCheck, FaTimes} from 'react-icons/fa';
+import { StatsRequester } from "../util/requester/statsRequester";
+import { pageAuth } from "../util/pageAuth";
+import Swal from "sweetalert2";
 
-class readAndWrite extends Component{
+class ReadAndWrite extends Component{
 
     wordRequester = new WordRequester();
+    statsRequester = new StatsRequester();
 
     constructor(props){
         super(props)
 
-        this.state = {language: "", category: "", difficulty: "", words:[], shownword:"", translations: [], wordInput: "", limit: undefined, answerCorrectly: null, correctAnswer: ""}
+        this.handleAuth()
+
+        this.state = {language: "", category: "", difficulty: "", words:[], shownword:"", translations: [], wordInput: "", limit: undefined, answerCorrectly: null, correctAnswer: "", validation: ""}
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this)
         this.showWords = this.showWords.bind(this)
@@ -29,18 +36,26 @@ class readAndWrite extends Component{
     render(){
         console.log(this.state.wordInput)
         return(
-            <div className="principal-container">
-                <NavBar/>
-                <GamesDisplay/>
-                <LanguageSelector func={this.handleLanguageChange}/>
-                <button className="raw-input" onClick={this.showWords}>Next Word</button>
-                <div className="raw-input">{this.state.shownword}</div>
-                <input className="raw-input" onChange={this.handleWordInput} value={this.state.wordInput}></input>
-                <button className="raw-input" onClick={this.handleCheck}>Check</button>
-                {this.state.answerCorrectly === true && <FaCheck className="raw-input" style={{color: 'green'}}/>}
-                {this.state.answerCorrectly === false && <FaTimes className="raw-input" style={{color: 'red'}}/>}
-                {this.state.answerCorrectly === true && <p className="raw-input">Well done!</p>}
-                {this.state.answerCorrectly === false && <p className="raw-input">You answered incorrectly, the correct answer is "{this.state.correctAnswer}".</p>}
+            <div className="principal-container w-100">
+                
+                
+
+                <div className="container col-5 p-4 ">
+                    <div className="card">
+                        <h4 className="card-header">Word Prompt</h4>
+                        <div className="card-body">
+                            <LanguageSelector func={this.handleLanguageChange}/>
+                            <div className="form-label">{this.state.shownword}</div>
+                            <input className={"form-control shadow-none " + this.state.validation} onChange={this.handleWordInput} value={this.state.wordInput}></input>
+                            <br/>
+
+                            {this.state.answerCorrectly === false && <p className="">You answered incorrectly, the correct answer is "{this.state.correctAnswer}".</p>}
+                            <button className="btn btn-outline-success m-2" onClick={this.handleCheck}>Check</button>
+                            <button className="btn btn-primary" onClick={this.showWords}>Next Word</button>
+                        </div>
+                    
+                    </div>
+                </div>
             </div>
         );
     }
@@ -56,32 +71,52 @@ class readAndWrite extends Component{
 
     showWords(){
         const word = this.state.words[Math.floor(Math.random()*this.state.words.length)]
-        this.setState({shownword: word.inEnglish})
+        if(this.state.language)
+            this.setState({shownword: word.inEnglish});
         this.setState({translations: word.translations})
         this.setState({answerCorrectly: null})
         this.setState({correctAnswer: ""})
         this.setState({wordInput: ""})
+        this.setState({validation: ""})
     }
 
     handleWordInput(event){
         this.setState({wordInput: event.target.value})
     }
 
-    handleCheck(){
+    async handleCheck(){
         for (const translation in this.state.translations) {
             if (Object.hasOwnProperty.call(this.state.translations, translation)) {
-                const element = this.state.translations[translation];
-                this.setState({correctAnswer: element})
-                if(element === this.state.wordInput){
+                const translationObj = this.state.translations[translation]
+                const translated = translationObj.translated;
+                this.setState({correctAnswer: translated})
+                if(translated === this.state.wordInput){
                     this.setState({answerCorrectly: true})
-                }
-                else{
-                    this.setState({answerCorrectly: false})
+                    this.setState({validation: 'is-valid'})
+                    await this.statsRequester.sendWordAttempt(this.state.shownword, translationObj.id, true)
+                    return
                 }
             }
         }
+        await this.statsRequester.sendWordAttempt(this.state.shownword, null, false)
+        this.setState({answerCorrectly: false})
+        this.setState({validation: 'is-invalid'})
+
+    }
+
+    //If user token is not valid, redirects to login page
+    async handleAuth(){
+        const invalid = await pageAuth();
+        if(invalid)
+            Swal.fire({
+                icon: "warning",
+                titleText: "Session expired",
+                text: "You must login again",
+                position:"top",
+                padding: "3em 3em 3em 3em"
+            }).then(() => {window.location.href = "/";})      
     }
 }
 
 
-export default readAndWrite;
+export default ReadAndWrite;

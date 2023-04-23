@@ -14,9 +14,6 @@ const adminRequester = new AdminRequester();
 export async function pageAuth(){
 
     if(!await userRequester.isAuth()) {
-        alert("warning", "Session expired", "You must login again")
-
-        await delay(3000)
         return true
     }
 

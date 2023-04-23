@@ -1,5 +1,6 @@
 import React from "react";
 import { WordRequester } from "../../util/requester/wordRequester";
+import CategorySelector from "../../components/categorySelector";
 import { alert } from "../../util/alert";
 import LanguageSelector from "../../components/languageSelector";
 
@@ -41,11 +42,7 @@ class AddWord extends React.Component{
 
                     <br/>
 
-                    <select className="form-select shadow-none" onChange={this.handleCategoryChange}>
-                        <option>Select Category</option>
-                        <option value={"Sport"}>Sport</option>
-                        <option value={"science"}>Science</option>
-                    </select>
+                    <CategorySelector func={this.handleCategoryChange}/>
 
                     <br/>
                     

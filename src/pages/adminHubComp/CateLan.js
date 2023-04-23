@@ -2,7 +2,7 @@ import { Component } from "react";
 import categoryRequester from "../../util/requester/categoryRequester";
 import languageRequester from "../../util/requester/languageRequester";
 import Swal from "sweetalert2";
-import LanguageSelector from "../../components/languageSelector";
+
 
 
 
@@ -37,20 +37,18 @@ class CateLan extends Component{
 
     async componentDidMount(){
         const languages = await languagedataRequester.getAllLanguages();
-        this.setState({languages: languages})
         const categories = await categorydataRequester.getAllCategories();
+        this.setState({languages: languages})
         this.setState({categories: categories})
     }
 
     render(){
         return(
-            
                 <this.makeLiOptions/>
-            
         );
     }
 
-    async handleAddButton(event){
+    handleAddButton(event){
         event.preventDefault()
         Swal.fire({
             title:`Insert new ${this.props.to}`,
@@ -58,9 +56,9 @@ class CateLan extends Component{
             showCancelButton: true,
             confirmButtonText: 'Save',
             cancelButtonText: 'Cancel',
-        }).then(result => {
+        }).then(async result => { 
             if(result.value){
-                (this.props.to === "Category") ? categorydataRequester.createCategory(result.value) : languagedataRequester.createLanguage(result.value);
+                (this.props.to === "Category") ? await categorydataRequester.createCategory(result.value) : await languagedataRequester.createLanguage(result.value);
                 Swal.fire({
                     icon: 'success',
                     titleText: `New ${this.props.to} created`,
@@ -81,7 +79,7 @@ class CateLan extends Component{
     async handleDeleteButton(event){
         event.preventDefault()
         try{
-            (this.props.to === "Category") ? categorydataRequester.deleteCategory(this.state.active) : languagedataRequester.deleteLanguage(this.state.active);
+            (this.props.to === "Category") ? await categorydataRequester.deleteCategory(this.state.active) : await languagedataRequester.deleteLanguage(this.state.active);
         
         Swal.fire({
             icon :"success",
@@ -99,7 +97,7 @@ class CateLan extends Component{
     }
 
 
-    async handleModifyButton(event){
+    handleModifyButton(event){
         event.preventDefault()
         Swal.fire({
             title:`Insert new name for the ${this.props.to}`,
@@ -107,9 +105,9 @@ class CateLan extends Component{
             showCancelButton: true,
             confirmButtonText: 'Save',
             cancelButtonText: 'Cancel',
-        }).then(result => {
+        }).then(async result => {
             if(result.value){
-                (this.props.to === "Category") ? categorydataRequester.modifyCategory(this.state.active, result.value) : languagedataRequester.modifyLanguage(this.state.active,result.value);
+                (this.props.to === "Category") ? await categorydataRequester.modifyCategory(this.state.active, result.value) : await languagedataRequester.modifyLanguage(this.state.active,result.value);
                 Swal.fire({
                     icon: 'success',
                     titleText: `Name of the ${this.props.to} changed`,
@@ -126,9 +124,7 @@ class CateLan extends Component{
     }
 
 
-    makeLiOptions(){
-        
-        
+    makeLiOptions(){    
         var options ="";
         if(this.props.to === "Language"){
             options = this.state.languages.map((language, index) => (
@@ -138,7 +134,6 @@ class CateLan extends Component{
         ));
         }
         else{
-            
             options = this.state.categories.map((category, index) => (
                 <li className="list-group-item " id={category}onClick={this.makeActive}key={index} value={category}>{this.state.categories[index]}</li>
             ));
@@ -150,7 +145,7 @@ class CateLan extends Component{
                 <div class="w-25 ms-5">
                     <ul className="list-group">
                     {options}
-                    {/* <LanguageSelector type="li" func={this.makeActive}/> */}
+                    
                     </ul>
                 </div>
                 <div class="row-cols-lg-5 w-25">
@@ -172,37 +167,12 @@ class CateLan extends Component{
         await this.setState({active: event.target.id});
     }
 
-    //Hay que ver una forma de poder refrescar la tabla, porque si no, no se actualiza.
-
     async refresh(){
         this.inactiveElements();
         await this.componentDidMount();
         
-        
-        
-
-
-        // document.querySelector(".li-options").replace(<this.makeLiOptions/>);
-        
-        // window.location.reload();
-        // return(
-        //     <CateLan to={this.props.to}/>
-        // );
-        
-        
-        
-        // this.componentDidMount();
-        // this.makeActive();
-        
-        
-        // this.forceUpdate();
-        // // x.style.display = "block";
     }
-    // forceUpdte(event){
-    //     event.preventDefault();
-    //     this.forceUpdate();
-    // }
-
+    
     inactiveElements(){
         document.querySelectorAll(".list-group-item").forEach((element) => {
             element.classList.remove("active")

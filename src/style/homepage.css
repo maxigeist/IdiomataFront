@@ -1,63 +1,44 @@
-.header{
+/* .header{
     display: flex;
     flex-direction: row;
     border-bottom: 5px solid black;
-}
-
-.logo{
+} */
+/* .logo{
     margin: 1%;
     height: 100px;
     width: auto;
     display: flex;
 
-}
+} */
 
-.ul-nav {
+/* .ul-nav {
     list-style-type: none;
     margin-left: 80px;
-}
+} */
  
-.nav-li{
-    
-    float: left;
-    margin-right: 150px;
-    margin-top: 50px;
-    font-size: 30px;
-    Font-family: 'JelleeBold';
-    cursor:pointer;
-    position: relative;
-    top: 0;
-    transition: top ease 0.5s;
-  }
 
-.nav-li:hover{
+
+/* .nav-li:hover{
 
     color: #D79700;
     top: -10px;
     
 
-}
-
-.Account-li{
-    
-    padding-right: 0px;
-    box-sizing: border-box;
-    position: absolute;
-    left: 85%;
-    margin-bottom: 0;
-    
-}
+} */
 
 .Games-display{
     display: block;
     margin: 0;
     padding: 0;
-    
     position: absolute;
 }
 
-.game-button{
+.game{
+    height: 82vh;
     
+}
+
+.game-button{
     display: block;
     justify-content: center;
     text-align: center;
@@ -85,5 +66,8 @@
     margin-top: 20%;
     width: auto;
     margin-left: 10%;
+}
 
+.press:hover{
+    cursor: pointer;
 }

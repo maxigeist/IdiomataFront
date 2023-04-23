@@ -3,6 +3,7 @@ import "../style/homepage.css"
 import NavBar from "../components/navbar";
 import { pageAuth } from "../util/pageAuth";
 import GamesDisplay from "../components/gamesdisplay";
+import Swal from "sweetalert2";
 
 
 class homepage extends Component{
@@ -15,13 +16,16 @@ class homepage extends Component{
 
     render(){
         return(
-            <div className="principal-container">
+            <section>
+                <div className="principal-container">
                 <NavBar selected = "home"/>
-                <GamesDisplay/>
+                {/* <h1 className="main-title">Start playing right now!</h1> */}
+                </div>
+                <div className="game">
+                    <GamesDisplay/>
+                </div>
+            </section>
 
-                <h1 className="main-title">Start playing right now!</h1>
-                
-            </div>
         );
     }
 
@@ -29,7 +33,14 @@ class homepage extends Component{
     async handleAuth(){
         const invalid = await pageAuth();
         if(invalid)
-            window.location.href = "/";
+            Swal.fire({
+                icon: "warning",
+                titleText: "Session expired",
+                text: "You must login again",
+                position:"top",
+                padding: "3em 3em 3em 3em"
+            }).then(() => {window.location.href = "/";})
+            
     }
 }
 
