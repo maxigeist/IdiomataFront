@@ -4,8 +4,10 @@ import Swal from "sweetalert2";
 import AdminRequester from "../util/requester/adminRequester";
 import { deleteTokenFromDom } from "../util/domHandler";
 import { AdminPageAuth } from "../util/pageAuth";
-import CateLan from "./adminHubComp/CateLan";
+
 import { Word } from "./adminHubComp/Word";
+import Category from "./adminHubComp/Category";
+import Language from "./adminHubComp/Language";
 
 const adminRequester = new AdminRequester();
 
@@ -118,23 +120,21 @@ export default AdminHub;
 
 
 class FirstOp extends Component{
-    constructor(props){
-        super(props);
-        this.state = {type: "", first_field:"", second_field:"", thirst_field:"",fourth_field:"", fifth_field:"", sixth_field:""};
-        
-
-    }
 
     render(){
 
         //Como tienen el mismo ABM uso el mismo código para los dos
-        if(this.props.to === "Category" || this.props.to === "Language"){
+        if(this.props.to === "Category"){
             return(
-                <CateLan to={this.props.to}/>
-                
+                <Category/>
             );
         }
 
+        if(this.props.to==="Language"){
+            return(
+                <Language/>
+            );
+        }
         if(this.props.to === "Word"){
             return(
                 <Word/>

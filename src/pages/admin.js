@@ -30,8 +30,10 @@ class Admin extends Component{
             //     </form>
             // </div>
             <div className="form-div">
+                <div className="form-div2">
+                <h2>Admin Log In</h2>
                 
-                <div class="form-floating mb-3 col-sm">
+                <div class="form-floating mb-3 ">
                     <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={this.handleEmailChange}/>
                     <label for="floatingInput">Email address</label>
                 </div>
@@ -40,8 +42,11 @@ class Admin extends Component{
                     <label for="floatingPassword">Password</label>
                 </div>
                 
-                <button type="button" class="btn btn-success btn-lg butt" onClick={this.handleLogIn}>Log In</button>
-                <button type="button" className="btn btn-primary" onClick={this.handleBack}>Back</button>
+                <div class="row-cols-auto mt-2">
+                <button type="button" class="btn btn-success m-1 " onClick={this.handleLogIn}>Log In</button>
+                <button type="button" className="btn btn-primary m-1   " onClick={this.handleBack}>Back</button>
+                </div>
+                </div>
                 
                 
             </div>

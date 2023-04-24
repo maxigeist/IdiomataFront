@@ -42,9 +42,9 @@ class ReadAndWrite extends Component{
             
 
                 <div className="container p-4 col-6">
-                    <div className="card  border-primary">
-                        <h4 className="card-header">Word Prompt</h4>
-                        <div className="card-body">
+                    <div className="card" style={{ border:"none"}}>
+                        <h4 className="card-header text-white bg-primary">Word Prompt</h4>
+                        <div className="card-body ">
                             <div className="container">
                                 <div className="row">
                                 <div className="col-6">
@@ -61,7 +61,7 @@ class ReadAndWrite extends Component{
                             <br/>
 
                             {this.state.answerCorrectly === false && <p className="">You answered incorrectly, the correct answer is "{this.state.correctAnswer}".</p>}
-                            <button className="btn btn-outline-success m-2" onClick={this.handleCheck}>Check</button>
+                            <button className="btn btn-success m-2" onClick={this.handleCheck}>Check</button>
                             <button className="btn btn-primary" onClick={this.showWords}>Next Word</button>
                         </div>
                     

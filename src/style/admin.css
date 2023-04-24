@@ -5,14 +5,16 @@
   }
 
 .form-div{
+    height: 100vh;
+    width: auto;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    
-    margin-top: 20%;
-    
+    align-items: center;    
+    text-align: center;
 }
+
+
 
 .butt{
     margin: 1%;

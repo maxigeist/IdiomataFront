@@ -33,7 +33,7 @@ class account extends Component{
                 <NavBar selected = "account"/>
                 <div className="col-6 p-4">
                     <div className="card">
-                        <h3 className="card-header mb-3">Profile</h3>
+                        <h3 className="card-header mb-3 bg-warning">Profile</h3>
                         <div className="card-body">
                             <h4 className="mb-5">Name: {this.state.name}</h4>
                             <div className="row mb-5">
