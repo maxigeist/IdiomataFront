@@ -113,9 +113,9 @@ class UserRequester{
                 {email: newEmail},
                 {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
                 )
-            return update.data
+            return update
         } catch (error) {
-            console.log(error)
+            return error
         }
     }
 }

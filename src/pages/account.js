@@ -108,18 +108,28 @@ class account extends Component{
             confirmButtonText: 'Save',
             cancelButtonText: 'Cancel',
         })
-        .then(result => {
+        .then(async result => {
             if(result.value){
                 let newEmail = result.value;
-                this.requester.changeUserEmail(newEmail);
-                Swal.fire({
-                    icon: 'success',
-                    titleText: 'Email Updated',
-                    text: 'Your email has been updated successfully',
-                    position:"top",
-                    padding: "3em 3em 3em 3em"
-                })
-                .then(function(){window.location.reload()})
+                const response = await this.requester.changeUserEmail(newEmail);
+                if(response.status !== 200){
+                    Swal.fire({
+                        icon: 'error',
+                        titleText: 'Update Failed',
+                        text: 'Email is already taken',
+                        position:"top",
+                        padding: "3em 3em 3em 3em"
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'success',
+                        titleText: 'Email Updated',
+                        text: 'Your email has been updated successfully',
+                        position:"top",
+                        padding: "3em 3em 3em 3em"
+                    })
+                    .then(function(){window.location.reload()})
+                }
             }
         })
     }
