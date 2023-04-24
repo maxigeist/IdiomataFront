@@ -3,7 +3,6 @@ import { WordRequester } from "../../util/requester/wordRequester";
 import CategorySelector from "../../components/categorySelector";
 import { alert } from "../../util/alert";
 import LanguageSelector from "../../components/languageSelector";
-import Swal from "sweetalert2";
 
 const wordRequester = new WordRequester()
 

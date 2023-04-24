@@ -20,9 +20,9 @@ class UserRequester{
                 password: password,
                 language: language 
             });
-            console.log(response);
+            return response
         } catch (error) {
-            console.error(error);
+            return error
         }
     }
 
