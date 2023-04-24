@@ -274,6 +274,9 @@ class SearchResult extends React.Component{
         if(response === 200){
             alert('success', 'Translation deleted successfully', '')
         }
+        else{
+            alert('error', 'Translation not found', '')
+        }
     }
 }
 
