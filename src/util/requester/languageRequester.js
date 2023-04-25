@@ -16,7 +16,7 @@ class languageRequester{
             const response = await axios.post('http://localhost:3001/api/language',{
                 name:name
             });
-            
+            console.log(response)
         }
         catch(error){
             return alert("error", "Language already exists");

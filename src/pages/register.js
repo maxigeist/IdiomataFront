@@ -3,8 +3,6 @@ import "../style/App.css";
 import {Component} from "react";
 import UserRequester from "../util/requester/userRequester";
 import { alert } from "../util/alert";
-import { delay } from "../util/delay";
-import LanguageSelector from "../components/languageSelector";
 import Swal from "sweetalert2";
 
 
