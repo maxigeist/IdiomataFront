@@ -42,11 +42,10 @@ class Register extends Component{
                 <h2 className='titulo'>Register</h2>
                 <div className='formulario-de-registro'>
                     <form className="formulario"> 
-                        <input className="form-input" type="text" placeholder="Name" id ='name' required onChange={this.handleNameChange}/>
-                        <input className="form-input" type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange}/>
+                        <input className="form-input" type="text" placeholder="Name" id ='name' required onChange={this.handleNameChange} autoComplete="off"/>
+                        <input className="form-input" type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange} autoComplete="off"/>
                         <input className="form-input" type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
                         <input className="form-input" type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
-                        <LanguageSelector type="option" func ={this.handleLanguageChange}></LanguageSelector>
                         <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>Create Account</button>
                     </form>
                 </div>

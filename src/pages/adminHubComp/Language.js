@@ -33,7 +33,7 @@ class Language extends Component{
         var options ="";
         options = this.state.languages.map((language, index) => (
             
-            <li className="list-group-item " id={language} onClick={this.makeActive} key={index} value={language}>{this.state.languages[index]}</li>
+            <li className="list-group-item " id={language} onClick={this.makeActive} key={index} value={language} style={{userSelect:"none"}}>{this.state.languages[index]}</li>
         ));
 
             

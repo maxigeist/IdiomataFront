@@ -32,7 +32,7 @@ class Category extends Component{
     makeLiOptions(){    
         var options ="";
             options = this.state.categories.map((category, index) => (
-                <li className="list-group-item " id={category} onClick={this.makeActive} key={index} value={category}>{this.state.categories[index]}</li>
+                <li className="list-group-item " id={category} onClick={this.makeActive} key={index} value={category} style={{userSelect:"none"}}>{this.state.categories[index]}</li>
             ));
         
         return(

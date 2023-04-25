@@ -34,7 +34,7 @@
 
 .formulario-de-registro{
   margin-top: 10px;
-  height: 365px;
+  height: 330px;
   width: auto;
   border: #2e5894 solid 5px;
   border-radius: 10px;
@@ -75,6 +75,7 @@
 }
 .buttons-submit{
   height: 50px;
+  margin-top: 15px;
   width: 100%;
   display: flex;
 }
@@ -109,7 +110,12 @@
   border-bottom:2px dotted black;
   background-color: #00ffff00;
   position: relative;
+  
+  
 }
+
+
+
 
 
 .form-input, .languages:focus{

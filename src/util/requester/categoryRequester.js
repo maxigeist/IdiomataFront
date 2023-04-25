@@ -1,4 +1,5 @@
 import axios from "axios";
+import { alert } from "../alert";
 
 class categoryRequester{
 
@@ -14,10 +15,12 @@ class categoryRequester{
             const response = await axios.post('http://localhost:3001/api/category',{
                 name:name
             });
-            console.log(response);
+            console.log(response.status)
+            return response.status;
+            
         }
         catch(error){
-            console.error(error);
+            return alert("error", "Category already exists");
         }
     }
 
