@@ -4,6 +4,8 @@ import "../style/account.css"
 import UserRequester from "../util/requester/userRequester";
 import { getTokenFromDom, deleteTokenFromDom} from "../util/domHandler"
 import Swal from "sweetalert2";
+import { pageAuth } from "../util/pageAuth";
+
 
 
 class account extends Component{
@@ -14,6 +16,8 @@ class account extends Component{
     
     constructor(props){
         super(props)
+
+        this.handleAuth()
 
         this.state = {}
         this.handleLogOut = this.handleLogOut.bind(this)
@@ -132,6 +136,20 @@ class account extends Component{
                 }
             }
         })
+        
+    }
+
+    //If user token is not valid, redirects to login page
+    async handleAuth(){
+        const invalid = await pageAuth()
+        if(invalid)
+            Swal.fire({
+                icon: "warning",
+                titleText: "Session expired",
+                text: "You must login again",
+                position:"top",
+                padding: "3em 3em 3em 3em"
+            }).then(() => {window.location.href = "/";})
     }
 }
 
