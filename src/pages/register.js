@@ -86,15 +86,28 @@ class Register extends Component{
         else{
             event.preventDefault()
 
-            userDataRequester.saveRegisterData(this.state.name, this.state.email, this.state.password, this.state.language);
+            const response = await userDataRequester.saveRegisterData(this.state.name, this.state.email, this.state.password, this.state.language);
 
-            Swal.fire({
-                icon: 'success',
-                titleText: "You can now log in to your account",
-                text: "Registration Succesfully",
-                position:"top",
-                padding: "3em 3em 3em 3em"
-            }).then(() => {window.location.href="/";})
+            console.log(response)
+
+            if(response.status !== 200){
+                Swal.fire({
+                    icon: 'error',
+                    titleText: "Registration Failed",
+                    text: "Email is already taken",
+                    position:"top",
+                    padding: "3em 3em 3em 3em"
+                })
+            }else{
+                Swal.fire({
+                    icon: 'success',
+                    titleText: "You can now log in to your account",
+                    text: "Registration Succesfully",
+                    position:"top",
+                    padding: "3em 3em 3em 3em"
+                }).then(() => {window.location.href="/";})
+            }
+            
         }
     }
 

@@ -20,9 +20,9 @@ class UserRequester{
                 password: password,
                 language: language 
             });
-            console.log(response);
+            return response
         } catch (error) {
-            console.error(error);
+            return error
         }
     }
 
@@ -113,9 +113,9 @@ class UserRequester{
                 {email: newEmail},
                 {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
                 )
-            return update.data
+            return update
         } catch (error) {
-            console.log(error)
+            return error
         }
     }
 }
