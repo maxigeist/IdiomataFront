@@ -1,4 +1,5 @@
 import axios from "axios";
+import {alert} from "../alert";
 
 
 
@@ -15,11 +16,12 @@ class languageRequester{
             const response = await axios.post('http://localhost:3001/api/language',{
                 name:name
             });
-            console.log(response);
+            
         }
         catch(error){
-            console.error(error);
+            return alert("error", "Language already exists");
         }
+        
     }
 
     /**

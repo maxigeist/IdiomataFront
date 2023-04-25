@@ -54,13 +54,10 @@ class AbsCateLan extends Component{
             cancelButtonText: 'Cancel',
         }).then(async result => { 
             if(result.value){
-                (this.props.to === "Category") ? await categorydataRequester.createCategory(result.value) : await languagedataRequester.createLanguage(result.value);
-                Swal.fire({
-                    icon: 'success',
-                    titleText: `New ${this.props.to} created`,
-                    position:"top",
-                    padding: "3em 3em 3em 3em"
-                })   
+                (this.props.to === "Category") 
+                ? await categorydataRequester.createCategory(result.value).then(alert("success",`New ${this.props.to} created`))
+                
+                : await languagedataRequester.createLanguage(result.value).then(alert("success",`New ${this.props.to} created`));
                 this.props.refresh();
             }
             
