@@ -38,10 +38,12 @@ class Admin extends Component{
                     <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={this.handleEmailChange} autoComplete="off"/>
                     <label for="floatingInput">Email address</label>
                 </div>
+                <form onSubmit={this.handleLogIn}>
                 <div class="form-floating">
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password" onChange={this.handlePasswordChange}/>
                     <label for="floatingPassword">Password</label>
                 </div>
+                </form>
                 
                 <div class="row-cols-auto mt-2">
                 <button type="button" class="btn btn-success m-1 " onClick={this.handleLogIn}>Log In</button>

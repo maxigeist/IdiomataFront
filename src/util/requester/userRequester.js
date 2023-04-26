@@ -118,6 +118,15 @@ class UserRequester{
             return error
         }
     }
+
+    async deleteUser(userEmail){
+        try {
+            const response = await axios.delete('http://localhost:3001/api/user/' + userEmail )
+            return response.status
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default UserRequester;
