@@ -23,6 +23,7 @@ class Register extends Component{
         this.handlePassword2Change = this.handlePassword2Change.bind(this);
         this.handleLanguageChange= this.handleLanguageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.relocate = this.relocate.bind(this);
     }
 
     render() {
@@ -45,6 +46,7 @@ class Register extends Component{
                         <input className="form-input" type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
                         <input className="form-input" type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
                         <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>Create Account</button>
+                        <button className='main-buttons buttons-submit text-black back-button' onClick={this.relocate}>Back </button>
                     </form>
                 </div>
             </div>
@@ -76,11 +78,6 @@ class Register extends Component{
             alert('error',"The passwords are different","Error")
             this.setState({password_2: ""});
         } 
-        else if(this.state.language === ""){
-
-            alert('error',"You have to pick a language","Error")
-            this.setState({password_2: ""});
-        }
         else{
             event.preventDefault()
 
@@ -107,6 +104,10 @@ class Register extends Component{
             }
             
         }
+    }
+
+    relocate(){
+        window.location.href = "/";
     }
 
 }

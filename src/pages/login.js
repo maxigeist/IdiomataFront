@@ -36,7 +36,7 @@ class Login extends Component{
 
                 <div className='formulario-div'>
                     <form className='formulario'>
-                        <input className="form-input" type="text" placeholder = "Email"  id="email_input" required autoComplete="" onChange={this.handleEmailChange}/>
+                        <input className="form-input" type="text" placeholder = "Email"  id="email_input" required autoComplete="off" onChange={this.handleEmailChange}/>
                         <input className="form-input password-input" type='password' placeholder = "Password" id='password' required onChange={this.handlePasswordChange}/>
                         <button className='main-buttons buttons-login' onClick={this.handleLogin} >Log In</button>
                         <button className='main-buttons buttons-login' onClick={this.goToRegister} > Register</button> 

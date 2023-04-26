@@ -34,7 +34,7 @@
 
 .formulario-de-registro{
   margin-top: 10px;
-  height: 330px;
+  height: 380px;
   width: auto;
   border: #2e5894 solid 5px;
   border-radius: 10px;
@@ -67,6 +67,14 @@
   background-color: rgb(46, 246, 31);
   cursor:pointer;
 }
+
+.back-button{
+  background-color: #1868d8;
+}
+.back-button:hover{
+  background-color: #197dff;
+}
+
 .buttons-login{
   height: 50px;
   width: 44%;
@@ -75,7 +83,7 @@
 }
 .buttons-submit{
   height: 50px;
-  margin-top: 15px;
+  margin-top: 10px;
   width: 100%;
   display: flex;
 }

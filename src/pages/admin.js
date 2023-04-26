@@ -33,8 +33,9 @@ class Admin extends Component{
                 <div className="form-div2">
                 <h2>Admin Log In</h2>
                 
+                
                 <div class="form-floating mb-3 ">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={this.handleEmailChange}/>
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={this.handleEmailChange} autoComplete="off"/>
                     <label for="floatingInput">Email address</label>
                 </div>
                 <div class="form-floating">
@@ -46,6 +47,8 @@ class Admin extends Component{
                 <button type="button" class="btn btn-success m-1 " onClick={this.handleLogIn}>Log In</button>
                 <button type="button" className="btn btn-primary m-1   " onClick={this.handleBack}>Back</button>
                 </div>
+                
+                
                 </div>
                 
                 
