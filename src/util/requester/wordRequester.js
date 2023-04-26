@@ -72,6 +72,19 @@ export class WordRequester{
             console.log(error)
         }
     }
+
+    async updateWord(oldWord, newWord){
+        try {
+            const response = await axios.post("http://localhost:3001/api/word/update", {
+                oldWord: oldWord,
+                newWord: newWord
+                
+            })
+            return response.status
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default WordRequester

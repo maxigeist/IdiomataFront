@@ -3,6 +3,7 @@ import { WordRequester } from "../../util/requester/wordRequester";
 import CategorySelector from "../../components/categorySelector";
 import { alert } from "../../util/alert";
 import LanguageSelector from "../../components/languageSelector";
+import Swal from "sweetalert2";
 
 const wordRequester = new WordRequester()
 
@@ -170,6 +171,7 @@ class SearchWord extends React.Component{
 
         this.handleWordChange = this.handleWordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleWordUpdate = this.handleWordUpdate.bind(this)
     }
 
     render(){
@@ -183,7 +185,8 @@ class SearchWord extends React.Component{
 
                     <br/>
 
-                    <button className="btn btn-primary fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-search"></i></button>
+                    <button className="btn btn-primary m-1 fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-search"></i></button>
+                    <button className="btn btn-secondary fs-5 w-25" onClick={this.handleWordUpdate}><i class="bi bi-pencil"></i></button>
                     <br/>
                     <br/>
 
@@ -207,6 +210,26 @@ class SearchWord extends React.Component{
             alert("error", "Word not found", "")
         }
         this.setState({result: response.data})
+    }
+
+    async handleWordUpdate(){
+        Swal.fire({
+            title:"Insert new word",
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            cancelButtonText: 'Cancel',
+        }).then(async result => { 
+            if(result.value){
+                const response = await wordRequester.updateWord(this.state.word, result.value)
+                if(response === 200){
+                    alert("success", "Word updated succesfully")
+                    return
+                }
+            }
+            alert("error", "Could not update word")
+            return
+        })
     }
 }
 
