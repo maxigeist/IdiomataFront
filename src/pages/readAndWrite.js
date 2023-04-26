@@ -1,12 +1,8 @@
 import { Component } from "react";
 import "../style/homepage.css"
 import "../style/raw.css"
-import NavBar from "../components/navbar";
-import GamesDisplay from "../components/gamesdisplay";
 import WordRequester from "../util/requester/wordRequester";
 import LanguageSelector from "../components/languageSelector";
-//TODO remove unused packagae
-import {FaCheck, FaTimes} from 'react-icons/fa';
 import { StatsRequester } from "../util/requester/statsRequester";
 import { pageAuth } from "../util/pageAuth";
 import Swal from "sweetalert2";
@@ -56,8 +52,10 @@ class ReadAndWrite extends Component{
                                 </div>
                                 
                             </div>
+                            <form onSubmit={this.handleCheck}>
                             <div className="form-label">{this.state.shownword}</div>
                             <input className={"form-control shadow-none " + this.state.validation} onChange={this.handleWordInput} value={this.state.wordInput}></input>
+                            </form>
                             <br/>
 
                             {this.state.answerCorrectly === false && <p className="">You answered incorrectly, the correct answer is "{this.state.correctAnswer}".</p>}
@@ -100,7 +98,8 @@ class ReadAndWrite extends Component{
         this.setState({wordInput: event.target.value})
     }
 
-    async handleCheck(){
+    async handleCheck(event){
+        event.preventDefault();
         for (const translation in this.state.translations) {
             if (Object.hasOwnProperty.call(this.state.translations, translation)) {
                 const translationObj = this.state.translations[translation]

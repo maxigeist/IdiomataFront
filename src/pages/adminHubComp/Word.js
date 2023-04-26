@@ -181,7 +181,9 @@ class SearchWord extends React.Component{
                 <h4 className="card-header">Search Word</h4>
                 <div className="p-2">
                     <label className="form-label">Enter word in english</label>
+                    <form onSubmit={this.handleSubmit}>
                     <input className="form-control shadow-none" onChange={this.handleWordChange}/>
+                    </form>
 
                     <br/>
 
@@ -203,7 +205,8 @@ class SearchWord extends React.Component{
     }
 
     //Search the word and grab the info
-    async handleSubmit(){
+    async handleSubmit(event){
+        event.preventDefault();
         const response = await wordRequester.searchWord(this.state.word)
         console.log(response)
         if(response.status !== 200){

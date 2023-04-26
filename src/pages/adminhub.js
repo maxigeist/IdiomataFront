@@ -8,6 +8,7 @@ import { AdminPageAuth } from "../util/pageAuth";
 import { Word } from "./adminHubComp/Word";
 import Category from "./adminHubComp/Category";
 import Language from "./adminHubComp/Language";
+import User from "./adminHubComp/User";
 
 const adminRequester = new AdminRequester();
 
@@ -48,7 +49,7 @@ class AdminHub extends Component{
                                 <label class="nav-link fs-2 navbar" id="Language" onClick={this.handleFirstOp} >Language</label>
                             </li>
                             <li class="nav-item">
-                                <label class="nav-link fs-2 navbar">User</label>
+                                <label class="nav-link fs-2 navbar" id="User" onClick={this.handleFirstOp}>User</label>
                             </li>
                         </ul>
                             {/* <ul className="nav justify-content-center"></ul>
@@ -138,6 +139,12 @@ class FirstOp extends Component{
         if(this.props.to === "Word"){
             return(
                 <Word/>
+            )
+        }
+
+        if(this.props.to === "User"){
+            return(
+               <User/> 
             )
         }
 
