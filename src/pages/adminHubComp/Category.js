@@ -73,6 +73,7 @@ class Category extends Component{
             element.classList.remove("active")
             }
         )
+        this.setState({active: ""});
 
     }
     async refresh(){
