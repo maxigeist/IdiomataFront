@@ -6,6 +6,7 @@ import { deleteTokenFromDom } from "../util/domHandler";
 import { AdminPageAuth } from "../util/pageAuth";
 
 import { Word } from "./adminHubComp/Word";
+import { Sentence } from "./adminHubComp/Sentence";
 import Category from "./adminHubComp/Category";
 import Language from "./adminHubComp/Language";
 import User from "./adminHubComp/User";
@@ -138,7 +139,9 @@ class FirstOp extends Component{
         }
         if(this.props.to === "Word"){
             return(
-                <Word/>
+                // TODO uncomment word
+                // <Word/>
+                <Sentence/>
             )
         }
 

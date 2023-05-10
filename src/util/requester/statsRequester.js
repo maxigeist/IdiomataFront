@@ -3,10 +3,10 @@ import { getTokenFromDom } from "../domHandler";
 
 export class StatsRequester{
 
-    async sendWordAttempt(inEnglish, translationId, isCorrect){
+    async sendWordAttempt(inEnglish, language, translationId, isCorrect){
         try{
             await axios.post("http://localhost:3001/api/stats/wordAttempt", 
-                {translationId: translationId, correct: isCorrect, word: inEnglish},
+                {translationId: translationId, language: language, correct: isCorrect, word: inEnglish},
                 {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
             )
         }catch(e){
