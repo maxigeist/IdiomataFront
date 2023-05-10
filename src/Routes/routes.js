@@ -7,6 +7,7 @@ import readAndWrite from "../pages/readAndWrite";
 import Admin from "../pages/admin";
 import AdminHub from "../pages/adminhub";
 import account from "../pages/account";
+import Stats from "../pages/stats";
 
 
 class OurRoutes extends Component{
@@ -22,6 +23,7 @@ class OurRoutes extends Component{
                     <Route exact path = "/account" Component={account}></Route>
                     <Route exact path ="/admin" Component={Admin}></Route>
                     <Route exact path ="/adminpage" Component={AdminHub}></Route>
+                    <Route exact path ="/stats" Component={Stats}></Route>
                 </Routes>
             </BrowserRouter>
         );

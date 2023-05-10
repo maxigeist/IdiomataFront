@@ -23,7 +23,7 @@ class LanguageSelector extends Component{
 
     render(){
         return(
-            <select required className="form-select shadow-none" onChange={this.props.func}>
+            <select required className="form-select shadow-none" style={{margin:`${this.props.margin}`, width:`${this.props.width}`}}onChange={this.props.func} >
                 <option value="">Choose language</option>
                 <this.makeSelectOptions/>
             </select>

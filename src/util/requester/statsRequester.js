@@ -13,4 +13,19 @@ export class StatsRequester{
             console.log(e)
         }
     }
+
+    async getWordsAttempt(language, category){
+        try{
+            const attempts = await axios.get("http://localhost:3001/api/stats/wordAttempt",
+                {params: {language:language, category:category}},
+                {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
+            )
+            return attempts.data;
+        }catch(e){
+            console.log(e)
+        }
+
+
+    }
+
 }
