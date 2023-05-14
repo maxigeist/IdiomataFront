@@ -1,5 +1,9 @@
 import React from "react"
 import LanguageSelector from "../../components/languageSelector"
+import { SentenceRequester } from "../../util/requester/sentenceRequester"
+import { alert } from "../../util/alert";
+
+const sentenceRequester = new SentenceRequester();
 
 export class Sentence extends React.Component{
 
@@ -26,8 +30,7 @@ class SentenceWorkspace extends React.Component{
         this.handleCurrentAnswerChange = this.handleCurrentAnswerChange.bind(this)
         this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this)
         this.handleAnswerRemove = this.handleAnswerRemove.bind(this)
-
-
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     render(){
@@ -71,7 +74,7 @@ class SentenceWorkspace extends React.Component{
 
                         <br/>
                         
-                        <button className="btn btn-success m-1 fs-5 w-25"><i class="bi bi-plus-square"></i></button>
+                        <button className="btn btn-success m-1 fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-plus-square"></i></button>
                     </div>
                 </div>
             </div>
@@ -117,16 +120,96 @@ class SentenceWorkspace extends React.Component{
 
         this.setState({answers: newAnswers})
     }   
+
+    async handleSubmit(){
+        const res = await sentenceRequester.createSentence(this.state.languageSelected, this.state.parts, this.state.answers)
+
+        if(res !== 200){
+            alert('error', "Something went wrong", "")
+        }else{
+            alert('success', 'Sentence added succesfully', "")
+        }
+    }
 }
 
 class SearchSentence extends React.Component{
+    constructor(props){
+        super(props)
+
+        this.state = {languageSelected: "", sentences:[]}
+
+        this.handleLanguageChange = this.handleLanguageChange.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
+    }
+
     render(){
         return (
             <div className="container col-3">
                 <div className="card">
-                    <h4 className="card-header">Search Word</h4>
+                    <h4 className="card-header">Search Sentence</h4>
+                    
+                    <div className="p-2">
+                        <LanguageSelector func={this.handleLanguageChange}/>
+
+                        <SearchResult sentences={this.state.sentences}/>
+                    </div>
                 </div>
             </div>
         )
+    }
+
+    handleLanguageChange(event){
+        this.setState({languageSelected: event.target.value})
+
+        this.handleSearch(event.target.value)
+    }
+
+    async handleSearch(language){
+        const response = await sentenceRequester.searchSentence(language)
+
+        this.setState({sentences: response})
+    }
+}
+
+export class SearchResult extends React.Component{
+    constructor(props){
+        super(props)
+
+        this.parseSentences = this.parseSentences.bind(this)
+    }
+
+    render(){
+        if(this.props.sentences.length === 0) return ""
+
+        return(
+            <div>
+                {this.parseSentences()}
+            </div>
+        )
+    }
+    
+    parseSentences(){
+        const result = []
+
+        this.props.sentences.forEach(sentence => {
+            const parts = []
+            const blanks = []
+            sentence.parts.forEach((part, index) => {
+                parts.push(part.content)
+            })
+            sentence.blanks.forEach((blank, index) => {
+                blanks.push(blank.word.inEnglish)
+            })
+            result.push({parts: parts.join("__"), answers: blanks.join(','), id: sentence.id})
+        });
+
+        return this.makeListOptions(result)
+    }
+
+    makeListOptions(result){
+        if(this.props.sentences.length === 0) return ""
+
+        const options = result.map((sentence, index) => (<li className="list-group-item " id={sentence.id} onClick={this.makeActive} key={index} style={{userSelect:"none"}}>- sentence: {sentence.parts}  answers: {sentence.answers}</li>))
+        return options
     }
 }
