@@ -121,7 +121,7 @@ class AddTranslation extends React.Component{
                     </select>
 
                     <br/>
-
+¡
                     <LanguageSelector func={this.handleLangChange}/>
 
                     <br/>

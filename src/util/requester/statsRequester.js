@@ -17,15 +17,37 @@ export class StatsRequester{
     async getWordsAttempt(language, category){
         try{
             const attempts = await axios.get("http://localhost:3001/api/stats/wordAttempt",
-                {params: {language:language, category:category}},
-                {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
+                {params: {language:this.checkIfVoid(language), category:this.checkIfVoid(category)},
+                headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
+            )
+            console.log(attempts.data)
+            return attempts.data;
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    async getlistWithWordAttempts(language, category){
+        try{
+            const attempts = await axios.get("http://localhost:3001/api/stats/wordAttempt/errorsByWord",
+                {params: {language:this.checkIfVoid(language), category:this.checkIfVoid(category)},
+                headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
             )
             return attempts.data;
         }catch(e){
             console.log(e)
         }
 
+    }
 
+
+    checkIfVoid(option){
+        if(option === ""){
+            return null;
+        }
+        else{
+            return option;
+        }
     }
 
 }

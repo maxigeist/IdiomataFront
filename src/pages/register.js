@@ -74,10 +74,16 @@ class Register extends Component{
     }
 
     async handleSubmit(event){
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         if(this.state.password !== this.state.password_2){
             alert('error',"The passwords are different","Error")
             this.setState({password_2: ""});
         } 
+        if(!emailRegex.test(this.state.email)){
+            alert('error',"The email is not valid","Error")
+            this.setState({email: ""});
+        }
         else{
             event.preventDefault()
 

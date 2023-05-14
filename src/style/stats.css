@@ -29,18 +29,39 @@
 }
 
 .accuracy-title{
-    margin-bottom: 5%;
+    margin-bottom: 3%;
     text-align: center;
 }
 
 .five-words-h2{
     text-align: center;
+    width: 100%;
+    display: flex;
 }
 
 .div-five-words{
-    border: 10px ridge rgb(208, 63, 63);
+    
     border-radius: 5%;
+
 }
+.h4-word-att{
+    border-radius: 20px;
+    background-color: rgb(38, 38, 255);
+    width: auto;
+    color: white;
+}
+
+.attempts-title{
+    color:snow;
+    margin-top: 10%;
+    background-color: rgb(38, 38, 255);
+    width: 100%;
+
+    
+    
+    
+}
+
 
 
 
