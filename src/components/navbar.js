@@ -11,8 +11,9 @@ class NavBar extends Component{
     constructor(props){
         super(props)
 
-        this.redirectHomePage = this.redirectHomePage.bind(this)
-        this.redirectAccountPage = this.redirectAccountPage.bind(this)
+        this.redirectHomePage = this.redirectHomePage.bind(this);
+        this.redirectAccountPage = this.redirectAccountPage.bind(this);
+        this.redirectStatsPage = this.redirectStatsPage.bind(this);
         this.selected[this.props.selected] = "selected-li";
     }
 
@@ -31,7 +32,7 @@ class NavBar extends Component{
                     
                     <div class="d-flex justify-content-evenly w-75">
                             <li className ={"nav-li " + this.selected.home + " nav-link fs-2"} onClick={this.redirectHomePage}><i class="bi bi-joystick navicon"></i>Play</li>
-                            <li className={"nav-li " + this.selected.stats + " nav-link fs-2"} ><i class="bi bi-bar-chart-fill navicon" ></i>Stats</li>
+                            <li className={"nav-li " + this.selected.stats + " nav-link fs-2"} onClick={this.redirectStatsPage}><i class="bi bi-bar-chart-fill navicon" ></i>Stats</li>
                             <li className={"nav-li " + this.selected.chat + " nav-link fs-2"}><i class="fa-solid fa-user-group navicon"></i>Chat</li>
                     </div>
 
@@ -53,6 +54,8 @@ class NavBar extends Component{
     }
     redirectHomePage =  () => window.location.href = "/homepage";
     redirectAccountPage = () => window.location.href = "/account";
+    redirectStatsPage = () => window.location.href = "/stats";
+
 }
 
 export default NavBar;

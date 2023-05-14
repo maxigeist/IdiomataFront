@@ -113,6 +113,7 @@ class account extends Component{
             cancelButtonText: 'Cancel',
         })
         .then(async result => {
+            
             if(result.value){
                 let newEmail = result.value;
                 const response = await this.requester.changeUserEmail(newEmail);
@@ -135,6 +136,7 @@ class account extends Component{
                     .then(function(){window.location.reload()})
                 }
             }
+            
         })
         
     }
