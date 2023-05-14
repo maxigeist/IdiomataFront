@@ -123,6 +123,14 @@ export default AdminHub;
 
 class FirstOp extends Component{
 
+    constructor(props){
+        super(props)
+
+        this.state = {sentence: false}
+        this.handleSwitch = this.handleSwitch.bind(this)
+        this.sentenceSwitch = this.sentenceSwitch.bind(this)
+    }
+
     render(){
 
         //Como tienen el mismo ABM uso el mismo código para los dos
@@ -138,11 +146,32 @@ class FirstOp extends Component{
             );
         }
         if(this.props.to === "Word"){
-            return(
-                // TODO uncomment word
-                // <Word/>
-                <Sentence/>
-            )
+
+            if(this.state.sentence){
+                return(
+                    <div>
+                        <div className="row">
+                            <this.sentenceSwitch/>
+                        </div>
+                        <div className="row">
+                            <Sentence/>
+                        </div>
+                    </div>
+                        
+                    
+                )
+            }else{
+                return(
+                    <div>
+                        <div className="row">
+                            <this.sentenceSwitch/>
+                        </div>
+                        <div className="row">
+                            <Word/>
+                        </div>
+                    </div>
+                )
+            }
         }
 
         if(this.props.to === "User"){
@@ -150,10 +179,23 @@ class FirstOp extends Component{
                <User/> 
             )
         }
-
     }
 
+    sentenceSwitch(){
+        return(
+            <div className="container col-2 mb-2">
+                    <div class="form-check form-switch">
+                    <label class="form-check-label h4 text-muted" for="flexSwitchCheckDefault">Sentence</label>
+                    <input class="form-check-input shadow-none" type="checkbox" role="switch" id="flexSwitchCheckDefault" onClick={this.handleSwitch}/>
+                </div>
+            </div>
+        )
+    }
 
+    handleSwitch(){
+        console.log(this.state.sentence)
+        this.setState({sentence: !this.state.sentence})
+    }
 }
 
 
