@@ -175,7 +175,11 @@ export class SearchResult extends React.Component{
     constructor(props){
         super(props)
 
+        this.state = {activeId: ""}
+
         this.parseSentences = this.parseSentences.bind(this)
+        this.makeActive = this.makeActive.bind(this)
+        this.inactiveElements = this.inactiveElements.bind(this)
     }
 
     render(){
@@ -184,7 +188,12 @@ export class SearchResult extends React.Component{
 
         return(
             <div>
+                <ul className="list-group m-2">
                 {this.parseSentences()}
+                </ul>
+
+                <br/>
+                
             </div>
         )
     }
@@ -212,5 +221,27 @@ export class SearchResult extends React.Component{
 
         const options = result.map((sentence, index) => (<li className="list-group-item " id={sentence.id} onClick={this.makeActive} key={index} style={{userSelect:"none"}}>- sentence: {sentence.parts}  answers: {sentence.answers}</li>))
         return options
+    }
+
+    async makeActive(event){
+        if (event.target.classList.contains("active")){
+            event.target.classList.remove("active");
+            await this.setState({active: ""});
+            
+        }
+        else{
+            this.inactiveElements();
+            event.target.classList.add("active");
+            await this.setState({active: event.target.id});
+            
+        }
+    }
+
+    inactiveElements(){
+        document.querySelectorAll(".list-group-item").forEach((element) => {
+            element.classList.remove("active")
+            }
+        )
+        this.setState({active: ""});
     }
 }
