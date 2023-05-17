@@ -179,6 +179,7 @@ export class SearchResult extends React.Component{
     }
 
     render(){
+        if(!this.props.sentences) return ""
         if(this.props.sentences.length === 0) return ""
 
         return(
