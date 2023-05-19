@@ -24,7 +24,7 @@ class CategorySelector extends Component{
     render(){
         return(
             <select required className="form-select shadow-none" style={{margin:`${this.props.margin}`}}onChange={this.props.func}>
-                <option value="">Choose Category</option>
+                <option value="">Category</option>
                 <this.makeSelectOptions/>
             </select>
         );

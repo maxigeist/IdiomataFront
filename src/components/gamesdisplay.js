@@ -2,6 +2,8 @@
 import { Component } from "react";
 import ReadAndWrite from "../pages/readAndWrite";
 import "../style/homepage.css"
+import FillInTheGaps from "../pages/fillInTheGaps";
+
 
 
 
@@ -11,6 +13,8 @@ class GamesDisplay extends Component{
         super(props);
 
         this.handleRaWClick = this.handleRaWClick.bind(this);
+        this.handleFillInTheGapsClick = this.handleFillInTheGapsClick.bind(this);
+        this.disableShown = this.disableShown.bind(this);
     }
 
     render(){
@@ -28,21 +32,23 @@ class GamesDisplay extends Component{
         
     <li class="nav-item mb-5 press fs-5" >
     <li class="nav-link text-white" style={{justifyContent:"center", textAlign:"center"}} onClick={this.handleRaWClick} >
-    <i class="bi bi-pencil-square" style={{paddingRight:"10px"}}></i>
-    Read and Write
+    <i class="bi bi-translate" style={{paddingRight:"10px"}}></i>
+    Translate It
     </li>
     </li>
     <li class="nav-item mb-5 press fs-5">
-    <li class="nav-link text-white">
-    <i class="bi bi-file" style={{paddingRight:"10px"}}></i>
-    Memotest
+    <li class="nav-link text-white"  style={{justifyContent:"center", textAlign:"center"}} onClick={this.handleFillInTheGapsClick}>
+    <i class="bi bi-pencil-square" style={{paddingRight:"10px"}}></i>
+    
+    Fill in the Gaps
+
     </li>
     </li>
     <li className="nav-item mb-5 press fs-5">
     <li class="nav-link text-white">
-    <i class="fa-solid fa-headphones-simple" style={{paddingRight:"10px"}}></i>
-    
-    Audio
+    <i class="bi bi-file" style={{paddingRight:"10px"}}></i>
+    Memotest
+
     </li>
     </li>
     
@@ -51,6 +57,9 @@ class GamesDisplay extends Component{
         <div className="RAW-div" style = {{display:"none", width:"100%"}}>
         <ReadAndWrite/>
 
+        </div>
+        <div className="FIG-div" style = {{display:"none", width:"100%"}}>
+            <FillInTheGaps/>
         </div>
 
         {/* <div className="m-2">
@@ -74,10 +83,31 @@ class GamesDisplay extends Component{
     }
 
     handleRaWClick(event){
+        this.disableShown();
         event.target.className+=" active";
         document.querySelector(".RAW-div").style.display = "block";
+    }
 
+
+    handleFillInTheGapsClick(event){
+        this.disableShown();
+        event.target.className+=" active";
+        document.querySelector(".FIG-div").style.display = "block";
+    }
+    
+    disableShown(){
+        try{
+        var element = document.querySelector(".active");
+        document.querySelector(".RAW-div").style.display = "none";
+        document.querySelector(".FIG-div").style.display = "none";
         
+        // const elements = Array.from(document.querySelectorAll('li')).filter(element => element.classList.contains('active'));
+        
+        element.classList.remove("active");
+        }catch(e){
+            return 
+        }
+
 
     }
 }

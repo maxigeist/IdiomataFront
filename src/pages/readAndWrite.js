@@ -7,6 +7,7 @@ import { StatsRequester } from "../util/requester/statsRequester";
 import { pageAuth } from "../util/pageAuth";
 import Swal from "sweetalert2";
 import CategorySelector from "../components/categorySelector";
+import DifficultySelector from "../components/difficultySelector";
 
 class ReadAndWrite extends Component{
 
@@ -22,6 +23,7 @@ class ReadAndWrite extends Component{
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this)
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
+        this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
         this.showWords = this.showWords.bind(this)
         this.handleWordInput = this.handleWordInput.bind(this)
         this.handleCheck = this.handleCheck.bind(this)
@@ -39,15 +41,18 @@ class ReadAndWrite extends Component{
 
                 <div className="container p-4 col-6">
                     <div className="card" style={{ border:"none"}}>
-                        <h4 className="card-header text-white bg-primary">Word Prompt</h4>
+                        <h4 className="card-header text-white bg-primary">Translate It</h4>
                         <div className="card-body ">
                             <div className="container">
                                 <div className="row">
-                                <div className="col-6">
+                                <div className="col">
                                     <LanguageSelector func={this.handleLanguageChange}/>
                                 </div>
-                                <div className="col-6">
+                                <div className="col">
                                     <CategorySelector func={this.handleCategoryChange}/>
+                                </div>
+                                <div className="col">
+                                    <DifficultySelector func={this.handleDifficultyChange}/>
                                 </div>
                                 </div>
                                 
@@ -79,8 +84,12 @@ class ReadAndWrite extends Component{
     }
 
     handleCategoryChange(event){
-        console.log("Category: ", event.target.value)
+        
         this.setState({category: event.target.value}, async() => {await this.loadWords()});
+    }
+    handleDifficultyChange(event){
+        this.setState({difficulty: event.target.value}, async()=> {await this.loadWords()});
+        
     }
 
     showWords(){

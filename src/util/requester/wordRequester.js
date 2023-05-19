@@ -4,10 +4,13 @@ export class WordRequester{
 
     async getWords(language, category, difficulty, limit){
         if(category.length === 0) category = undefined
+        if(difficulty.length === 0) difficulty = undefined
+        
         try {
             const response = await axios.post('http://localhost:3001/api/word/wordlist', {
                 language: language,
-                category: category
+                category: category,
+                difficulty: difficulty
         } );
             return response.data
         } catch (error) {
