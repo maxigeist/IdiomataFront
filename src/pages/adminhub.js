@@ -185,7 +185,7 @@ class FirstOp extends Component{
         return(
             <div className="container col-2 mb-2">
                     <div class="form-check form-switch">
-                    <label class="form-check-label h4 text-muted" for="flexSwitchCheckDefault">Sentence</label>
+                    <label class="form-check-label h4 text-muted">Sentence</label>
                     <input class="form-check-input shadow-none" type="checkbox" role="switch" id="flexSwitchCheckDefault" onClick={this.handleSwitch}/>
                 </div>
             </div>

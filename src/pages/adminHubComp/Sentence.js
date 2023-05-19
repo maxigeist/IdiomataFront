@@ -151,7 +151,7 @@ class SearchSentence extends React.Component{
                     <div className="p-2">
                         <LanguageSelector func={this.handleLanguageChange}/>
 
-                        <SearchResult sentences={this.state.sentences}/>
+                        <SearchResult searchFunction={this.handleSearch}sentences={this.state.sentences}/>
                     </div>
                 </div>
             </div>
@@ -165,7 +165,7 @@ class SearchSentence extends React.Component{
     }
 
     async handleSearch(language){
-        const response = await sentenceRequester.searchSentence(language)
+        const response = await sentenceRequester.searchSentence(language?language: this.state.languageSelected)
 
         this.setState({sentences: response})
     }
@@ -175,15 +175,33 @@ export class SearchResult extends React.Component{
     constructor(props){
         super(props)
 
+        this.state = {activeId: ""}
+
         this.parseSentences = this.parseSentences.bind(this)
+        this.makeActive = this.makeActive.bind(this)
+        this.inactiveElements = this.inactiveElements.bind(this)
+        
+        this.handleDeleteButton = this.handleDeleteButton.bind(this)
+        //this.handleModifyButton = this.handleModifyButton.bind(this)
     }
 
     render(){
+        if(!this.props.sentences) return ""
         if(this.props.sentences.length === 0) return ""
 
         return(
             <div>
+                <ul className="list-group m-2">
                 {this.parseSentences()}
+                </ul>
+
+                <br/>
+                
+                <button class= "btn btn-secondary fs-5 bts" onClick={this.handleModifyButton}><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-danger fs-5 bts" onClick={this.handleDeleteButton}><i class="bi bi-trash"></i></button>
+            
+                
+
             </div>
         )
     }
@@ -198,7 +216,7 @@ export class SearchResult extends React.Component{
                 parts.push(part.content)
             })
             sentence.blanks.forEach((blank, index) => {
-                blanks.push(blank.word.inEnglish)
+                blanks.push(blank[0])
             })
             result.push({parts: parts.join("__"), answers: blanks.join(','), id: sentence.id})
         });
@@ -211,5 +229,40 @@ export class SearchResult extends React.Component{
 
         const options = result.map((sentence, index) => (<li className="list-group-item " id={sentence.id} onClick={this.makeActive} key={index} style={{userSelect:"none"}}>- sentence: {sentence.parts}  answers: {sentence.answers}</li>))
         return options
+    }
+
+    async makeActive(event){
+        if (event.target.classList.contains("active")){
+            event.target.classList.remove("active");
+            await this.setState({activeId: ""});
+            
+        }
+        else{
+            this.inactiveElements();
+            event.target.classList.add("active");
+            await this.setState({activeId: event.target.id});
+            
+        }
+    }
+
+    inactiveElements(){
+        document.querySelectorAll(".list-group-item").forEach((element) => {
+            element.classList.remove("active")
+            }
+        )
+        this.setState({active: ""});
+    }
+
+    async handleDeleteButton(){
+        const status = await sentenceRequester.deleteSentence(Number(this.state.activeId))
+
+        if (status === 200){
+            alert('success', 'Sentence deleted successfully','')
+            this.props.searchFunction()
+        }
+
+        else{
+            alert('error', 'An error occurred', '')
+        }
     }
 }

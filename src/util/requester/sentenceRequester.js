@@ -24,4 +24,14 @@ export class SentenceRequester{
             console.log(error)
         }
     }
+
+    async deleteSentence(sentenceId){
+        try {
+            const res = await axios.delete("http://localhost:3001/api/sentence/" + sentenceId)
+
+            return res.status
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

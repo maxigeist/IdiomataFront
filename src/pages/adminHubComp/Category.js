@@ -65,7 +65,7 @@ class Category extends Component{
             
         }
 
-        
+
     }
 
     inactiveElements(){
