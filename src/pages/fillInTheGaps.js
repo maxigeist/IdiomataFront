@@ -4,6 +4,7 @@ import LanguageSelector from "../components/languageSelector";
 import CategorySelector from "../components/categorySelector";
 import DifficultySelector from "../components/difficultySelector";
 import { SentenceRequester } from "../util/requester/sentenceRequester";
+import "../style/fitg.css"
 
 class FillInTheGaps extends Component{
 
@@ -55,7 +56,7 @@ class FillInTheGaps extends Component{
                                 
                             </div>
 
-                        <form onSubmit={this.handleCheck}>
+                        <form onSubmit={this.handleCheck} className="pt-3">
                             <this.showSentence shownParts={this.state.shownParts} shownBlanks={this.state.shownBlanks} isCorrect={this.state.isCorrect}/>
                         </form>
                         <button className="btn btn-success m-2" onClick={this.handleCheck}>Check</button>
@@ -118,9 +119,21 @@ class FillInTheGaps extends Component{
             var index = Math.floor(Math.random()*this.state.sentence_parts.length)
             const shownParts = this.state.sentence_parts[index]
             const shownBlanks = this.state.sentence_blanks[index]
+            
 
             this.setState({shownParts: shownParts, shownBlanks: shownBlanks})
 
+        }
+        
+        this.setState({isCorrect:[]})
+        try{
+            var inputs = document.querySelectorAll(".input-answer")
+            inputs.forEach(function(element) {
+                    element.value = ""
+                });
+        }
+        catch(e){
+            return
         }
 
     }
@@ -130,22 +143,22 @@ class FillInTheGaps extends Component{
         for (let i = 0; i < props.shownParts.length; i+=1) {
             if(i === props.shownParts.length - 1){
                 elements.push(
-                    <div style={{display:"flex"}}>
-                        <p>{props.shownParts[i]}</p>
-                    </div>
+                    
+                        <p className="paragraphs">{props.shownParts[i]}</p>
+                    
                 );
             }else{
                 elements.push(
-                <div style={{display:"flex"}}>
-                    <p>{props.shownParts[i]}</p>
-                    <input onChange={(event) => {this.handleAnswerChange(event, i)}} className={"form-control shadow-none " + props.isCorrect[i]}/>
-                </div>
+                
+                    <p className="paragraphs">{props.shownParts[i]}
+                    <input onChange={(event) => {this.handleAnswerChange(event, i)}} className={"input-answer form-control shadow-none " + props.isCorrect[i]}/></p>
+                
             );
             }
             
         }
 
-        return <div>{elements}</div>;
+        return <div><p>{elements}</p></div>;
     }
 
     handleAnswerChange(event, index){
@@ -167,6 +180,7 @@ class FillInTheGaps extends Component{
                         newIsCorrect[index] = "is-valid"
                         this.setState({isCorrect: newIsCorrect})
                         answerIndex ++;
+                        //this return exits the current execution of the foreach, not the entire function
                         return
                     }
                 }
