@@ -80,7 +80,7 @@ class Register extends Component{
             alert('error',"The passwords are different","Error")
             this.setState({password_2: ""});
         } 
-        if(!emailRegex.test(this.state.email)){
+        else if(!emailRegex.test(this.state.email)){
             alert('error',"The email is not valid","Error")
             this.setState({email: ""});
         }
