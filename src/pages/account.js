@@ -88,18 +88,28 @@ class account extends Component{
             confirmButtonText: 'Save',
             cancelButtonText: 'Cancel',
         })
-        .then(result => {
+        .then(async result => {
             if(result.value){
                 let newPassword = result.value;
-                this.requester.changeUserPassword(newPassword);
-                Swal.fire({
-                    icon: 'success',
-                    titleText: 'Password Updated',
-                    text: 'Your password has been updated successfully',
-                    position:"top",
-                    padding: "3em 3em 3em 3em"
-                })
-                .then(function(){window.location.reload()})
+                const response = await this.requester.changeUserPassword(newPassword);
+                if(response !== 200){
+                    Swal.fire({
+                        icon: 'error',
+                        titleText: 'Update Failed',
+                        text: 'Invalid password',
+                        position:"top",
+                        padding: "3em 3em 3em 3em"
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'success',
+                        titleText: 'Password Updated',
+                        text: 'Your password has been updated successfully',
+                        position:"top",
+                        padding: "3em 3em 3em 3em"
+                    })
+                    .then(function(){window.location.reload()})
+                }
             }
         })
     }

@@ -101,7 +101,7 @@ class UserRequester{
                 {password: newPassword},
                 {headers: {Authorization: "Bearer: "+ getTokenFromDom()}}
             )
-            return update.data
+            return update.status
         } catch (error) {
             console.log(error)
         }
