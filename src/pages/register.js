@@ -43,7 +43,7 @@ class Register extends Component{
                     <form className="formulario"> 
                         <input className="form-input" type="text" placeholder="Name" id ='name' required onChange={this.handleNameChange} autoComplete="off"/>
                         <input className="form-input" type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange} autoComplete="off"/>
-                        <input className="form-input" type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange}/>
+                        <input className="form-input" type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange} value={this.state.password}/>
                         <input className="form-input" type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
                         <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>Create Account</button>
                         <button className='main-buttons buttons-submit text-black back-button' onClick={this.relocate}>Back </button>
@@ -80,6 +80,16 @@ class Register extends Component{
             alert('error',"The passwords are different","Error")
             this.setState({password_2: ""});
         } 
+        else if(this.state.password === ""){
+            alert('error', 'Password missing', 'Error')
+            this.setState({password: ""})
+            this.setState({password_2: ""})
+        }
+        else if(this.state.password.includes(" ")){
+            alert('error', 'Password must not contain blank spaces', 'Error')
+            this.setState({password: ""})
+            this.setState({password_2: ""})
+        }
         else if(!emailRegex.test(this.state.email)){
             alert('error',"The email is not valid","Error")
             this.setState({email: ""});
