@@ -38,9 +38,9 @@ class Stats extends Component{
     
 
   async componentDidMount() {
-    const attempts = await statsRequester.getWordsAttempt(this.state.language, this.state.category);
+    const attempts = await statsRequester.getWordsAttempt(this.state.language, this.state.category, this.state.game);
     this.setState({attempts: attempts.length});
-    const list_attemps_errors = await statsRequester.getlistWithWordAttempts(this.state.language, this.state.category);
+    const list_attemps_errors = await statsRequester.getlistWithWordAttempts(this.state.language, this.state.category, this.state.game);
     var act_percentage = 0;
     if (attempts.length !== 0){
         for (const word of attempts){
@@ -108,7 +108,7 @@ class Stats extends Component{
                     <h2 className="five-words-h2 mb-4">Five words that you struggle the most with</h2>
                     <div className="container text-center">
                     <div className="row align-items-start">
-                        <div className="col"><h4 className="h4-word-att">Word</h4></div><div className="col"><h4 className="h4-word-att">Attempts</h4></div>
+                        <div className="col"><h4 className="h4-word-att">Word</h4></div><div className="col"><h4 className="h4-word-att">Mistakes</h4></div>
                     </div>
                     </div>
                     <this.makeFiveWords/>
