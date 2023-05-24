@@ -1,6 +1,7 @@
 import { Component } from "react";
 import LanguageSelector from "../components/languageSelector";
 import CategorySelector from "../components/categorySelector";
+import GameSelector from "../components/gameSelector";
 import { pageAuth } from "../util/pageAuth";
 import Swal from "sweetalert2";
 import "../style/stats.css"
@@ -21,12 +22,14 @@ class Stats extends Component{
     constructor(props){
         super(props)
 
-        this.state = {percentage:0, attempts:0,language: "", category: "", list_with_five_words : []}
+        this.state = {percentage:0, attempts:0,language: "", category: "", game: "", list_with_five_words : []}
 
         this.handleAuth();
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.handleGameChange = this.handleGameChange.bind(this);
+
         this.makeFiveWords = this.makeFiveWords.bind(this);
         
         
@@ -74,6 +77,7 @@ class Stats extends Component{
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="w-75 position-relative top-50 start-0 translate-middle-y" >
+                            <GameSelector func={this.handleGameChange} margin="3%"/>
                             <LanguageSelector func={this.handleLanguageChange} margin="3%"/>
                             <CategorySelector func={this.handleCategoryChange} margin="3%"/>
                         </div>                    
@@ -127,6 +131,12 @@ class Stats extends Component{
     }
     async handleCategoryChange(event){
         await this.setState({category: event.target.value})
+        await this.componentDidMount();
+    }
+
+    async handleGameChange(event){
+        
+        await this.setState({game: event.target.value})
         await this.componentDidMount();
     }
     

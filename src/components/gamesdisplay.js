@@ -3,6 +3,7 @@ import { Component } from "react";
 import ReadAndWrite from "../pages/readAndWrite";
 import "../style/homepage.css"
 import FillInTheGaps from "../pages/fillInTheGaps";
+import Memotest from "../pages/memotest";
 
 
 
@@ -14,6 +15,8 @@ class GamesDisplay extends Component{
 
         this.handleRaWClick = this.handleRaWClick.bind(this);
         this.handleFillInTheGapsClick = this.handleFillInTheGapsClick.bind(this);
+        this.handleMemotestClick = this.handleMemotestClick.bind(this);
+
         this.disableShown = this.disableShown.bind(this);
     }
 
@@ -45,8 +48,8 @@ class GamesDisplay extends Component{
     </li>
     </li>
     <li className="nav-item mb-5 press fs-5">
-    <li class="nav-link text-white">
-    <i class="bi bi-file" style={{paddingRight:"10px"}}></i>
+    <li class="nav-link text-white" style={{justifyContent:"center", textAlign:"center"}} onClick={this.handleMemotestClick}>
+    <i class="bi bi-file" style={{paddingRight:"10px"}} ></i>
     Memotest
 
     </li>
@@ -55,14 +58,21 @@ class GamesDisplay extends Component{
     </ul>
     </div>
         <div className="RAW-div" style = {{display:"none", width:"100%"}}>
-        <ReadAndWrite/>
+            <ReadAndWrite/>
 
         </div>
         <div className="FIG-div" style = {{display:"none", width:"100%"}}>
             <FillInTheGaps/>
         </div>
 
-        {/* <div className="m-2">
+        <div className="MEMO-div" style={{display:"none", width:"100%"}}>
+            <Memotest/>
+        </div>
+
+
+        </div>
+
+        /* <div className="m-2">
             <div>
             <h1 className="fs-2">¡Learn about our games!</h1>
             </div>
@@ -74,10 +84,10 @@ class GamesDisplay extends Component{
             <p></p>
             <p></p>
             
-        </div> */}
+        </div> */
             
             
-    </div>
+   
 
         )
     }
@@ -94,12 +104,22 @@ class GamesDisplay extends Component{
         event.target.className+=" active";
         document.querySelector(".FIG-div").style.display = "block";
     }
+
+    handleMemotestClick(event){
+        console.log("hola")
+        this.disableShown();
+        event.target.className+=" active";
+        document.querySelector(".MEMO-div").style.display = "block";
+
+
+    }
     
     disableShown(){
         try{
         var element = document.querySelector(".active");
         document.querySelector(".RAW-div").style.display = "none";
         document.querySelector(".FIG-div").style.display = "none";
+        document.querySelector(".MEMO-div").style.display = "none";
         
         // const elements = Array.from(document.querySelectorAll('li')).filter(element => element.classList.contains('active'));
         

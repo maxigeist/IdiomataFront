@@ -71,6 +71,7 @@ class FillInTheGaps extends Component{
     }
 
 
+
     async loadSentences(){
         const sentences = await this.sentenceRequester.searchSentence(this.state.language, this.state.category, this.state.difficulty, this.state.limit)
         if(sentences.length > 0){
@@ -158,7 +159,7 @@ class FillInTheGaps extends Component{
             
         }
 
-        return <div><p>{elements}</p></div>;
+        return <div><p style={{textAlign:"justify"}}>{elements}</p></div>;
     }
 
     handleAnswerChange(event, index){
