@@ -127,6 +127,28 @@ class UserRequester{
             console.log(error)
         }
     }
+
+    async getFriends(){
+        try {
+            const response = await axios.get('http://localhost:3001/api/user/friends', {
+                headers: {Authorization: "Bearer "+ getTokenFromDom()}
+            })
+            return response.data
+        } catch (error) {
+            return error.response
+        }
+    }
+
+    async removeFriend(id){
+        try {
+            const response = await axios.delete('http://localhost:3001/api/user/friend/'+id, {
+                headers: {Authorization: "Bearer "+ getTokenFromDom()}
+            })
+            return response
+        } catch (error) {
+            return error.response
+        }
+    }
 }
 
 export default UserRequester;

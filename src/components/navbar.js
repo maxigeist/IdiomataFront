@@ -33,7 +33,7 @@ class NavBar extends Component{
                     <div class="d-flex justify-content-evenly w-75">
                             <li className ={"nav-li " + this.selected.home + " nav-link fs-2"} onClick={this.redirectHomePage}><i class="bi bi-joystick navicon"></i>Play</li>
                             <li className={"nav-li " + this.selected.stats + " nav-link fs-2"} onClick={this.redirectStatsPage}><i class="bi bi-bar-chart-fill navicon" ></i>Stats</li>
-                            <li className={"nav-li " + this.selected.chat + " nav-link fs-2"}><i class="fa-solid fa-user-group navicon"></i>Chat</li>
+                            <li className={"nav-li " + this.selected.chat + " nav-link fs-2"} onClick={this.redirectFriendsPage}><i class="fa-solid fa-user-group navicon"></i>Friends</li>
                     </div>
 
                     
@@ -55,6 +55,7 @@ class NavBar extends Component{
     redirectHomePage =  () => window.location.href = "/homepage";
     redirectAccountPage = () => window.location.href = "/account";
     redirectStatsPage = () => window.location.href = "/stats";
+    redirectFriendsPage = () => window.location.href = "/friends";
 
 }
 
