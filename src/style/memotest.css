@@ -2,3 +2,41 @@
     height: 100px;
     cursor: pointer;
   } */
+
+
+.rotate{
+    transition: 1s;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+    
+}
+
+.rotate-back{
+    transition: 1s;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+}
+
+.text {
+    
+    transform: rotateY(180deg);
+    display: inline-block;
+    
+  }
+
+
+.p-text{
+  margin: 0;
+  padding: 0;
+}
+
+.memo-card{
+  border-radius: 30px;
+  background-color: blue;
+  border: none;
+  margin: 0.5%;
+  color: white;
+  font-weight: bold;
+
+}
+  
