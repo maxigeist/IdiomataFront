@@ -117,12 +117,12 @@ class ReadAndWrite extends Component{
                 if(translated === this.state.wordInput){
                     this.setState({answerCorrectly: true})
                     this.setState({validation: 'is-valid'})
-                    await this.statsRequester.sendWordAttempt(this.state.shownword, this.state.language, translationObj.id, true)
+                    await this.statsRequester.sendWordAttempt(this.state.shownword, this.state.language, translationObj.id, true, "TranslateIt")
                     return
                 }
             }
         }
-        await this.statsRequester.sendWordAttempt(this.state.shownword, this.state.language, null, false)
+        await this.statsRequester.sendWordAttempt(this.state.shownword, this.state.language, null, false, "TranslateIt")
         this.setState({answerCorrectly: false})
         this.setState({validation: 'is-invalid'})
 

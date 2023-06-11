@@ -5,10 +5,12 @@ import CategorySelector from "../components/categorySelector";
 import DifficultySelector from "../components/difficultySelector";
 import { SentenceRequester } from "../util/requester/sentenceRequester";
 import "../style/fitg.css"
+import { StatsRequester } from "../util/requester/statsRequester";
 
 class FillInTheGaps extends Component{
 
     sentenceRequester = new SentenceRequester();
+    statsRequester = new StatsRequester();
 
 
     constructor(props){
@@ -174,12 +176,14 @@ class FillInTheGaps extends Component{
         console.log(this.state.shownBlanks)
         this.state.answers.forEach((answer, index) => {
             if(answer){
+                const inEnglish = this.state.shownBlanks[answerIndex][0]
                 const translations = this.state.shownBlanks[answerIndex].slice(1)
                 for(let i = 0; i < translations.length; i++){
                     if(translations[i] === answer){
                         const newIsCorrect = this.state.isCorrect
                         newIsCorrect[index] = "is-valid"
                         this.setState({isCorrect: newIsCorrect})
+                        this.statsRequester.sendWordAttempt(inEnglish, this.state.language, null, true, "FillInTheGaps")
                         answerIndex ++;
                         //this return exits the current execution of the foreach, not the entire function
                         return
@@ -188,6 +192,7 @@ class FillInTheGaps extends Component{
                 const newIsCorrect = this.state.isCorrect
                 newIsCorrect[index] = "is-invalid"
                 this.setState({isCorrect: newIsCorrect})
+                this.statsRequester.sendWordAttempt(inEnglish, this.state.language, null, false, "FillInTheGaps")
                 answerIndex ++;
             }
         })

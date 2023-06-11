@@ -3,10 +3,10 @@ import { getTokenFromDom } from "../domHandler";
 
 export class StatsRequester{
 
-    async sendWordAttempt(inEnglish, language, translationId, isCorrect){
+    async sendWordAttempt(inEnglish, language, translationId, isCorrect, game){
         try{
             await axios.post("http://localhost:3001/api/stats/wordAttempt", 
-                {translationId: translationId, language: language, correct: isCorrect, word: inEnglish},
+                {translationId: translationId, language: language, correct: isCorrect, word: inEnglish, game: game},
                 {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
             )
         }catch(e){
@@ -14,10 +14,10 @@ export class StatsRequester{
         }
     }
 
-    async getWordsAttempt(language, category){
+    async getWordsAttempt(language, category, game){
         try{
             const attempts = await axios.get("http://localhost:3001/api/stats/wordAttempt",
-                {params: {language:this.checkIfVoid(language), category:this.checkIfVoid(category)},
+                {params: {language:this.checkIfVoid(language), category:this.checkIfVoid(category), game:this.checkIfVoid(game)},
                 headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
             )
             console.log(attempts.data)
@@ -27,10 +27,10 @@ export class StatsRequester{
         }
     }
 
-    async getlistWithWordAttempts(language, category){
+    async getlistWithWordAttempts(language, category, game){
         try{
             const attempts = await axios.get("http://localhost:3001/api/stats/wordAttempt/errorsByWord",
-                {params: {language:this.checkIfVoid(language), category:this.checkIfVoid(category)},
+                {params: {language:this.checkIfVoid(language), category:this.checkIfVoid(category), game:this.checkIfVoid(game)},
                 headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
             )
             return attempts.data;
