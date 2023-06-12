@@ -13,7 +13,8 @@ import WordRequester from "../util/requester/wordRequester";
 class Memotest extends Component{
 
     wordRequester = new WordRequester();
-
+    first_card = ""
+    second_card = ""
 
     constructor(props) {
         super(props);
@@ -24,6 +25,7 @@ class Memotest extends Component{
         this.flipButton = this.flipButton.bind(this)
         this.createCards = this.createCards.bind(this);
         this.shuffleArray = this.shuffleArray.bind(this);
+        this.flip_card = this.flip_card.bind(this);
         
     }
     async componentDidMount(){
@@ -71,7 +73,7 @@ class Memotest extends Component{
     }
      async loadWords(){
         const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty, this.state.limit)
-        console.log(words)
+        
         const translations_aux = []
         for(var i=0; i<10; i++){
             translations_aux.push(words[i].translations[0])
@@ -90,32 +92,62 @@ class Memotest extends Component{
         this.setState({difficulty: event.target.value}, async()=> {await this.loadWords()});
         
     }
-    flipButton(event) {
+    async flipButton(event) {
             try{
+                //In case the card was not flipped, the code inside the if flips it. 
+                if(!event.target.classList.contains("flipped")){
+            
+            
+            
             event.target.classList.add("rotate");
-            event.target.classList.remove("rotate-back");
+            event.target.classList.remove("rotate-back")
             var x = event.target.children[0];
-            console.log(x)
-            setTimeout(function(){x.classList.add("text")
-            x.innerHTML = (`${event.target.value}`)},500)
-            if(this.state.first_card === ""){
-                this.state.first_card = event;
+            
+            
+            x.classList.add("text")
+            x.innerHTML = (`${event.target.value}`)
+            
+            if(this.first_card === ""){
+                this.first_card = event.target;
             }
             else{
-                this.setState({second_card : event})
-                if(this.state.first_card.id === "word"){
-                    // if(this.state.first_card.inEnglish)
-                    
-                    
-                }
-                else{
+                this.second_card = event.target;
+                var status = false;
 
-            }
-            
+                //Checks if first card has id and then checks if the words match
+                if(this.first_card.id !== ""){  
+                    if (this.state.translations[this.first_card.id].translated !== this.second_card.value){
+                        this.flip_card(this.first_card, this.second_card); 
+                    }
+                    //In case it matches
+                    else{status = true}
+                }   
+                //Checks if both of them are in the foreign language
+                else if(this.first_card.id === "" && this.second_card.id === ""){
+                    this.flip_card(this.first_card, this.second_card);
+                }
+                //Checks if second_card has id and then checks if the words match
+                else if (this.second_card.id !== ""){
+                    if(this.state.translations[this.second_card.id].translated !== this.first_card.value){
+                        this.flip_card(this.first_card, this.second_card);
+                    }
+                    //In case it matches
+                    else{status = true}
+                }
+                //If it matches, the card gets added the flipped classname for stopping it to be flipped again
+                if(status){
+                this.first_card.classList.add("flipped")
+                this.second_card.classList.add("flipped")
+                }
+
+                //values from first and second card restarted.
+                this.first_card = ""
+                this.second_card = ""
             }
         }
+        }
             catch(e){
-                return;
+                console.log(e);
             }
         }
     
@@ -135,8 +167,9 @@ class Memotest extends Component{
                     random_indexes.push(x)
                 }
             }
-            console.log(random_indexes)
+            
             const random_translations_index = this.shuffleArray(random_indexes);
+            
             
             
 
@@ -148,10 +181,11 @@ class Memotest extends Component{
                         
                         <div className=""style={{display:"inline"}}>
                             
-                        <button id={random_indexes[i]}className="memo-card" onClick={this.flipButton} style={{height:"180px", width:"150px"}} value={this.state.words[random_indexes[i]].inEnglish}>
+                        <button id={random_indexes[i]}className="memo-card" onClick={this.flipButton} style={{height:"200px", width:"120px"}} value={this.state.words[random_indexes[i]].inEnglish}>
                             <label className="p-text" id={i} style={{pointerEvents:"none"}} ></label>
                         </button>
-                        <button className = "memo-card"  onClick={this.flipButton} style={{height:"180px", width:"150px"}} value={this.state.translations[random_translations_index[i]].translated}>
+                        
+                        <button className = "memo-card"  onClick={this.flipButton} style={{height:"200px", width:"120px"}} value={this.state.translations[random_translations_index[i]].translated}>
                         <label className="p-text"  style={{pointerEvents:"none"}} ></label>
                         </button>
                         </div>
@@ -159,8 +193,10 @@ class Memotest extends Component{
                         
                     );
 
-                
-            }
+            
+            
+                    }
+
 
             return <div style={{display:"inline"}}>{elements}</div>;
 
@@ -176,12 +212,25 @@ class Memotest extends Component{
         return new_array;
       }
     
-    flip_card(event){
-        event.target.classList.remove("rotate");
-        event.target.classList.add("rotate-back");
-        var x = event.target.children[0];
-        setTimeout(function(){x.classList.remove("text")
-        x.innerHTML = ("") },0)
+
+      //This functions flips both cards in the case they didn't match,
+    flip_card(event1, event2){
+        
+        setTimeout(function(){
+         
+        event1.classList.remove("rotate");
+        event1.classList.add("rotate-back");
+        var x = event1.children[0];
+        x.classList.remove("text");
+        x.innerHTML = ("");
+        event2.classList.remove("rotate");
+        event2.classList.add("rotate-back");
+        var y = event2.children[0];
+        y.innerHTML = ("");
+        y.classList.remove("text");
+        },1000
+            
+        )
 
     }
 
