@@ -2,3 +2,52 @@
     height: 100px;
     cursor: pointer;
   } */
+
+
+.rotate{
+    transition: 1s;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+    
+}
+
+.rotate-back{
+    transition: 1s;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+}
+
+.text {
+    
+    transform: rotateY(180deg);
+    display: inline-block;
+    
+  }
+
+
+.p-text{
+  margin: 0;
+  padding: 0;
+}
+
+.memo-card{
+  
+  background-color: rgb(0, 73, 243);
+  
+  border: rgba(255, 255, 255, 0.583) 2px solid;
+  margin:5%;
+  color: black;
+  font-weight: bold;
+  
+  height: 40% !important;
+}
+
+.col-3{
+  width: 20% !important
+  
+}
+.green{
+  background-color: rgb(2, 192, 2);
+  
+}
+  
