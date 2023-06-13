@@ -34,4 +34,18 @@ export class SentenceRequester{
             console.log(error)
         }
     }
+
+    async updateSentence(sentenceId, language, parts, answers){
+        try {
+            const res = await axios.put("http://localhost:3001/api/sentence", {
+            id: sentenceId,
+            language: language,
+            parts: parts,
+            blanks: answers
+            })
+            return res.status
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
