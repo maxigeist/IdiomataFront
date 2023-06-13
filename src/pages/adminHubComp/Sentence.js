@@ -3,6 +3,7 @@ import LanguageSelector from "../../components/languageSelector"
 import { SentenceRequester } from "../../util/requester/sentenceRequester"
 import { alert } from "../../util/alert";
 import  Modal  from "react-bootstrap/Modal";
+import DifficultySelector from "../../components/difficultySelector";
 
 const sentenceRequester = new SentenceRequester();
 
@@ -22,7 +23,7 @@ class CreateSentence extends React.Component{
     constructor(props){
         super(props)
 
-        this.state = {languageSelected: "", currentPart: "", parts: [], currentAnswer: "", answers: []}
+        this.state = {languageSelected: "", difficultySelected: "",currentPart: "", parts: [], currentAnswer: "", answers: []}
 
         this.handleCurrentPartChange = this.handleCurrentPartChange.bind(this)
         this.handleLanguageChange = this.handleLanguageChange.bind(this)
@@ -32,6 +33,7 @@ class CreateSentence extends React.Component{
         this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this)
         this.handleAnswerRemove = this.handleAnswerRemove.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
     }
 
     render(){
@@ -72,6 +74,7 @@ class CreateSentence extends React.Component{
                         <br/>
 
                         <LanguageSelector func={this.handleLanguageChange}/>
+                        <DifficultySelector func={this.handleDifficultyChange}/>
 
                         <br/>
                         
@@ -80,6 +83,10 @@ class CreateSentence extends React.Component{
                 </div>
             </div>
         )
+    }
+
+    handleDifficultyChange(event){
+        this.setState({difficultySelected: event.target.value})
     }
 
     handleLanguageChange(event){
@@ -123,12 +130,15 @@ class CreateSentence extends React.Component{
     }   
 
     async handleSubmit(){
-        const res = await sentenceRequester.createSentence(this.state.languageSelected, this.state.parts, this.state.answers)
-
-        if(res !== 200){
-            alert('error', "Something went wrong", "")
-        }else{
+        const res = await sentenceRequester.createSentence(this.state.languageSelected, this.state.parts, this.state.answers, this.state.difficultySelected)
+        if(res === 200){
             alert('success', 'Sentence added succesfully', "")
+        }else if(res === 404){
+            alert('error', 'Word or words not found', "Check if the words you are using exist")
+        }else if(res === 400){
+            alert('error', "Something is missing", "Make sure to select language and difficulty")
+        }else{
+            alert('error', "Something went wrong", "")
         }
     }
 }
@@ -265,15 +275,20 @@ export class SearchResult extends React.Component{
     }
 
     async handleDeleteButton(){
-        const status = await sentenceRequester.deleteSentence(Number(this.state.activeId))
+        if(this.state.activeId.length !== 0){
+            const status = await sentenceRequester.deleteSentence(Number(this.state.activeId))
 
-        if (status === 200){
-            alert('success', 'Sentence deleted successfully','')
-            this.props.searchFunction()
-        }
+            if (status === 200){
+                alert('success', 'Sentence deleted successfully','')
+                this.setState({activeId: ""})
+                this.props.searchFunction()
+            }
 
-        else{
-            alert('error', 'An error occurred', '')
+            else{
+                alert('error', 'An error occurred', '')
+            }
+        }else{
+            alert('warning', "Select a sentence to delete")
         }
     }
 
