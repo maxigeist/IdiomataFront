@@ -37,8 +37,9 @@ class Memotest extends Component{
     render(){
 
         return(
-            <div>
-                <div  className="container w-50 mt-4">
+            <div className="container w-100 h-100">
+                <div className="row h-25">
+                <div  className="container w-50 pt-4">
                     <div className="row">
                         <div className="col">
                             <LanguageSelector func={this.handleLanguageChange} margin="1%"/>
@@ -51,7 +52,9 @@ class Memotest extends Component{
                         </div> 
                     </div>
                 </div>
-                <div className="cards">
+                </div>
+                <div className="row h-75">
+                <div className="cards container">
                     
                     {/* <button className = "" onClick={this.flipButton} style={{height:"100px", width:"100px"}}>
                         <p className="inside-text" style={{pointerEvents:"none"}}></p>
@@ -61,6 +64,7 @@ class Memotest extends Component{
 
 
 
+                </div>
                 </div>
 
 
@@ -138,6 +142,9 @@ class Memotest extends Component{
                 if(status){
                 this.first_card.classList.add("flipped")
                 this.second_card.classList.add("flipped")
+                this.first_card.classList.add("green")
+                this.second_card.classList.add("green")
+                
                 }
 
                 //values from first and second card restarted.
@@ -179,13 +186,13 @@ class Memotest extends Component{
 
                     elements.push(
                         
-                        <div className=""style={{display:"inline"}}>
+                        <div className="col-3 w-auto justify-content-center">
                             
-                        <button id={random_indexes[i]}className="memo-card" onClick={this.flipButton} style={{height:"200px", width:"120px"}} value={this.state.words[random_indexes[i]].inEnglish}>
+                        <button id={random_indexes[i]}className="memo-card w-75" onClick={this.flipButton}  value={this.state.words[random_indexes[i]].inEnglish}>
                             <label className="p-text" id={i} style={{pointerEvents:"none"}} ></label>
                         </button>
                         
-                        <button className = "memo-card"  onClick={this.flipButton} style={{height:"200px", width:"120px"}} value={this.state.translations[random_translations_index[i]].translated}>
+                        <button className = "memo-card w-75"  onClick={this.flipButton}  value={this.state.translations[random_translations_index[i]].translated}>
                         <label className="p-text"  style={{pointerEvents:"none"}} ></label>
                         </button>
                         </div>
@@ -198,7 +205,7 @@ class Memotest extends Component{
                     }
 
 
-            return <div style={{display:"inline"}}>{elements}</div>;
+            return <div className="d-flex text-center w-100 h-100"><div class="row h-75 w-100">{elements}</div></div>;
 
         }
     }

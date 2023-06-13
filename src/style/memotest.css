@@ -31,12 +31,23 @@
 }
 
 .memo-card{
-  border-radius: 30px;
-  background-color: black;
-  border: none;
-  margin: 0.5%;
-  color: white;
+  
+  background-color: rgb(0, 73, 243);
+  
+  border: rgba(255, 255, 255, 0.583) 2px solid;
+  margin:5%;
+  color: black;
   font-weight: bold;
+  
+  height: 40% !important;
+}
 
+.col-3{
+  width: 20% !important
+  
+}
+.green{
+  background-color: rgb(2, 192, 2);
+  
 }
   
