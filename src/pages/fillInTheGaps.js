@@ -1,7 +1,6 @@
 import { Component } from "react";
 
 import LanguageSelector from "../components/languageSelector";
-import CategorySelector from "../components/categorySelector";
 import DifficultySelector from "../components/difficultySelector";
 import { SentenceRequester } from "../util/requester/sentenceRequester";
 import "../style/fitg.css"
