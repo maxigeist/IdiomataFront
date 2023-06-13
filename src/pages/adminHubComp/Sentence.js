@@ -176,7 +176,7 @@ class SearchSentence extends React.Component{
     }
 
     async handleSearch(language){
-        const response = await sentenceRequester.searchSentence(language?language: this.state.languageSelected)
+        const response = await sentenceRequester.searchSentence(language?language: this.state.languageSelected, "")
 
         this.setState({sentences: response})
     }
@@ -282,6 +282,7 @@ export class SearchResult extends React.Component{
                 alert('success', 'Sentence deleted successfully','')
                 this.setState({activeId: ""})
                 this.props.searchFunction()
+                this.inactiveElements()
             }
 
             else{
