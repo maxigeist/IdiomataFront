@@ -130,7 +130,7 @@ class CreateSentence extends React.Component{
     }   
 
     async handleSubmit(){
-        if(this.state.parts.length === 0 || this.state.answers === 0 ){
+        if(this.state.parts.length === 0 || this.state.answers.length === 0 ){
             alert('warning', "Sentence or answers missing", "Make sure to add both the sentence parts and the answer")
             return
         }
@@ -408,7 +408,7 @@ class UpdateSentence extends React.Component{
     }   
 
     async handleSubmit(){
-        if(this.state.parts.length === 0 || this.state.answers === 0 ){
+        if(this.state.parts.length === 0 || this.state.answers.length === 0 ){
             alert('warning', "Sentence or answers missing", "Make sure to add both the sentence parts and the answer")
             return
         }
