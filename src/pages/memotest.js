@@ -18,7 +18,7 @@ class Memotest extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {language: "", category: "", difficulty: "", words:[], translations:[],limit: undefined, answerCorrectly: null, first_card:"", second_card:""};
+        this.state = {language: "", category: "", difficulty: "", words:[], translations:[],limit: undefined, answerCorrectly: null, elements:""};
         this.handleLanguageChange = this.handleLanguageChange.bind(this)
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
@@ -28,8 +28,8 @@ class Memotest extends Component{
         this.flip_card = this.flip_card.bind(this);
         
     }
-    async componentDidMount(){
-        await this.loadWords()
+    componentDidMount(){
+        this.createCards();
     }
 
 
@@ -52,15 +52,19 @@ class Memotest extends Component{
                         </div> 
                     </div>
                 </div>
+                <div className="d-flex justify-content-center w-100">
+                <h1 className="ftp">Find the pairs!</h1>
                 </div>
+                </div>
+                
                 <div className="row h-75">
                 <div className="cards container">
                     
-                    {/* <button className = "" onClick={this.flipButton} style={{height:"100px", width:"100px"}}>
-                        <p className="inside-text" style={{pointerEvents:"none"}}></p>
-                    </button> */}
-
+                    
+                    
                     <this.createCards/>
+                    
+                    
 
 
 
@@ -76,6 +80,7 @@ class Memotest extends Component{
 
     }
      async loadWords(){
+        
         const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty, this.state.limit)
         
         const translations_aux = []
@@ -161,6 +166,7 @@ class Memotest extends Component{
     
 
      createCards(){
+
         if(this.state.words.length !== 0){
 
             const random_indexes = [];
@@ -181,6 +187,7 @@ class Memotest extends Component{
             
 
             const elements = [];
+            
             for (let i = 0; i < random_indexes.length; i+=1) {
                 
 
@@ -188,8 +195,8 @@ class Memotest extends Component{
                         
                         <div className="col-3 w-auto justify-content-center">
                             
-                        <button id={random_indexes[i]}className="memo-card w-75" onClick={this.flipButton}  value={this.state.words[random_indexes[i]].inEnglish}>
-                            <label className="p-text" id={i} style={{pointerEvents:"none"}} ></label>
+                        <button id={random_indexes[i]} className="memo-card w-75" onClick={this.flipButton}  value={this.state.words[random_indexes[i]].inEnglish}>
+                            <label className="p-text" id={i} style={{pointerEvents:"none"}}></label>
                         </button>
                         
                         <button className = "memo-card w-75"  onClick={this.flipButton}  value={this.state.translations[random_translations_index[i]].translated}>
@@ -205,9 +212,12 @@ class Memotest extends Component{
                     }
 
 
-            return <div className="d-flex text-center w-100 h-100"><div class="row h-75 w-100">{elements}</div></div>;
-
+            console.log(elements)
+            
+            return <div className="d-flex text-center w-100 h-100"><div class="row h-75 w-100" >{elements}</div></div>;
+            
         }
+        
     }
 
     shuffleArray(array) {
@@ -240,6 +250,7 @@ class Memotest extends Component{
         )
 
     }
+
 
 }
 

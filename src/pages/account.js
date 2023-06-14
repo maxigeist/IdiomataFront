@@ -2,7 +2,7 @@ import { Component } from "react";
 import NavBar from "../components/navbar";
 import "../style/account.css"
 import UserRequester from "../util/requester/userRequester";
-import { getTokenFromDom, deleteTokenFromDom} from "../util/domHandler"
+
 import Swal from "sweetalert2";
 import { pageAuth } from "../util/pageAuth";
 
@@ -49,7 +49,7 @@ class account extends Component{
                                 <button onClick={this.handlePasswordChange} type="button" className="btn btn-warning col-2">Change</button>
                             </div>
                             <div>
-                                <button onClick={this.handleLogOut} type="button" className="btn btn-danger">LogOut</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -58,27 +58,7 @@ class account extends Component{
         )
     }
 
-    async handleLogOut(){
-        
-        const token = getTokenFromDom();
 
-
-        Swal.fire({
-            icon: 'warning',
-            titleText: 'Are you sure you want to LogOut?',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, LogOut',
-            cancelButtonText: 'Cancel',
-        })
-        .then(result => {
-            if(result.value){
-                this.requester.logOutUser();        
-                deleteTokenFromDom(token);
-                window.location.href = "/";
-            }
-            }
-        )
-    }
 
     async handlePasswordChange(){
         Swal.fire({

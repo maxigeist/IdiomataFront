@@ -1,11 +1,15 @@
 import { Component } from "react";
 import dictImg from "../resources/993441.png";
 import "../style/navbar.css"
+import Swal from "sweetalert2";
+import { getTokenFromDom, deleteTokenFromDom} from "../util/domHandler"
+import UserRequester from "../util/requester/userRequester";
 
 
 
 class NavBar extends Component{
 
+    requester = new UserRequester();
     selected = {home: "", stats: "", chat: "", account: ""}
 
     constructor(props){
@@ -15,12 +19,13 @@ class NavBar extends Component{
         this.redirectAccountPage = this.redirectAccountPage.bind(this);
         this.redirectStatsPage = this.redirectStatsPage.bind(this);
         this.selected[this.props.selected] = "selected-li";
+        this.handleLogOut = this.handleLogOut.bind(this);
     }
 
     render(){
 
         return(
-            <div className="header" >
+            <div className="header">
                     
                     
                     <div class="w-100">
@@ -46,8 +51,10 @@ class NavBar extends Component{
                     
                     
                     
+                    
                     </nav>
                     </div>
+                    <button onClick={this.handleLogOut} type="button" className="btn btn-sm btn-danger position-absolute top-0 end-0 m-1">LogOut</button>
             </div>
         )
 
@@ -56,6 +63,28 @@ class NavBar extends Component{
     redirectAccountPage = () => window.location.href = "/account";
     redirectStatsPage = () => window.location.href = "/stats";
     redirectFriendsPage = () => window.location.href = "/friends";
+
+    async handleLogOut(){
+        
+        const token = getTokenFromDom();
+
+
+        Swal.fire({
+            icon: 'warning',
+            titleText: 'Are you sure you want to LogOut?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, LogOut',
+            cancelButtonText: 'Cancel',
+        })
+        .then(result => {
+            if(result.value){
+                this.requester.logOutUser();        
+                deleteTokenFromDom(token);
+                window.location.href = "/";
+            }
+            }
+        )
+    }
 
 }
 
