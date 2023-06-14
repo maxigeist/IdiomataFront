@@ -229,7 +229,7 @@ class FriendList extends React.Component{
             {this.state.friends.map((friend, index) => (
             <li className="list-group-item d-flex justify-content-between align-items-center" key={friend.id}>
             {index + 1}. {friend.name} Accuracy: {(friend.accuracy * 100).toFixed(0)}%
-            <button className="btn btn-primary" onClick={() => this.removeFriend(friend.id)}>
+            <button className="btn btn-danger" onClick={() => this.removeFriend(friend.id)}>
               Remove
             </button>
             </li>

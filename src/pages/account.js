@@ -20,7 +20,6 @@ class account extends Component{
         this.handleAuth()
 
         this.state = {}
-        this.handleLogOut = this.handleLogOut.bind(this)
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
     }
