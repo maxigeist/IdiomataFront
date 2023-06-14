@@ -130,6 +130,10 @@ class CreateSentence extends React.Component{
     }   
 
     async handleSubmit(){
+        if(this.state.parts.length === 0 || this.state.answers === 0 ){
+            alert('warning', "Sentence or answers missing", "Make sure to add both the sentence parts and the answer")
+            return
+        }
         const res = await sentenceRequester.createSentence(this.state.languageSelected, this.state.parts, this.state.answers, this.state.difficultySelected)
         if(res === 200){
             alert('success', 'Sentence added succesfully', "")
@@ -404,6 +408,10 @@ class UpdateSentence extends React.Component{
     }   
 
     async handleSubmit(){
+        if(this.state.parts.length === 0 || this.state.answers === 0 ){
+            alert('warning', "Sentence or answers missing", "Make sure to add both the sentence parts and the answer")
+            return
+        }
         const res = await sentenceRequester.updateSentence(this.state.activeSentence.id, this.props.languageSelected,this.state.parts, this.state.answers)
         this.props.hideModal()
         if(res === 200){
