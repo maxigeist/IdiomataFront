@@ -63,6 +63,10 @@ class AddWord extends React.Component{
     }
 
     async handleSubmit(){
+        if(this.state.addWordCategory.length === 0){
+            alert('warning', "Please select catedory")
+            return
+        }
         const status = await wordRequester.createWord(this.state.addWordInput, this.state.addWordCategory)
         if(status === 200){
             alert('success', 'Word added successfully', '')
@@ -150,6 +154,14 @@ class AddTranslation extends React.Component{
     }
 
     async handleSubmit(){
+        if(this.state.dif.length === 0){
+            alert('warning', "Select difficulty")
+            return
+        }
+        if(this.state.lang.length === 0){
+            alert('warning', "Select language")
+            return
+        }
         const status = await wordRequester.addTranslation(this.state.word, this.state.translation, this.state.dif, this.state.lang)
         if(status === 200){
             alert('success', 'Translation added successfully', '')

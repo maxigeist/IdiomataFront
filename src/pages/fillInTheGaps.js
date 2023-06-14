@@ -1,7 +1,6 @@
 import { Component } from "react";
 
 import LanguageSelector from "../components/languageSelector";
-import CategorySelector from "../components/categorySelector";
 import DifficultySelector from "../components/difficultySelector";
 import { SentenceRequester } from "../util/requester/sentenceRequester";
 import "../style/fitg.css"
@@ -48,9 +47,6 @@ class FillInTheGaps extends Component{
                                     <LanguageSelector func={this.handleLanguageChange}/>
                                 </div>
                                 <div className="col">
-                                    <CategorySelector func={this.handleCategoryChange}/>
-                                </div>
-                                <div className="col">
                                     <DifficultySelector func={this.handleDifficultyChange}/>
                                 </div>
 
@@ -75,7 +71,7 @@ class FillInTheGaps extends Component{
 
 
     async loadSentences(){
-        const sentences = await this.sentenceRequester.searchSentence(this.state.language, this.state.category, this.state.difficulty, this.state.limit)
+        const sentences = await this.sentenceRequester.searchSentence(this.state.language, this.state.difficulty)
         if(sentences.length > 0){
             const final_sentences = []
             const final_blanks = []
