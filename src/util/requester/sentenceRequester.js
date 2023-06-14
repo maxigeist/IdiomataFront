@@ -48,7 +48,7 @@ export class SentenceRequester{
             })
             return res.status
         } catch (error) {
-            console.log(error)
+            return error.response.status
         }
     }
 }

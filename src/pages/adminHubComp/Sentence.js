@@ -220,7 +220,7 @@ export class SearchResult extends React.Component{
                     <Modal.Title>Update Sentence</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <UpdateSentence sentences={this.props.sentences} languageSelected={this.props.languageSelected} activeId={this.state.activeId} hideModal={this.handleModalClose}/>
+                        <UpdateSentence inactiveElements={this.inactiveElements} searchFunction={this.props.searchFunction} sentences={this.props.sentences} languageSelected={this.props.languageSelected} activeId={this.state.activeId} hideModal={this.handleModalClose}/>
                     </Modal.Body>
                 </Modal>
             </div>
@@ -406,10 +406,14 @@ class UpdateSentence extends React.Component{
     async handleSubmit(){
         const res = await sentenceRequester.updateSentence(this.state.activeSentence.id, this.props.languageSelected,this.state.parts, this.state.answers)
         this.props.hideModal()
-        if(res !== 200){
-            alert('error', "Something went wrong", "")
-        }else{
+        if(res === 200){
             alert('success', 'Sentence added succesfully', "")
+            this.props.searchFunction()
+            this.props.inactiveElements()
+        }else if(res === 404){
+            alert('error', 'Word or words not found', "Check if the words you are using exist")
+        }else{
+            alert('error', "Something went wrong", "")
         }
     }
 
