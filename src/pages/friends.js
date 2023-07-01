@@ -154,7 +154,7 @@ class FriendRequests extends React.Component{
 
   async acceptRequest(id) {
     const response = await friendsRequester.addFriend(id);
-    if(response.status === 200){alert('success', 'Friend Accepted', ''); await this.fetchRequests()}
+    if(response.status === 200){Swal.fire('Friend Accepted', '', 'success').then(() => {window.location.href = "/friends";})}
     else{alert('error', 'Something went wrong', '')}
   }
 

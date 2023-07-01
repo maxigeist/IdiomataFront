@@ -15,6 +15,7 @@ class Memotest extends Component{
     wordRequester = new WordRequester();
     first_card = ""
     second_card = ""
+    flipped_elements = []
 
     constructor(props) {
         super(props);
@@ -26,6 +27,7 @@ class Memotest extends Component{
         this.createCards = this.createCards.bind(this);
         this.shuffleArray = this.shuffleArray.bind(this);
         this.flip_card = this.flip_card.bind(this);
+        this.unflip = this.unflip.bind(this)
         
     }
     componentDidMount(){
@@ -80,6 +82,12 @@ class Memotest extends Component{
 
     }
      async loadWords(){
+        try{
+            this.unflip();
+        }
+        catch(e){
+            console.log(e)
+        }
         
         const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty, this.state.limit)
         
@@ -149,6 +157,8 @@ class Memotest extends Component{
                 this.second_card.classList.add("flipped")
                 this.first_card.classList.add("green")
                 this.second_card.classList.add("green")
+                this.flipped_elements.push(this.first_card)
+                this.flipped_elements.push(this.second_card)
                 
                 }
 
@@ -249,6 +259,15 @@ class Memotest extends Component{
             
         )
 
+    }
+
+    unflip(){
+        
+        for(var i=0;i<this.flipped_elements.length;i++){
+            this.flipped_elements[i].classList.remove("flipped", "green", "rotate")
+            this.flipped_elements[i].classList.add("rotate-back")
+            this.flipped_elements[i].children[0].innerHTML = "";
+        }
     }
 
 
