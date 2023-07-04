@@ -4,6 +4,7 @@ import {Component} from "react";
 import UserRequester from "../util/requester/userRequester";
 import { alert } from "../util/alert";
 import Swal from "sweetalert2";
+import LanguageSelector from "../components/languageSelector";
 
 
 
@@ -45,6 +46,7 @@ class Register extends Component{
                         <input className="form-input" type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange} autoComplete="off"/>
                         <input className="form-input" type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange} value={this.state.password}/>
                         <input className="form-input" type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
+                        <LanguageSelector func={this.handleLanguageChange}/>
                         <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>Create Account</button>
                         <button className='main-buttons buttons-submit text-black back-button' onClick={this.relocate}>Back </button>
                     </form>
@@ -96,6 +98,8 @@ class Register extends Component{
         }
         else{
             event.preventDefault()
+
+            console.log(this.state.language)
 
             const response = await userDataRequester.saveRegisterData(this.state.name, this.state.email, this.state.password, this.state.language);
 

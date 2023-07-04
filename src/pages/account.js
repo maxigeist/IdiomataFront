@@ -2,10 +2,11 @@ import { Component } from "react";
 import NavBar from "../components/navbar";
 import "../style/account.css"
 import UserRequester from "../util/requester/userRequester";
+import { Button, Modal } from 'react-bootstrap';
+import LanguageSelector from "../components/languageSelector";
 
 import Swal from "sweetalert2";
 import { pageAuth } from "../util/pageAuth";
-
 
 
 class account extends Component{
@@ -19,15 +20,17 @@ class account extends Component{
 
         this.handleAuth()
 
-        this.state = {}
+        this.state = {showLanguageSelector: false, languageSelected: ""}
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
+        this.handleLanguageChange = this.handleLanguageChange.bind(this)
+        this.handleLanguageSave = this.handleLanguageSave.bind(this)
     }
 
     async componentDidMount(){
         const data = await this.requester.getUserData()
+        data.data.newLanguage = ""
         this.setState(data.data)
-        console.log(data.data)
     }
 
     render(){
@@ -47,6 +50,28 @@ class account extends Component{
                                 <h4 className="col">Password: ****</h4>
                                 <button onClick={this.handlePasswordChange} type="button" className="btn btn-warning col-2">Change</button>
                             </div>
+                            
+                            <div className="row mb-5">
+                                <h4 className="col"> Language: {this.state.language}</h4>
+                                <button onClick={()=> this.setState({ showLanguageSelector: true})} type="button" className={"btn btn-warning col-2 "}>Change</button>
+                            </div>
+                            <Modal show={this.state.showLanguageSelector} onHide={() => this.setState({ showLanguageSelector: false })}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Select Language</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <LanguageSelector func={this.handleLanguageChange}/>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                <Button variant="secondary" onClick={() => this.setState({ showLanguageSelector: false })}>
+                                Close
+                                </Button>
+                                <Button variant="secondary" onClick={this.handleLanguageSave}>
+                                Save
+                                </Button>
+                                </Modal.Footer>
+                            </Modal>
+
                             <div>
                                 
                             </div>
@@ -128,6 +153,29 @@ class account extends Component{
             
         })
         
+    }
+
+    async handleLanguageChange(event){
+        this.setState({languageSelected: event.target.value})
+    }
+
+    async handleLanguageSave(){
+        const language = this.state.languageSelected
+        this.setState({showLanguageSelector: false, languageSelected: ""})
+        if(!language || language.length === 0){
+            Swal.fire({icon: "warning", title: "No language selected"})
+            return
+        }
+
+        const code = await this.requester.changeUserLanguage(language);
+        if(code === 200){
+            Swal.fire({icon: "success", title:"Language Updated"})
+            this.componentDidMount();
+            return
+        }else{
+            Swal.fire({icon: "error", title:"Something went wrong"})
+            return
+        }
     }
 
     //If user token is not valid, redirects to login page

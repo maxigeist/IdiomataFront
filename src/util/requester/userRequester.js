@@ -119,6 +119,18 @@ class UserRequester{
         }
     }
 
+    async changeUserLanguage(newLanguage){
+        try {
+            const update = await axios.put('http://localhost:3001/api/user/updateLanguage',
+                {language: newLanguage},
+                {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
+                )
+            return update.status
+        } catch (error) {
+            return error.response.status
+        }
+    }
+
     async deleteUser(userEmail){
         try {
             const response = await axios.delete('http://localhost:3001/api/user/' + userEmail )
