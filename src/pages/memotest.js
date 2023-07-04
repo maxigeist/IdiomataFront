@@ -67,6 +67,7 @@ class Memotest extends Component{
                     <this.createCards/>
                     
                     
+                    
 
 
 
@@ -96,6 +97,7 @@ class Memotest extends Component{
             translations_aux.push(words[i].translations[0])
         }
         this.setState({words: words.slice(0,10), translations: translations_aux}, async () => {if(this.state.words.length !== 0 && this.state.words === 10) this.createCards()})
+        
     }
     handleLanguageChange(event){
         this.setState({language: event.target.value}, async() => {await this.loadWords()});
@@ -112,7 +114,7 @@ class Memotest extends Component{
     async flipButton(event) {
             try{
                 //In case the card was not flipped, the code inside the if flips it. 
-                if(!event.target.classList.contains("flipped")){
+            if(!event.target.classList.contains("flipped")){
             
             
             
@@ -159,6 +161,7 @@ class Memotest extends Component{
                 this.second_card.classList.add("green")
                 this.flipped_elements.push(this.first_card)
                 this.flipped_elements.push(this.second_card)
+
                 
                 }
 
@@ -222,9 +225,9 @@ class Memotest extends Component{
                     }
 
 
-            console.log(elements)
             
-            return <div className="d-flex text-center w-100 h-100"><div class="row h-75 w-100" >{elements}</div></div>;
+            
+            return <div className="d-flex text-center w-100 h-100" id="god"><div class="row h-75 w-100" >{elements}</div></div>;
             
         }
         
