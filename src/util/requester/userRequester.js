@@ -140,6 +140,18 @@ class UserRequester{
         }
     }
 
+    async getUserLanguage(){
+        try {
+            const response = await axios.get('http://localhost:3001/api/user/userLanguage' , {
+                headers: {Authorization: "Bearer: "+ getTokenFromDom()}
+            })
+            
+            return response.data
+        } catch (error) {
+            return error.response
+        }
+    }
+
     async getFriends(){
         try {
             const response = await axios.get('http://localhost:3001/api/user/friends', {

@@ -1,10 +1,10 @@
 import { Component } from "react";
 
 import "../style/memotest.css"
-import LanguageSelector from "../components/languageSelector";
 import CategorySelector from "../components/categorySelector";
 import DifficultySelector from "../components/difficultySelector";
 import WordRequester from "../util/requester/wordRequester";
+import UserRequester from "../util/requester/userRequester";
 
 
 
@@ -13,6 +13,8 @@ import WordRequester from "../util/requester/wordRequester";
 class Memotest extends Component{
 
     wordRequester = new WordRequester();
+    userRequester = new UserRequester();
+
     first_card = ""
     second_card = ""
     flipped_elements = []
@@ -20,7 +22,6 @@ class Memotest extends Component{
     constructor(props) {
         super(props);
         this.state = {language: "", category: "", difficulty: "", words:[], translations:[],limit: undefined, answerCorrectly: null, elements:""};
-        this.handleLanguageChange = this.handleLanguageChange.bind(this)
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
         this.flipButton = this.flipButton.bind(this)
@@ -30,7 +31,9 @@ class Memotest extends Component{
         this.unflip = this.unflip.bind(this)
         
     }
-    componentDidMount(){
+
+    async componentDidMount(){
+        await this.loadWords();
         this.createCards();
     }
 
@@ -43,9 +46,6 @@ class Memotest extends Component{
                 <div className="row h-25">
                 <div  className="container w-50 pt-4">
                     <div className="row">
-                        <div className="col">
-                            <LanguageSelector func={this.handleLanguageChange} margin="1%"/>
-                        </div>
                         <div className="col">
                              <CategorySelector func={this.handleCategoryChange}margin="1%"/>
                         </div>
@@ -82,7 +82,8 @@ class Memotest extends Component{
         );
 
     }
-     async loadWords(){
+    
+    async loadWords(){
         try{
             this.unflip();
         }
@@ -90,7 +91,11 @@ class Memotest extends Component{
             console.log(e)
         }
         
-        const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty, this.state.limit)
+        const language = await this.userRequester.getUserLanguage();
+
+        this.setState({language: language.language})
+
+        const words = await this.wordRequester.getWords(language.language, this.state.category, this.state.difficulty, this.state.limit)
         
         const translations_aux = []
         for(var i=0; i<10; i++){
@@ -98,9 +103,6 @@ class Memotest extends Component{
         }
         this.setState({words: words.slice(0,10), translations: translations_aux}, async () => {if(this.state.words.length !== 0 && this.state.words === 10) this.createCards()})
         
-    }
-    handleLanguageChange(event){
-        this.setState({language: event.target.value}, async() => {await this.loadWords()});
     }
 
     handleCategoryChange(event){

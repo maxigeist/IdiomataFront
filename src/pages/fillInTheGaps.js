@@ -1,23 +1,22 @@
 import { Component } from "react";
 
-import LanguageSelector from "../components/languageSelector";
 import DifficultySelector from "../components/difficultySelector";
 import { SentenceRequester } from "../util/requester/sentenceRequester";
 import "../style/fitg.css"
 import { StatsRequester } from "../util/requester/statsRequester";
+import UserRequester from "../util/requester/userRequester";
 
 class FillInTheGaps extends Component{
 
     sentenceRequester = new SentenceRequester();
     statsRequester = new StatsRequester();
-
+    userRequester = new UserRequester();
 
     constructor(props){
         super(props)
         this.state= ({language:"", category:"", difficulty:"", sentence_parts:[], sentence_blanks:[], shownParts: [], shownBlanks: [], inputs:[], answers: [], isCorrect:[]})
 
 
-        this.handleLanguageChange = this.handleLanguageChange.bind(this)
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
         this.nextSentence =  this.nextSentence.bind(this)
@@ -25,6 +24,10 @@ class FillInTheGaps extends Component{
         this.loadSentences = this.loadSentences.bind(this)
         this.handleCheck = this.handleCheck.bind(this)
 
+    }
+
+    async componentDidMount(){
+        await this.loadSentences()
     }
 
 
@@ -43,9 +46,6 @@ class FillInTheGaps extends Component{
                     <div className="card-body">
                     <div className="container">
                                 <div className="row align-items-start">
-                                <div className="col">
-                                    <LanguageSelector func={this.handleLanguageChange}/>
-                                </div>
                                 <div className="col">
                                     <DifficultySelector func={this.handleDifficultyChange}/>
                                 </div>
@@ -71,7 +71,10 @@ class FillInTheGaps extends Component{
 
 
     async loadSentences(){
-        const sentences = await this.sentenceRequester.searchSentence(this.state.language, this.state.difficulty)
+        const language = await this.userRequester.getUserLanguage();
+        this.setState({language: language.language})
+        console.log(language.language)
+        const sentences = await this.sentenceRequester.searchSentence(language.language, this.state.difficulty)
         if(sentences.length > 0){
             const final_sentences = []
             const final_blanks = []

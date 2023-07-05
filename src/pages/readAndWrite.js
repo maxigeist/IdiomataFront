@@ -2,17 +2,18 @@ import { Component } from "react";
 import "../style/homepage.css"
 import "../style/raw.css"
 import WordRequester from "../util/requester/wordRequester";
-import LanguageSelector from "../components/languageSelector";
 import { StatsRequester } from "../util/requester/statsRequester";
 import { pageAuth } from "../util/pageAuth";
 import Swal from "sweetalert2";
 import CategorySelector from "../components/categorySelector";
 import DifficultySelector from "../components/difficultySelector";
+import UserRequester from "../util/requester/userRequester";
 
 class ReadAndWrite extends Component{
 
     wordRequester = new WordRequester();
     statsRequester = new StatsRequester();
+    userRequester = new UserRequester();
 
     constructor(props){
         super(props)
@@ -21,7 +22,6 @@ class ReadAndWrite extends Component{
 
         this.state = {language: "", category: "", difficulty: "", words:[], shownword:"", translations: [], wordInput: "", limit: undefined, answerCorrectly: null, correctAnswer: "", validation: ""}
 
-        this.handleLanguageChange = this.handleLanguageChange.bind(this)
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
         this.showWords = this.showWords.bind(this)
@@ -45,9 +45,6 @@ class ReadAndWrite extends Component{
                         <div className="card-body ">
                             <div className="container">
                                 <div className="row">
-                                <div className="col">
-                                    <LanguageSelector func={this.handleLanguageChange}/>
-                                </div>
                                 <div className="col">
                                     <CategorySelector func={this.handleCategoryChange}/>
                                 </div>
@@ -75,12 +72,10 @@ class ReadAndWrite extends Component{
     }
 
     async loadWords(){
-        const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty, this.state.limit)
+        const language = await this.userRequester.getUserLanguage();
+        this.setState({language: language.language})
+        const words = await this.wordRequester.getWords(language.language, this.state.category, this.state.difficulty, this.state.limit)
         this.setState({words: words}, async () => {if(this.state.words.length !== 0) this.showWords()})
-    }
-
-    handleLanguageChange(event){
-        this.setState({language: event.target.value}, async() => {await this.loadWords()});
     }
 
     handleCategoryChange(event){
