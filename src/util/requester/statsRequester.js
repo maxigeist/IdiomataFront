@@ -50,4 +50,30 @@ export class StatsRequester{
         }
     }
 
+
+    async getWordsAttemptByUserId(id, category, game){
+        try{
+            const attempts = await axios.get("http://localhost:3001/api/stats/wordAttemptById",
+                {params: {userId:this.checkIfVoid(id), category:this.checkIfVoid(category), game:this.checkIfVoid(game)},
+                headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
+            )
+            console.log(attempts.data)
+            return attempts.data;
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    async getlistWithWordAttemptsByUserId(id, category, game){
+        try{
+            const attempts = await axios.get("http://localhost:3001/api/stats/wordAttempt/errorsByWordById",
+                {params: {userId:this.checkIfVoid(id), category:this.checkIfVoid(category), game:this.checkIfVoid(game)},
+                headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
+            )
+            return attempts.data;
+        }catch(e){
+            console.log(e)
+        }
+
+    }
 }
