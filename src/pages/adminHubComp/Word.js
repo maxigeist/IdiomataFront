@@ -4,6 +4,7 @@ import CategorySelector from "../../components/categorySelector";
 import { alert } from "../../util/alert";
 import LanguageSelector from "../../components/languageSelector";
 import Swal from "sweetalert2";
+import { Modal, Button } from "react-bootstrap";
 
 const wordRequester = new WordRequester()
 
@@ -25,11 +26,13 @@ class AddWord extends React.Component{
     constructor(props){
         super(props)
 
-        this.state = {addWordInput: "", addWordCategory: ""}
+        this.state = {addWordInput: "", addWordCategory: "", showCsvLoadModal: false, selectedFile: null}
         this.handleWordChange = this.handleWordChange.bind(this)
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleFileChange = this.handleFileChange.bind(this)
+        this.handleFileSubmit = this.handleFileSubmit.bind(this)
     }
 
     render(){
@@ -49,6 +52,26 @@ class AddWord extends React.Component{
                     
                     <button className="btn btn-success m-1 fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-plus-square"></i></button>
                     <button className="btn btn-danger fs-5 w-25" onClick={this.handleDelete}><i class="bi bi-trash"></i></button>
+                    <br/>
+                    <br/>
+                    <button className="btn btn-info" onClick={() => this.setState({showCsvLoadModal: true})}>Load CSV File</button>
+                    <Modal show={this.state.showCsvLoadModal} onHide={() => this.setState({ showCsvLoadModal: false })}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Upload File</Modal.Title>
+                        </Modal.Header>
+                            <Modal.Body>
+                            <p>Note that files must be .csv format, with the fields <b>"word, category"</b></p>
+                            <input type="file" onChange={this.handleFileChange} />
+                            </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={() => this.setState({ showCsvLoadModal: false })}>
+                            Close
+                            </Button>
+                            <Button variant="secondary" onClick={this.handleFileSubmit}>
+                            Save
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
             </div>
         </div>
@@ -85,6 +108,40 @@ class AddWord extends React.Component{
             alert('error', 'An error occurred', 'The word was not deleted correctly')
         }
     }
+
+    handleFileChange(event) {
+        // Update the state
+        this.setState({ selectedFile: event.target.files[0] });
+    }
+
+    async handleFileSubmit() {
+        if(this.state.selectedFile === null){
+            alert('warning', "Please select file")
+            return
+        }else if(this.state.selectedFile.type !== "text/csv"){
+            alert('warning', "Please select csv file")
+            return
+        }else{
+            const response = await wordRequester.uploadFileForWords(this.state.selectedFile)
+            if(response.status !== 200){
+                return alert('error', 'Something went wrong', "Make sure that the format of the csv is 'word,category'")
+            }else{
+                console.log(response.data)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'File uploaded successfully',
+                    html: `<div>
+                              <p><strong>Words added:</strong> ${response.data.lines}</p>
+                              <p><strong>Categories not found:</strong> ${response.data.categoriesNotFound.toString()}</p>
+                              <p><strong>Existing words:</strong> ${response.data.existingWords}</p>
+                           </div>`
+                  });
+                  
+                this.setState({ showCsvLoadModal: false , selectedFile: null})
+                return
+            }
+        }
+    }
 }
 
 //Component for creating new translation
@@ -92,13 +149,15 @@ class AddTranslation extends React.Component{
     constructor(props){
         super(props)
 
-        this.state = {word: "", translation: "", dif: "", lang: ""}
+        this.state = {word: "", translation: "", dif: "", lang: "", showCsvLoadModal: false, selectedFile: null}
 
         this.handleWordChange = this.handleWordChange.bind(this)
         this.handleTranslationChange = this.handleTranslationChange.bind(this)
         this.handleDifChange = this.handleDifChange.bind(this)
         this.handleLangChange = this.handleLangChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleFileChange = this.handleFileChange.bind(this)
+        this.handleFileSubmit = this.handleFileSubmit.bind(this)
     }
 
     render(){
@@ -131,6 +190,26 @@ class AddTranslation extends React.Component{
                     <br/>
 
                     <button className="btn btn-success fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-plus-square"></i></button>
+                    <br/>
+                    <br/>
+                    <button className="btn btn-info" onClick={() => this.setState({showCsvLoadModal: true})}>Load CSV File</button>
+                    <Modal show={this.state.showCsvLoadModal} onHide={() => this.setState({ showCsvLoadModal: false })}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Upload File</Modal.Title>
+                        </Modal.Header>
+                            <Modal.Body>
+                            <p>Note that files must be .csv format, with the fields <b>"wordInEnglish, translation, language, difficulty"</b></p>
+                            <input type="file" onChange={this.handleFileChange} />
+                            </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={() => this.setState({ showCsvLoadModal: false })}>
+                            Close
+                            </Button>
+                            <Button variant="secondary" onClick={this.handleFileSubmit}>
+                            Save
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
             </div>
         </div>
@@ -168,6 +247,41 @@ class AddTranslation extends React.Component{
         }
         else{
             alert('error', 'An error occurred', 'An error occurred when adding translation')
+        }
+    }
+
+    handleFileChange(event) {
+        // Update the state
+        this.setState({ selectedFile: event.target.files[0] });
+    }
+
+    async handleFileSubmit() {
+        if(this.state.selectedFile === null){
+            alert('warning', "Please select file")
+            return
+        }else if(this.state.selectedFile.type !== "text/csv"){
+            alert('warning', "Please select csv file")
+            return
+        }else{
+            const response = await wordRequester.uploadFileForTranslations(this.state.selectedFile)
+            if(response.status !== 200){
+                return alert('error', 'Something went wrong', "Make sure that the format of the csv is 'wordInEnglish, translation, language, difficulty'")
+            }else{
+                console.log(response.data)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'File uploaded successfully',
+                    html: `<div>
+                              <p><strong>Translations added:</strong> ${response.data.lines}</p>
+                              <p><strong>Words not found:</strong> ${response.data.wordsNotFound.toString()}</p>
+                              <p><strong>Translation with invalid language:</strong> ${response.data.translationWithInvalidLanguages.toString()}</p>
+                              <p><strong>Words with invalid difficulty:</strong> ${response.data.translationsWithInvalidDifficulty.toString()}</p>
+                           </div>`
+                  });
+                  
+                this.setState({ showCsvLoadModal: false , selectedFile: null})
+                return
+            }
         }
     }
 }
