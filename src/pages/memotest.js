@@ -5,6 +5,7 @@ import CategorySelector from "../components/categorySelector";
 import DifficultySelector from "../components/difficultySelector";
 import WordRequester from "../util/requester/wordRequester";
 import UserRequester from "../util/requester/userRequester";
+import Swal from "sweetalert2";
 
 
 
@@ -18,10 +19,11 @@ class Memotest extends Component{
     first_card = ""
     second_card = ""
     flipped_elements = []
+    cards = null;
 
     constructor(props) {
         super(props);
-        this.state = {language: "", category: "", difficulty: "", words:[], translations:[],limit: undefined, answerCorrectly: null, elements:""};
+        this.state = {language: "", category: "", difficulty: "", words:[], translations:[],limit: undefined, answerCorrectly: null, elements:"", flipped_elements_qty:0, tries:0};
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
         this.flipButton = this.flipButton.bind(this)
@@ -34,23 +36,36 @@ class Memotest extends Component{
 
     async componentDidMount(){
         await this.loadWords();
-        this.createCards();
+        this.cards = this.createCards();
+        this.setState({flipped_elements_qty: 0, tries: 0})
     }
 
 
-
     render(){
-
         return(
             <div className="container w-100 h-100">
                 <div className="row h-25">
-                <div  className="container w-50 pt-4">
+                <div  className="container pt-4">
                     <div className="row">
-                        <div className="col">
-                             <CategorySelector func={this.handleCategoryChange}margin="1%"/>
+                        <div className="row col">
+                            <div className="col">
+                                <button className="btn btn-warning" onClick={() => {this.componentDidMount()}}>Restart Game</button>
+                            </div>
+                            <div className="col">
+                                <h3>Hits: {this.state.flipped_elements_qty/2}</h3>
+                            </div>
+                            <div className="col">
+                                <h3>Misses: {this.state.tries - (this.state.flipped_elements_qty/2)}</h3>
+                            </div>
+
                         </div>
-                        <div className="col">
-                            <DifficultySelector func={this.handleDifficultyChange}margin="1%"/>
+                        <div className="row col-4">
+                            <div className="col">
+                                <CategorySelector func={this.handleCategoryChange}margin="1%"/>
+                            </div>
+                            <div className="col">
+                                <DifficultySelector func={this.handleDifficultyChange}margin="1%"/>
+                            </div> 
                         </div> 
                     </div>
                 </div>
@@ -61,16 +76,7 @@ class Memotest extends Component{
                 
                 <div className="row h-75">
                 <div className="cards container">
-                    
-                    
-                    
-                    <this.createCards/>
-                    
-                    
-                    
-
-
-
+                    {this.cards}
                 </div>
                 </div>
 
@@ -157,15 +163,32 @@ class Memotest extends Component{
                 }
                 //If it matches, the card gets added the flipped classname for stopping it to be flipped again
                 if(status){
-                this.first_card.classList.add("flipped")
-                this.second_card.classList.add("flipped")
-                this.first_card.classList.add("green")
-                this.second_card.classList.add("green")
-                this.flipped_elements.push(this.first_card)
-                this.flipped_elements.push(this.second_card)
+                    this.first_card.classList.add("flipped")
+                    this.second_card.classList.add("flipped")
+                    this.first_card.classList.add("green")
+                    this.second_card.classList.add("green")
+                    this.flipped_elements.push(this.first_card)
+                    this.flipped_elements.push(this.second_card)
+                    
+                    this.setState({flipped_elements_qty: this.flipped_elements.length})
 
-                
+                    if(this.flipped_elements.length === 20){
+                        Swal.fire({
+                            title: '🎉Congratulations! You won!🎉',
+                            text: '',
+                            cancelButtonText: 'Ok',
+                            confirmButtonText: 'Play again!',
+                            showCancelButton: true,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                this.componentDidMount();
+                                }
+                            })
+                        
+                        }
                 }
+
+                this.setState({tries: this.state.tries + 1})
 
                 //values from first and second card restarted.
                 this.first_card = ""
