@@ -5,6 +5,11 @@ import { alert } from '../util/alert';
 import { pageAuth } from '../util/pageAuth';
 import Swal from 'sweetalert2';
 import UserRequester from '../util/requester/userRequester';
+import { Modal } from 'react-bootstrap';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import ChangingProgressProvider from './ChangingProgressProvider';
+import { StatsRequester } from '../util/requester/statsRequester';
+
 
 const friendsRequester = new FriendsRequester();
 const userRequester = new UserRequester();
@@ -158,8 +163,8 @@ class FriendRequests extends React.Component{
 
   async acceptRequest(id) {
     const response = await friendsRequester.addFriend(id);
-    if(response.status === 200){alert('success', this.t('global:header:Friend-Accepted')); await this.fetchRequests()}
-    else{alert('error', this.t('global:header:Something-Went-Wrong'))}
+    if(response.status === 200){Swal.fire(this.t('global:header:Friend-Accepted'), '', 'success').then(() => {window.location.href = "/friends";})}
+    else{alert('error', this.t('global:header:Something-Went-Wrong'), '')}
   }
 
   async rejectRequest(id) {
@@ -174,7 +179,12 @@ class FriendList extends React.Component{
     super(props);
     this.state = {
       friends: [], // Initial empty friends array
+      showFriendStats: false,
+      friendShownId: 0,
+      friendShownName: ""
     };
+
+    this.handleShowFriendsStats = this.handleShowFriendsStats.bind(this)
     this.t = this.props.t;
   }
 
@@ -234,7 +244,8 @@ class FriendList extends React.Component{
           <ul className="list-group list-group-flush" style={{ heigth: '500px', overflowY: 'auto' }}>
             {this.state.friends.map((friend, index) => (
             <li className="list-group-item d-flex justify-content-between align-items-center" key={friend.id}>
-            {index + 1}. {friend.name} Accuracy: {(friend.accuracy * 100).toFixed(0)}%
+            {index + 1}. {friend.name} 
+            <button className='btn btn-info' onClick={() => this.handleShowFriendsStats(friend.id, friend.name)}>See Stats</button>
             <button className="btn btn-danger" onClick={() => this.removeFriend(friend.id)}>
               Remove
             </button>
@@ -242,7 +253,150 @@ class FriendList extends React.Component{
             ))}
           </ul>
         </div>
+        <Modal className="modal-xl" show={this.state.showFriendStats} onHide={() => this.setState({ showFriendStats: false })}>
+              <Modal.Header closeButton>
+                  <Modal.Title>{this.state.friendShownName}'s Stats</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <FriendStats friendId={this.state.friendShownId}/>
+              </Modal.Body>
+        </Modal>
       </div>
     );
+  }
+
+  async handleShowFriendsStats(friendShownId, friendShownName){
+    this.setState({friendShownId: friendShownId, friendShownName: friendShownName, showFriendStats: true})
+  }
+}
+
+const statsRequester = new StatsRequester();
+
+class FriendStats extends React.Component{
+
+  constructor(props){
+      super(props)
+
+      this.state = {percentage:0, attempts:0,language: "", category: "", game: "", list_with_five_words : []}
+
+      this.handleAuth();
+      this.componentDidMount = this.componentDidMount.bind(this);
+      this.handleLanguageChange = this.handleLanguageChange.bind(this);
+      this.handleCategoryChange = this.handleCategoryChange.bind(this);
+      this.handleGameChange = this.handleGameChange.bind(this);
+
+      this.makeFiveWords = this.makeFiveWords.bind(this);
+  }
+async componentDidMount() {
+  const attempts = await statsRequester.getWordsAttemptByUserId(this.props.friendId, this.state.category, this.state.game);
+  this.setState({attempts: attempts.length});
+  const list_attemps_errors = await statsRequester.getlistWithWordAttemptsByUserId(this.props.friendId, this.state.category, this.state.game);
+  var act_percentage = 0;
+  if (attempts.length !== 0){
+      for (const word of attempts){
+          if (word.correct){
+              act_percentage +=1;
+          }
+      }
+      this.setState({percentage:parseInt((act_percentage/attempts.length)*100)});  
+  }
+  
+  else{
+      this.setState({percentage:0});
+  }
+
+  this.setState({list_with_five_words: list_attemps_errors.slice(0,5)});
+
+}
+  render(){
+      return(
+          <div>
+          <div class="container w-100 mt-2 text-center">
+              <div class="row">
+                  <div class="col-sm m-4">
+
+                      <div className="row">
+                  
+                          
+                          <h1 className="accuracy-title">Accuracy Rate</h1>
+                          
+                          </div>
+                          <div className="row">
+                          <ChangingProgressProvider initialValue={0} newValue={this.state.percentage} >
+                          {percentage => (
+                          <CircularProgressbar value={percentage} text={`${percentage}%`} background={{}}/>
+                              )}
+                          </ChangingProgressProvider>
+                          
+                          </div>
+                          
+                      
+                  
+                      
+                  
+                  </div>
+                  <div class="col-sm div-five-words bg-primary ms-4 p-0" >
+                  <h2 className="five-words-h2 mb-4">Five words that your friend struggles the most with</h2>
+                  <div className="container text-center">
+                  <div className="row align-items-start">
+                      <div className="col"><h4 className="h4-word-att">Word</h4></div><div className="col"><h4 className="h4-word-att">Mistakes</h4></div>
+                  </div>
+                  </div>
+                  <this.makeFiveWords/>
+                  <h3 className="attempts-title">Total Attempts:{this.state.attempts}</h3>
+                  
+                  </div>
+              </div>
+              </div>
+              
+
+          </div>
+
+      );
+  }
+
+  async handleLanguageChange(event){
+      await this.setState({language: event.target.value})
+      await this.componentDidMount();
+
+  }
+  async handleCategoryChange(event){
+      await this.setState({category: event.target.value})
+      await this.componentDidMount();
+  }
+
+  async handleGameChange(event){
+      
+      await this.setState({game: event.target.value})
+      await this.componentDidMount();
+  }
+  async handleAuth(){
+      const invalid = await pageAuth();
+      if(invalid)
+          Swal.fire({
+              icon: "warning",
+              titleText: "Session expired",
+              text: "You must login again",
+              position:"top",
+              padding: "3em 3em 3em 3em"
+          }).then(() => {window.location.href = "/";})      
+  }
+  makeFiveWords(){
+      const options = this.state.list_with_five_words.map((word, index) => (
+          <div className="mt-3">
+              <div className="row ">
+                  <div className="col">
+                      <h4 key={index} value={word} style={{color:"white"}}><i class="bi bi-arrow-right-short m-1"></i>{this.state.list_with_five_words[index].word}</h4>
+                  </div>
+                  <div className="col">
+                      <h4 style={{color:"white"}}>{this.state.list_with_five_words[index].errors}</h4>
+                  </div>
+              </div>
+          </div>
+      ));
+      return(
+          
+          options
+      )
   }
 }

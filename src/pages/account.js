@@ -2,11 +2,11 @@ import { Component } from "react";
 import NavBar from "../components/navbar";
 import "../style/account.css"
 import UserRequester from "../util/requester/userRequester";
+import LanguageSelector from "../components/languageSelector";
 
 import Swal from "sweetalert2";
+import SweetAlert2 from "react-sweetalert2";
 import { pageAuth } from "../util/pageAuth";
-
-
 
 class Account extends Component{
 
@@ -20,15 +20,19 @@ class Account extends Component{
         this.handleAuth()
         this.t = this.props.t;
 
-        this.state = {}
+        this.state = {languageSelected: "", swal: {show: false, title: "", text: "", icon: "", showCancelButton: false, showConfirmButton: false}, showLanguageSelector: false}
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
+        this.handleLanguageChange = this.handleLanguageChange.bind(this)
+        this.handleLanguageSave = this.handleLanguageSave.bind(this)
+        this.handleShowLanguageModal = this.handleShowLanguageModal.bind(this)
+        this.renderSwal = this.renderSwal.bind(this)
     }
 
     async componentDidMount(){
         const data = await this.requester.getUserData()
+        data.data.newLanguage = ""
         this.setState(data.data)
-        console.log(data.data)
     }
 
     render(){
@@ -48,6 +52,12 @@ class Account extends Component{
                                 <h4 className="col">{this.t("global:header:Password")}: ****</h4>
                                 <button onClick={this.handlePasswordChange} type="button" className="btn btn-warning col-2">{this.t("global:header:Change")}</button>
                             </div>
+                            
+                            <div className="row mb-5">
+                                <h4 className="col"> {this.t("global:header:Language")}: {this.state.language}</h4>
+                                <button onClick={this.handleShowLanguageModal} type="button" className={"btn btn-warning col-2 "}>{this.t("global:header:Change")}</button>
+                            </div>
+                            {this.renderSwal()}                            
                             <div>
                                 
                             </div>
@@ -129,6 +139,48 @@ class Account extends Component{
             
         })
         
+    }
+
+    renderSwal(){
+        if(this.state.showLanguageSelector){
+            return(<SweetAlert2
+                {...this.state.swal}
+                onConfirm={this.handleLanguageSave}
+                didClose={() => {this.setState({swal: {show: false, title: "", text: "", icon: "", showCancelButton: false, showConfirmButton: false}})}}>
+
+                {<LanguageSelector func={this.handleLanguageChange}/>}
+                                
+            </SweetAlert2>
+            )
+        }
+    }
+
+    handleShowLanguageModal(){
+        this.setState({showLanguageSelector: true, swal: {show: true, title: "Select a language", text: "", icon: "", showCancelButton: true, showConfirmButton: true}})
+    }
+
+    async handleLanguageChange(event){
+        this.setState({languageSelected: event.target.value})
+    }
+
+    async handleLanguageSave(){
+        const language = this.state.languageSelected
+        this.setState({showLanguageSelector: false, languageSelected: "", swal: {show: false, title: "", text: "", icon: "", showCancelButton: false, showConfirmButton: false}})
+        if(!language || language.length === 0){
+            Swal.fire({icon: "warning", title:"No language selected"})
+            return
+        }
+
+        const code = await this.requester.changeUserLanguage(language);
+        if(code === 200){
+            this.setState({showLanguageSelector: false, languageSelected: "", })
+            this.componentDidMount();
+            Swal.fire({icon: "success", title:"Language changed"})
+            return
+        }else{
+            Swal.fire({icon: "error", title:"Something went wrong"})
+            return
+        }
     }
 
     //If user token is not valid, redirects to login page

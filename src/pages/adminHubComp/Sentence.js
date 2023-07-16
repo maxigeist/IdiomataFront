@@ -42,7 +42,7 @@ class CreateSentence extends React.Component{
     render(){
         return(
             <div className="container col-3">
-                <div className="card">
+                <div className="card" style={{ height: '575px', overflowY: 'auto' }}>
                     <h4 className="card-header">{this.t("global:header:Create-sentence")}</h4>
                     <div className="p-2">
 
@@ -133,7 +133,7 @@ class CreateSentence extends React.Component{
     }   
 
     async handleSubmit(){
-        if(this.state.parts.length === 0 || this.state.answers === 0 ){
+        if(this.state.parts.length === 0 || this.state.answers.length === 0 ){
             alert('warning', this.t("global:header:Sentence-or-answers-missing"), this.t("global:header:Make-sure-to-add-both-the-sentence-parts-and-the-answer"))
             return
         }
@@ -164,7 +164,7 @@ class SearchSentence extends React.Component{
     render(){
         return (
             <div className="container col-3">
-                <div className="card">
+                <div className="card" style={{height: "575px", overflowY: "auto"}}>
                     <h4 className="card-header">{this.t("global:header:Search-sentence")}</h4>
                     
                     <div className="p-2">
@@ -414,7 +414,7 @@ class UpdateSentence extends React.Component{
     }   
 
     async handleSubmit(){
-        if(this.state.parts.length === 0 || this.state.answers === 0 ){
+        if(this.state.parts.length === 0 || this.state.answers.length === 0 ){
             alert('warning', this.t("global:header:Sentence-or-answers-missing"), this.t("global:header:Make-sure-to-add-both-the-sentence-parts-and-the-answer"))
             return
         }

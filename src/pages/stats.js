@@ -1,5 +1,4 @@
 import { Component } from "react";
-import LanguageSelector from "../components/languageSelector";
 import CategorySelector from "../components/categorySelector";
 import GameSelector from "../components/gameSelector";
 import { pageAuth } from "../util/pageAuth";
@@ -10,10 +9,13 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import ChangingProgressProvider from "./ChangingProgressProvider";
 import { StatsRequester } from "../util/requester/statsRequester";
+import UserRequester from "../util/requester/userRequester";
 
 
 
 const statsRequester = new StatsRequester();
+const userRequester = new UserRequester();
+
 
 
 
@@ -26,7 +28,6 @@ class Stats extends Component{
         this.t = this.props.t;
         this.handleAuth();
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.handleLanguageChange = this.handleLanguageChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleGameChange = this.handleGameChange.bind(this);
 
@@ -38,8 +39,9 @@ class Stats extends Component{
     
 
   async componentDidMount() {
-    const attempts = await statsRequester.getWordsAttempt(this.state.language, this.state.category, this.state.game);
-    this.setState({attempts: attempts.length});
+    const language = await userRequester.getUserLanguage();
+    const attempts = await statsRequester.getWordsAttempt(language.language, this.state.category, this.state.game);
+    this.setState({attempts: attempts.length, language: language.language});
     const list_attemps_errors = await statsRequester.getlistWithWordAttempts(this.state.language, this.state.category, this.state.game);
     var act_percentage = 0;
     if (attempts.length !== 0){
@@ -78,7 +80,7 @@ class Stats extends Component{
                     <div class="col-sm-3">
                         <div class="w-75 position-relative top-50 start-0 translate-middle-y" >
                             <GameSelector func={this.handleGameChange} margin="3%" t={this.t}/>
-                            <LanguageSelector func={this.handleLanguageChange} margin="3%" t={this.t}/>
+                            
                             <CategorySelector func={this.handleCategoryChange} margin="3%" t={this.t}/>
                         </div>                    
                     </div>
@@ -124,11 +126,6 @@ class Stats extends Component{
         );
     }
 
-    async handleLanguageChange(event){
-        await this.setState({language: event.target.value})
-        await this.componentDidMount();
-
-    }
     async handleCategoryChange(event){
         await this.setState({category: event.target.value})
         await this.componentDidMount();

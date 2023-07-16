@@ -1,10 +1,12 @@
-import { Component } from "react";
+import React, { Component } from "react";
 
 import "../style/memotest.css"
-import LanguageSelector from "../components/languageSelector";
 import CategorySelector from "../components/categorySelector";
 import DifficultySelector from "../components/difficultySelector";
 import WordRequester from "../util/requester/wordRequester";
+import UserRequester from "../util/requester/userRequester";
+import {StatsRequester} from "../util/requester/statsRequester";
+import Swal from "sweetalert2";
 
 
 
@@ -13,39 +15,62 @@ import WordRequester from "../util/requester/wordRequester";
 class Memotest extends Component{
 
     wordRequester = new WordRequester();
+    userRequester = new UserRequester();
+    statsRequester = new StatsRequester();
+
     first_card = ""
     second_card = ""
     flipped_elements = []
+    cards = null;
+    chronometerRef = React.createRef();
 
     constructor(props) {
         super(props);
-        this.state = {language: "", category: "", difficulty: "", words:[], translations:[],limit: undefined, answerCorrectly: null, elements:""};
+        this.state = {language: "", category: "", difficulty: "", words:[], translations:[],limit: undefined, answerCorrectly: null, elements:"", flipped_elements_qty:0, tries:0, bestTime: ""};
         this.t = this.props.t;
-        this.handleLanguageChange = this.handleLanguageChange.bind(this)
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
         this.flipButton = this.flipButton.bind(this)
         this.createCards = this.createCards.bind(this);
         this.shuffleArray = this.shuffleArray.bind(this);
         this.flip_card = this.flip_card.bind(this);
-        this.unflip = this.unflip.bind(this);
+        this.unflip = this.unflip.bind(this)
         
     }
-    componentDidMount(){
-        this.createCards();
-    }
 
+    async componentDidMount(){
+        console.log("componentDidMount")
+        this.setState({answerCorrectly:null, elements:"" , flipped_elements_qty: 0, tries: 0})
+        await this.loadWords();
+        this.cards = this.createCards();
+        this.flipped_elements = [];
+        await this.getBestTime();
+        this.chronometerRef.current.resetChronometer();
+    }
 
 
     render(){
-
         return(
             <div className="container w-100 h-100">
                 <div className="row h-25">
-                <div  className="container w-50 pt-4">
+                <div  className="container pt-4">
                     <div className="row">
-                        <div className="col">
-                            <LanguageSelector func={this.handleLanguageChange} margin="1%" t={this.t}/>
+                        <div className="col-2">
+                                <button className="btn btn-warning" onClick={() => {this.componentDidMount()}}>Restart Game</button>
+                        </div>
+                        <div className="row col-7">
+                            <div className="col">
+                                <h4>✅: {this.state.flipped_elements_qty/2}</h4>
+                            </div>
+                            <div className="col">
+                                <h4>❌: {this.state.tries - (this.state.flipped_elements_qty/2)}</h4>
+                            </div>
+                            <div className="col">
+                                <Chronometer ref={this.chronometerRef}/>
+                            </div>
+                            <div className="col">
+                                <h4>Best: {this.state.bestTime}</h4>
+                            </div>
                         </div>
                         <div className="col">
                              <CategorySelector func={this.handleCategoryChange}margin="1%" t={this.t}/>
@@ -62,28 +87,17 @@ class Memotest extends Component{
                 
                 <div className="row h-75">
                 <div className="cards container">
-                    
-                    
-                    
-                    <this.createCards/>
-                    
-                    
-                    
-
-
-
+                    {this.cards}
                 </div>
                 </div>
-
-
-
             </div>
 
 
         );
 
     }
-     async loadWords(){
+    
+    async loadWords(){
         try{
             this.unflip();
         }
@@ -91,11 +105,11 @@ class Memotest extends Component{
             console.log(e)
         }
         
+        const language = await this.userRequester.getUserLanguage();
 
-        
+        this.setState({language: language.language})
 
-        
-        const words = await this.wordRequester.getWords(this.state.language, this.state.category, this.state.difficulty, this.state.limit)
+        const words = await this.wordRequester.getWords(language.language, this.state.category, this.state.difficulty, this.state.limit)
         
         const translations_aux = []
         for(var i=0; i<10; i++){
@@ -103,9 +117,6 @@ class Memotest extends Component{
         }
         this.setState({words: words.slice(0,10), translations: translations_aux}, async () => {if(this.state.words.length !== 0 && this.state.words === 10) this.createCards()})
         
-    }
-    handleLanguageChange(event){
-        this.setState({language: event.target.value}, async() => {await this.loadWords()});
     }
 
     handleCategoryChange(event){
@@ -160,15 +171,39 @@ class Memotest extends Component{
                 }
                 //If it matches, the card gets added the flipped classname for stopping it to be flipped again
                 if(status){
-                this.first_card.classList.add("flipped")
-                this.second_card.classList.add("flipped")
-                this.first_card.classList.add("green")
-                this.second_card.classList.add("green")
-                this.flipped_elements.push(this.first_card)
-                this.flipped_elements.push(this.second_card)
+                    this.first_card.classList.add("flipped")
+                    this.second_card.classList.add("flipped")
+                    this.first_card.classList.add("green")
+                    this.second_card.classList.add("green")
+                    this.flipped_elements.push(this.first_card)
+                    this.flipped_elements.push(this.second_card)
+                    
+                    this.setState({flipped_elements_qty: this.flipped_elements.length})
 
-                
+                    if(this.flipped_elements.length === 20){
+                        const time = this.chronometerRef.current.state.seconds
+                        await this.statsRequester.saveMemotestTime(time);
+                        Swal.fire({
+                            title: '🎉Congratulations! You won!🎉',
+                            html: `
+                            <div className="row">
+                                <div className="col">
+                                    <h4>✅: ${this.state.flipped_elements_qty/2}</h4>
+                                </div>
+                                <div className="col">
+                                    <h4>❌: ${this.state.tries - (this.state.flipped_elements_qty/2)}</h4>
+                                </div>
+                                <div className="col">
+                                    <h4>⌛: ${this.format(time)}</h4>
+                                </div>
+                            </div>`,
+                            confirmButtonText: 'Play again!',
+                        }).then(async ()=>{ await this.componentDidMount()})
+                        }
+
                 }
+
+                this.setState({tries: this.state.tries + 1})
 
                 //values from first and second card restarted.
                 this.first_card = ""
@@ -268,19 +303,82 @@ class Memotest extends Component{
         )
 
     }
+
     unflip(){
-        for(var i=0; i<this.flipped_elements.length;i++){
+        
+        for(var i=0;i<this.flipped_elements.length;i++){
             this.flipped_elements[i].classList.remove("flipped", "green", "rotate")
             this.flipped_elements[i].classList.add("rotate-back")
-            this.flipped_elements[i].children[0].innerHTML="";
-
+            this.flipped_elements[i].children[0].innerHTML = "";
         }
     }
+
+    async getBestTime(){
+        try{
+            const bestTime = await this.statsRequester.getBestTime();
+            this.setState({bestTime: bestTime? this.format(bestTime.bestTime) : "--:--"})
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+
+    format(seconds){
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    }
+
+    handleResetChronometer = () => {
+        if (this.chronometerRef.current) {
+          this.chronometerRef.current.resetChronometer();
+        }
+      };
 
 
 }
 
+class Chronometer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      seconds: 0,
+    };
+    this.interval = null;
+  }
 
+  componentDidMount() {
+    this.startTimer();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      this.setState((prevState) => ({
+        seconds: prevState.seconds + 1,
+      }));
+    }, 1000);
+  }
+
+  resetChronometer = () => {
+    this.setState({
+      seconds: 0,
+    });
+  };
+
+  render() {
+    const { seconds } = this.state;
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    return (
+        <h4>⌛: {minutes < 10 ? '0' : ''}{minutes}:{remainingSeconds < 10 ? '0' : ''}{remainingSeconds}</h4>
+    );
+  }
+}
 
 
 export default Memotest;
