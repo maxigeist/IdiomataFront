@@ -76,4 +76,27 @@ export class StatsRequester{
         }
 
     }
+
+    async getBestTime(){
+        try{
+            const attempts = await axios.get("http://localhost:3001/api/stats/memotest/bestTime",
+                {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
+            )
+            return attempts.data;
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    async saveMemotestTime(time){
+        try{
+            const attempts = await axios.post("http://localhost:3001/api/stats/memotest/attempt",
+                {timeInSeconds: time},
+                {headers: {Authorization: "Bearer: "+ getTokenFromDom()}},
+            )
+            return attempts.data;
+        }catch(e){
+            console.log(e)
+        }
+    }
 }

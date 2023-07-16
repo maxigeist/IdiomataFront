@@ -88,6 +88,47 @@ export class WordRequester{
             console.log(error)
         }
     }
+
+    async uploadFileForWords(file){
+        try {
+            const formData = new FormData();
+            formData.append(
+            "file",
+            file
+        );
+            const response = await axios.post("http://localhost:3001/api/word/upload", formData)
+            return response
+        } catch (error) {
+            console.log(error)
+            return error.response
+
+        }
+    }
+
+    async uploadFileForTranslations(file){
+        try {
+            const formData = new FormData();
+            formData.append(
+            "file",
+            file
+        );
+            const response = await axios.post("http://localhost:3001/api/word/upload/translations", formData)
+            return response
+        } catch (error) {
+            console.log(error)
+            return error.response
+
+        }
+    }
+
+    async getAllWordsInEnglish(){
+        try {
+            const response = await axios.get("http://localhost:3001/api/word/all")
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default WordRequester
