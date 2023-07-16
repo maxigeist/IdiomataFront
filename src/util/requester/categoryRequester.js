@@ -10,11 +10,12 @@ class categoryRequester{
      */
 
 
-    async createCategory(name){
+    async createCategory(name, img){
         try{
-            const response = await axios.post('http://localhost:3001/api/category',{
-                name:name
-            });
+            const formData = new FormData();
+            formData.append('file', img);
+            formData.append('name', name);
+            const response = await axios.post('http://localhost:3001/api/category',formData);
             console.log(response.status)
             return response.status;
             
@@ -74,8 +75,17 @@ class categoryRequester{
         }
     }
 
+    async getImageByName(name){
+        try{
+            const response = await axios.get('http://localhost:3001/api/category/images/'+name)
+            return response.data;
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
 
-    
+      
 }
 
 

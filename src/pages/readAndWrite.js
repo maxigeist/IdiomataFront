@@ -5,9 +5,9 @@ import WordRequester from "../util/requester/wordRequester";
 import { StatsRequester } from "../util/requester/statsRequester";
 import { pageAuth } from "../util/pageAuth";
 import Swal from "sweetalert2";
-import CategorySelector from "../components/categorySelector";
 import DifficultySelector from "../components/difficultySelector";
 import UserRequester from "../util/requester/userRequester";
+import CategorySelectorWithImages from "../components/categorySelectorWithImages";
 
 class ReadAndWrite extends Component{
 
@@ -20,7 +20,7 @@ class ReadAndWrite extends Component{
 
         this.handleAuth()
 
-        this.state = {language: "", category: "", difficulty: "", words:[], shownword:"", translations: [], wordInput: "", limit: undefined, answerCorrectly: null, correctAnswer: "", validation: ""}
+        this.state = {language: "", category: "", difficulty: "", words:[], shownword:"", translations: [], wordInput: "", limit: undefined, answerCorrectly: null, correctAnswer: "", validation: "", showGame: false}
 
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
@@ -34,7 +34,13 @@ class ReadAndWrite extends Component{
     }
 
     render(){
+        if(this.state.showGame){
         return(
+            
+            <div>
+                <CategorySelectorWithImages func={this.handleCategoryChange}/>
+                
+
             <div className="principal-container w-100 h-100">
                 
             
@@ -45,9 +51,6 @@ class ReadAndWrite extends Component{
                         <div className="card-body ">
                             <div className="container">
                                 <div className="row">
-                                <div className="col">
-                                    <CategorySelector func={this.handleCategoryChange}/>
-                                </div>
                                 <div className="col">
                                     <DifficultySelector func={this.handleDifficultyChange}/>
                                 </div>
@@ -68,7 +71,16 @@ class ReadAndWrite extends Component{
                     </div>
                 </div>
             </div>
+            </div>
         );
+        }
+        else{
+            return(
+                <div>
+                    <CategorySelectorWithImages func={this.handleCategoryChange}/>
+                </div>
+            )
+        }
     }
 
     async loadWords(){
@@ -79,12 +91,12 @@ class ReadAndWrite extends Component{
     }
 
     handleCategoryChange(event){
-        
         this.setState({category: event.target.value}, async() => {await this.loadWords()});
+        this.setState({showGame: true})
     }
+
     handleDifficultyChange(event){
         this.setState({difficulty: event.target.value}, async()=> {await this.loadWords()});
-        
     }
 
     showWords(){

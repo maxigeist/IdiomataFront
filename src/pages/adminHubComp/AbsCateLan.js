@@ -8,8 +8,6 @@ import { alert } from "../../util/alert";
 
 
 
-
-
 const categorydataRequester = new categoryRequester();
 const languagedataRequester = new languageRequester();
 
@@ -46,26 +44,46 @@ class AbsCateLan extends Component{
 
     handleAddButton(event){
         event.preventDefault()
-        Swal.fire({
-            title:`Insert new ${this.props.to}`,
-            input: 'text',
-            showCancelButton: true,
-            confirmButtonText: 'Save',
-            cancelButtonText: 'Cancel',
-        }).then(async result => { 
-            if(result.value){
-                (this.props.to === "Category") 
-                ? await categorydataRequester.createCategory(result.value).then(alert("success",`New ${this.props.to} created`))
-                
-                : await languagedataRequester.createLanguage(result.value).then(alert("success",`New ${this.props.to} created`));
-                this.props.refresh();
-            }
-            
-            
-
-        })
-        
+        if(this.props.to === "Category"){
+            Swal.fire({
+                title:`Insert new ${this.props.to}`,
+                html:
+                    '<input id="categoryName" type="text" class="swal2-input">' +
+                    '<input id="categoryImage" type="file" class="swal2-input">',
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                cancelButtonText: 'Cancel',
+                focusConfirm: true,
+                preConfirm: () => ({
+                    name: document.getElementById('categoryName').value,
+                    img: document.getElementById('categoryImage').files[0]
+                })
+            }).then(async result => { 
+                console.log(result.value)
+                if(result.value){
+                    const formData = new FormData();
+                    formData.append('file', result.value.img);
+                    await categorydataRequester.createCategory(result.value.name, result.value.img).then(alert("success",`New ${this.props.to} created`))
+                    this.props.refresh();
+                }
+            })
         }
+        if(this.props.to === "Language"){
+            Swal.fire({
+                title:`Insert new ${this.props.to}`,
+                input: 'text',
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                cancelButtonText: 'Cancel',
+            }).then(async result => { 
+                console.log(result.value)
+                if(result.value){
+                    await languagedataRequester.createLanguage(result.value).then(alert("success",`New ${this.props.to} created`));
+                    this.props.refresh();
+                }
+            })
+        }
+    }
         
 
     async handleDeleteButton(event){
