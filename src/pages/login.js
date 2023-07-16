@@ -4,13 +4,25 @@ import "../style/App.css";
 import UserRequester from "../util/requester/userRequester";
 import { saveTokenToDom} from "../util/domHandler"
 import { alert } from "../util/alert";
+import I18n from "../components/i18ncomponent";
+
+
+
+
+
 
 const userDataRequester = new UserRequester();
+
+
 
 class Login extends Component{
 
     constructor(props){
         super(props)
+        this.t = this.props.t
+        
+        
+        
 
         this.state = {email: "", password: ""}
 
@@ -20,8 +32,9 @@ class Login extends Component{
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleAdminLogin = this.handleAdminLogin.bind(this);
     }
-
+    
     render(){
+
         return(
             <div className="Body-princ">
             <div className="App">
@@ -33,14 +46,26 @@ class Login extends Component{
                     />
                 </div>
                 <h1 className='titulo'>Idiomata</h1>
+                <div class="position-absolute top-0 end-0 m-5"><I18n t={this.t}/></div>
+                
+                
+                
 
                 <div className='formulario-div'>
                     <form className='formulario'>
-                        <input className="form-input" type="text" placeholder = "Email"  id="email_input" required autoComplete="off" onChange={this.handleEmailChange}/>
-                        <input className="form-input password-input" type='password' placeholder = "Password" id='password' required onChange={this.handlePasswordChange}/>
-                        <button className='main-buttons buttons-login' onClick={this.handleLogin} >Log In</button>
-                        <button className='main-buttons buttons-login' onClick={this.goToRegister} > Register</button> 
-                        <p className="admin-p">Log in as  <label  onClick ={this.handleAdminLogin}className="admin-log-in">Admin</label></p>
+                        <div className="row">
+                            <div className="col">
+                        <input className="form-input" type="text" placeholder = {this.t("global:header:Email")}  id="email_input" required autoComplete="off" onChange={this.handleEmailChange}/>
+                            </div>
+                            <div className="col">
+                        <input className="form-input password-input" type='password' placeholder = {this.t("global:header:Password")} id='password' required onChange={this.handlePasswordChange}/>
+                            </div>
+                        </div>
+                        <div className="d-flex">
+                        <button className='main-buttons buttons-login' onClick={this.handleLogin} >{this.t("global:header:Login")}</button>
+                        <button className='main-buttons buttons-login' onClick={this.goToRegister} >{this.t("global:header:Register")}</button>                             
+                        </div>
+                        <p className="admin-p">{this.t("global:header:Log-in-as")}<label  onClick ={this.handleAdminLogin}className="admin-log-in">{this.t("global:header:Admin")}</label></p>
                     </form>
                 </div>
             </div>
@@ -57,6 +82,7 @@ class Login extends Component{
      */
     async handleLogin(event){
         event.preventDefault()
+        
 
         const token = await userDataRequester.LoginUser(this.state.email, this.state.password);
         if(token){
@@ -64,7 +90,7 @@ class Login extends Component{
             window.location.href="/homepage";
         }
         else{
-            alert('error', "Login failed", "Check your email and password")
+            alert('error', this.t("global:header:Login-failed"),this.t("global:header:Check-your-email-and-password"))
         }
 
     }

@@ -9,11 +9,13 @@ const sentenceRequester = new SentenceRequester();
 
 export class Sentence extends React.Component{
 
+
+
     render(){
         return(
             <div className="row">
-                <CreateSentence/>
-                <SearchSentence/>
+                <CreateSentence t={this.props.t}/>
+                <SearchSentence t={this.props.t}/>
             </div>
         )}
 }
@@ -22,6 +24,7 @@ class CreateSentence extends React.Component{
 
     constructor(props){
         super(props)
+        this.t = this.props.t
 
         this.state = {languageSelected: "", difficultySelected: "",currentPart: "", parts: [], currentAnswer: "", answers: []}
 
@@ -40,41 +43,41 @@ class CreateSentence extends React.Component{
         return(
             <div className="container col-3">
                 <div className="card">
-                    <h4 className="card-header">Create Sentence</h4>
+                    <h4 className="card-header">{this.t("global:header:Create-sentence")}</h4>
                     <div className="p-2">
 
                         <div>
-                            <b>Sentence: </b>
+                            <b>{this.t("global:header:Sentence")}: </b>
                             {this.state.parts.map((part, index) => {
                             if(index !== this.state.parts.length - 1) return part + "___"
                             else {return part}
                             })}
                         </div>
 
-                        <label className="form-label">Enter new part</label>
+                        <label className="form-label">{this.t("global:header:Enter-new-part")}</label>
                         <input className="form-control shadow-none" onChange={this.handleCurrentPartChange}/>
-                        <button className="btn btn-outline-primary me-2" onClick={this.handlePartSubmit}>Add</button>
-                        <button className="btn btn-outline-danger" onClick={this.handlePartRemove}>Remove</button>
+                        <button className="btn btn-outline-primary me-2" onClick={this.handlePartSubmit}>{this.t("global:header:Add")}</button>
+                        <button className="btn btn-outline-danger" onClick={this.handlePartRemove}>{this.t("global:header:Remove")}</button>
                         <br/>
                         <br/>
 
                         <div>
-                            <b>Answers: </b>
+                            <b>{this.t("global:header:Answers")}: </b>
                             {this.state.answers.map((answer, index) => {
                             if(index !== this.state.answers.length - 1) return " " + answer + ','
                             else {return " " + answer}
                             })}
                         </div>
 
-                        <label className="form-label">Enter answer (in english)</label>
+                        <label className="form-label">{this.t("global:header:Enter-answer-in-english")}:</label>
                         <input className="form-control shadow-none" onChange={this.handleCurrentAnswerChange}/>
-                        <button className="btn btn-outline-primary me-2" onClick={this.handleAnswerSubmit}>Add</button>
-                        <button className="btn btn-outline-danger" onClick={this.handleAnswerRemove}>Remove</button>
+                        <button className="btn btn-outline-primary me-2" onClick={this.handleAnswerSubmit}>{this.t("global:header:Add")}</button>
+                        <button className="btn btn-outline-danger" onClick={this.handleAnswerRemove}>{this.t("global:header:Remove")}</button>
                         <br/>
                         <br/>
 
-                        <LanguageSelector func={this.handleLanguageChange}/>
-                        <DifficultySelector func={this.handleDifficultyChange}/>
+                        <LanguageSelector func={this.handleLanguageChange} t={this.t}/>
+                        <DifficultySelector func={this.handleDifficultyChange} t={this.t}/>
 
                         <br/>
                         
@@ -131,18 +134,18 @@ class CreateSentence extends React.Component{
 
     async handleSubmit(){
         if(this.state.parts.length === 0 || this.state.answers === 0 ){
-            alert('warning', "Sentence or answers missing", "Make sure to add both the sentence parts and the answer")
+            alert('warning', this.t("global:header:Sentence-or-answers-missing"), this.t("global:header:Make-sure-to-add-both-the-sentence-parts-and-the-answer"))
             return
         }
         const res = await sentenceRequester.createSentence(this.state.languageSelected, this.state.parts, this.state.answers, this.state.difficultySelected)
         if(res === 200){
-            alert('success', 'Sentence added succesfully', "")
+            alert('success', this.t('global:header:Sentence-added-successfully'))
         }else if(res === 404){
-            alert('error', 'Word or words not found', "Check if the words you are using exist")
+            alert('error', this.t('global:header:Word-or-words-not-found'), this.t("global:header:Check-if-the-words-you-are-using-exist"))
         }else if(res === 400){
-            alert('error', "Something is missing", "Make sure to select language and difficulty")
+            alert('error', this.t('global:header:Something-is-missing'), this.t('global:header:Make-sure-to-select-language-and-difficulty'))
         }else{
-            alert('error', "Something went wrong", "")
+            alert('error', this.t('global:header:Something-went-wrong'))
         }
     }
 }
@@ -150,6 +153,7 @@ class CreateSentence extends React.Component{
 class SearchSentence extends React.Component{
     constructor(props){
         super(props)
+        this.t = this.props.t;
 
         this.state = {languageSelected: "", sentences:[]}
 
@@ -161,12 +165,12 @@ class SearchSentence extends React.Component{
         return (
             <div className="container col-3">
                 <div className="card">
-                    <h4 className="card-header">Search Sentence</h4>
+                    <h4 className="card-header">{this.t("global:header:Search-sentence")}</h4>
                     
                     <div className="p-2">
-                        <LanguageSelector func={this.handleLanguageChange}/>
+                        <LanguageSelector func={this.handleLanguageChange} t={this.t}/>
 
-                        <SearchResult searchFunction={this.handleSearch} sentences={this.state.sentences} languageSelected={this.state.languageSelected}/>
+                        <SearchResult searchFunction={this.handleSearch} sentences={this.state.sentences} languageSelected={this.state.languageSelected} t={this.t}/>
                     </div>
                 </div>
             </div>
@@ -191,6 +195,7 @@ export class SearchResult extends React.Component{
         super(props)
 
         this.state = {activeId: "", showModal: false}
+        this.t = this.props.t;
 
 
         this.parseSentences = this.parseSentences.bind(this)
@@ -221,10 +226,10 @@ export class SearchResult extends React.Component{
 
                 <Modal show={this.state.showModal} onHide={this.handleModalClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Update Sentence</Modal.Title>
+                    <Modal.Title>{this.t('global:header:Update-Sentence')}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <UpdateSentence inactiveElements={this.inactiveElements} searchFunction={this.props.searchFunction} sentences={this.props.sentences} languageSelected={this.props.languageSelected} activeId={this.state.activeId} hideModal={this.handleModalClose}/>
+                        <UpdateSentence t ={this.t} inactiveElements={this.inactiveElements} searchFunction={this.props.searchFunction} sentences={this.props.sentences} languageSelected={this.props.languageSelected} activeId={this.state.activeId} hideModal={this.handleModalClose}/>
                     </Modal.Body>
                 </Modal>
             </div>
@@ -252,7 +257,7 @@ export class SearchResult extends React.Component{
     makeListOptions(result){
         if(this.props.sentences.length === 0) return ""
 
-        const options = result.map((sentence, index) => (<li className="list-group-item " id={sentence.id} onClick={this.makeActive} key={index} style={{userSelect:"none"}}>- sentence: {sentence.parts}  answers: {sentence.answers}</li>))
+        const options = result.map((sentence, index) => (<li className="list-group-item " id={sentence.id} onClick={this.makeActive} key={index} style={{userSelect:"none"}}>{this.t("global:header:Sentence")}: {sentence.parts} <br></br>{this.t("global:header:Answers")}: {sentence.answers}</li>))
         return options
     }
 
@@ -283,17 +288,17 @@ export class SearchResult extends React.Component{
             const status = await sentenceRequester.deleteSentence(Number(this.state.activeId))
 
             if (status === 200){
-                alert('success', 'Sentence deleted successfully','')
+                alert('success',this.t('global:header:Sentence-deleted-successfully'))
                 this.setState({activeId: ""})
                 this.props.searchFunction()
                 this.inactiveElements()
             }
 
             else{
-                alert('error', 'An error occurred', '')
+                alert('error', this.t("global:header:An-error-occurred"))
             }
         }else{
-            alert('warning', "Select a sentence to delete")
+            alert('warning', this.t('global:header:Select-a-sentence-to-delete'))
         }
     }
 
@@ -311,9 +316,10 @@ class UpdateSentence extends React.Component{
 
     constructor(props){
         super(props)
+        this.t = this.props.t;
 
         const activeSentence = this.getActiveSentence()
-
+        
         this.state = {languageSelected: this.props.languageSelected, currentPart: "", parts: activeSentence.parts.map((part) => part.content), currentAnswer: "", answers: activeSentence.blanks.map((blank) => blank[0]), activeSentence: activeSentence}
 
         this.handleCurrentPartChange = this.handleCurrentPartChange.bind(this)
@@ -331,32 +337,32 @@ class UpdateSentence extends React.Component{
             <div className="card">
                 <div className="p-2">
                     <div>
-                        <b>Sentence: </b>
+                        <b>{this.t("global:header:Sentence")}: </b>
                         {this.state.parts.map((part, index) => {
                         if(index !== this.state.parts.length - 1) return part + "___"
                         else {return part}
                         })}
                     </div>
 
-                    <label className="form-label">Enter new part</label>
+                    <label className="form-label">{this.t("global:header:Enter-new-part")}</label>
                     <input className="form-control shadow-none" onChange={this.handleCurrentPartChange}/>
-                    <button className="btn btn-outline-primary me-2" onClick={this.handlePartSubmit}>Add</button>
-                    <button className="btn btn-outline-danger" onClick={this.handlePartRemove}>Remove</button>
+                    <button className="btn btn-outline-primary me-2" onClick={this.handlePartSubmit}>{this.t("global:header:Add")}</button>
+                    <button className="btn btn-outline-danger" onClick={this.handlePartRemove}>{this.t("global:header:Remove")}</button>
                     <br/>
                     <br/>
 
                     <div>
-                        <b>Answers: </b>
+                        <b>{this.t("global:header:Answers")}: </b>
                         {this.state.answers.map((answer, index) => {
                         if(index !== this.state.answers.length - 1) return " " + answer + ','
                         else {return " " + answer}
                         })}
                     </div>
 
-                    <label className="form-label">Enter answer (in english)</label>
+                    <label className="form-label">{this.t("global:header:Enter-answer-in-english")}:</label>
                     <input className="form-control shadow-none" onChange={this.handleCurrentAnswerChange}/>
-                    <button className="btn btn-outline-primary me-2" onClick={this.handleAnswerSubmit}>Add</button>
-                    <button className="btn btn-outline-danger" onClick={this.handleAnswerRemove}>Remove</button>
+                    <button className="btn btn-outline-primary me-2" onClick={this.handleAnswerSubmit}>{this.t("global:header:Add")}</button>
+                    <button className="btn btn-outline-danger" onClick={this.handleAnswerRemove}>{this.t("global:header:Remove")}</button>
                     <br/>
                     <br/>
 
@@ -409,19 +415,19 @@ class UpdateSentence extends React.Component{
 
     async handleSubmit(){
         if(this.state.parts.length === 0 || this.state.answers === 0 ){
-            alert('warning', "Sentence or answers missing", "Make sure to add both the sentence parts and the answer")
+            alert('warning', this.t("global:header:Sentence-or-answers-missing"), this.t("global:header:Make-sure-to-add-both-the-sentence-parts-and-the-answer"))
             return
         }
         const res = await sentenceRequester.updateSentence(this.state.activeSentence.id, this.props.languageSelected,this.state.parts, this.state.answers)
         this.props.hideModal()
         if(res === 200){
-            alert('success', 'Sentence added succesfully', "")
+            alert('success',this.t("global:header:Sentence-added-successfully"))
             this.props.searchFunction()
             this.props.inactiveElements()
         }else if(res === 404){
-            alert('error', 'Word or words not found', "Check if the words you are using exist")
+            alert('error', this.t('global:header:Word-or-words-not-found'), this.t('global:header:Check-if-the-words-you-are-using-exist'))
         }else{
-            alert('error', "Something went wrong", "")
+            alert('error',this.t('global:header:Something-went-wrong'))
         }
     }
 
@@ -430,6 +436,6 @@ class UpdateSentence extends React.Component{
             if(this.props.sentences[i].id === Number(this.props.activeId)) return this.props.sentences[i]
         }
         this.props.hideModal();
-        alert('warning', "No sentence selected")
+        alert('warning',this.t('global:header:No-sentence-selected'))
     }
 }

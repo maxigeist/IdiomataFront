@@ -13,6 +13,7 @@ class Friends extends React.Component {
 
   constructor(props){
     super(props)
+    this.t=this.props.t;
 
     this.handleAuth()
   }
@@ -20,16 +21,16 @@ class Friends extends React.Component {
   render() {
     return (
         <div>
-            <NavBar />
+            <NavBar t={this.props.t}/>
       <div className="container">
 
         <div className="row mt-4">
           
-          <FriendRequests/>
+          <FriendRequests t={this.t}/>
 
-          <SendFriendRequest/>
+          <SendFriendRequest t={this.t}/>
 
-          <FriendList/>
+          <FriendList t={this.t}/>
         </div>
       </div>
       </div>
@@ -41,11 +42,11 @@ class Friends extends React.Component {
     const invalid = await pageAuth();
     if(invalid)
         Swal.fire({
-            icon: "warning",
-            titleText: "Session expired",
-            text: "You must login again",
-            position:"top",
-            padding: "3em 3em 3em 3em"
+          icon: "warning",
+          titleText: this.t("global:header:Session-expired"),
+          text: this.t("global:header:You-must-login-again"),
+          position:"top",
+          padding: "3em 3em 3em 3em"
         }).then(() => {window.location.href = "/";})
         
 }
@@ -57,7 +58,7 @@ class SendFriendRequest extends React.Component{
 
   constructor(props){
     super(props)
-
+    this.t = this.props.t
     this.state = {emailSearched: ""}
 
     this.sendRequest = this.sendRequest.bind(this)
@@ -67,15 +68,16 @@ class SendFriendRequest extends React.Component{
   render(){
     return(
       <div className="col-md-4">
-            <div className="card">
-              <div className="card-header">
+            <div className="card" style={{border:"none"}}>
+              {/* <div className="card-header">
                 Send Friend Request
-              </div>
+              </div> */}
+              <h4 className="card-header text-white bg-primary">{this.t("global:header:Send-friend-request")}</h4>
               <div className="card-body">
                 <div className="input-group">
-                  <input type="text" className="form-control shadow-none" placeholder="Enter your friend's email" onChange={this.handleEmailChange} />
+                  <input type="text" className="form-control shadow-none" placeholder={this.t("global:header:Enter-your-friend's-email")} onChange={this.handleEmailChange} />
                   <button className="btn btn-primary" onClick={this.sendRequest}>
-                    Send
+                  {this.t("global:header:Send")}
                   </button>
                 </div>
               </div>
@@ -90,9 +92,9 @@ class SendFriendRequest extends React.Component{
 
   async sendRequest(){
     const response = await friendsRequester.sendFriendRequest(this.state.emailSearched)
-    if(response.status === 200){alert('success', 'Request Sent', '')}
-    else if(response.status === 404){alert('warning', 'Email not found')}
-    else{alert('error', 'Something Went Wrong', '')}
+    if(response.status === 200){alert('success', this.t('global:header:Request-Sent'))}
+    else if(response.status === 404){alert('warning', this.t('global:header:Email-not-found'))}
+    else{alert('error', this.t('global:header:Something-Went-Wrong'))}
   }
 }
 
@@ -100,7 +102,7 @@ class FriendRequests extends React.Component{
 
   constructor(props){
     super(props)
-    
+    this.t = this.props.t;
     this.state = {requests: ""}
   }
 
@@ -114,7 +116,8 @@ class FriendRequests extends React.Component{
 
       return (
         <div className="card">
-          <div className="card-header">
+          <h4 className="card-header text-white bg-primary">{this.t("global:header:Friends-request")}</h4>
+          <div className="card-header text-white bg-primary">
             Friend Requests
           </div>
         </div>
@@ -123,10 +126,11 @@ class FriendRequests extends React.Component{
 
     return (
       <div className="col-md-4">
-        <div className="card">
-          <div className="card-header">
+        <div className="card" style={{border:"none"}}>
+          {/* <div className="card-header text-white bg-primary">
             Friend Requests
-          </div>
+          </div> */}
+          <h4 className="card-header text-white bg-primary">{this.t("global:header:Friends-request")}</h4>
           <ul className="list-group list-group-flush" style={{ height: '500px', overflowY: 'auto' }}>
         {this.state.requests.map(request => (
           <li className="list-group-item d-flex justify-content-between align-items-center" key={request.id}>
@@ -154,14 +158,14 @@ class FriendRequests extends React.Component{
 
   async acceptRequest(id) {
     const response = await friendsRequester.addFriend(id);
-    if(response.status === 200){alert('success', 'Friend Accepted', ''); await this.fetchRequests()}
-    else{alert('error', 'Something went wrong', '')}
+    if(response.status === 200){alert('success', this.t('global:header:Friend-Accepted')); await this.fetchRequests()}
+    else{alert('error', this.t('global:header:Something-Went-Wrong'))}
   }
 
   async rejectRequest(id) {
     const response = await friendsRequester.rejectRequest(id);
-    if(response.status === 200){alert('success', 'Friend Rejected', ''); await this.fetchRequests()}
-    else{alert('error', 'Something went wrong', '')}
+    if(response.status === 200){alert('success', this.t('global:header:Friend-Rejected')); await this.fetchRequests()}
+    else{alert('error',this.t('global:header:Something-Went-Wrong'))}
   }
 }
 
@@ -171,6 +175,7 @@ class FriendList extends React.Component{
     this.state = {
       friends: [], // Initial empty friends array
     };
+    this.t = this.props.t;
   }
 
   componentDidMount() {
@@ -193,8 +198,8 @@ class FriendList extends React.Component{
   async removeFriend(id) {
     // Handle remove friend logic
     const response = await userRequester.removeFriend(id);
-    if(response.status === 200){alert('success', 'Friend Removed', ''); await this.loadFriends()}
-    else{alert('error', 'Something went wrong', '')}
+    if(response.status === 200){alert('success', this.t('global:header:Friend-Removed')); await this.loadFriends()}
+    else{alert('error', this.t('global:header:Something-Went-Wrong'))}
 
   }
 
@@ -221,10 +226,11 @@ class FriendList extends React.Component{
 
     return (
       <div className="col-md-4">
-        <div className="card">
-          <div className="card-header">
+        <div className="card" style={{border:"none"}}>
+          {/* <div className="card-header bg-success">
             My Friends
-          </div>
+          </div> */}
+          <h4 className="card-header bg-success text-white">{this.t("global:header:Friends")}</h4>
           <ul className="list-group list-group-flush" style={{ heigth: '500px', overflowY: 'auto' }}>
             {this.state.friends.map((friend, index) => (
             <li className="list-group-item d-flex justify-content-between align-items-center" key={friend.id}>

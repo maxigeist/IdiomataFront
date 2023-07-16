@@ -4,10 +4,11 @@
   box-sizing: border-box;
 }
 .formulario-div{
-  height: 220px;
+  height: 175px;
   border-radius: 10px;
   border-radius: 10px;
   background-color: rgb(31, 122, 218, 0.9)  ;
+  width: auto;
   
 }
 .App{
@@ -44,8 +45,10 @@
 
   align-items: center;
   justify-content: center;
+  
   margin: 20px;
   height: 60px;
+  width: auto;
   border-color: white;
   
 }
@@ -61,6 +64,8 @@
   font-family: Arial;
   background-color: #4cdd2c;
   margin-top: 5px;
+  height: 100%;
+  padding: 2px;
   
 }
 .main-buttons:hover{
@@ -77,7 +82,8 @@
 
 .buttons-login{
   height: 50px;
-  width: 44%;
+  width: 100%;
+
   margin: 5px;
 
 }
@@ -131,9 +137,14 @@
 }
 
 ::placeholder{
+  
   color: black;
-  font-family: "Comic Sans MS";
-  font-weight: bold;
+  font-weight: 550;
+  font-family: system-ui;
+
+  
+  
+  
 }
 
 
@@ -168,7 +179,7 @@ html,body{
   background: url("../resources/school2.png") right top   , url("../resources/school.png") left bottom;
   background-size:41%;
   background-repeat: no-repeat;
-  background-position-y: 310px, 330px;
+  background-position-y: 350px, 365px;
   min-height: 100vh;
   
 }

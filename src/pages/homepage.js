@@ -6,7 +6,7 @@ import GamesDisplay from "../components/gamesdisplay";
 import Swal from "sweetalert2";
 
 
-class homepage extends Component{
+class Homepage extends Component{
 
     constructor(props){
         super(props)
@@ -18,11 +18,11 @@ class homepage extends Component{
         return(
             <div style={{height:"100vh", width:"100%"}}>
                 <div className="principal-container">
-                <NavBar selected = "home"/>
+                <NavBar selected = "home" t={this.props.t}/>
                 {/* <h1 className="main-title">Start playing right now!</h1> */}
                 </div>
                 <div className="game">
-                    <GamesDisplay/>
+                    <GamesDisplay t={this.props.t}/>
                 </div>
             </div>
 
@@ -35,8 +35,8 @@ class homepage extends Component{
         if(invalid)
             Swal.fire({
                 icon: "warning",
-                titleText: "Session expired",
-                text: "You must login again",
+                titleText: this.t("global:header:Session-expired"),
+                text: this.t("global:header:You-must-login-again"),
                 position:"top",
                 padding: "3em 3em 3em 3em"
             }).then(() => {window.location.href = "/";})
@@ -44,4 +44,4 @@ class homepage extends Component{
     }
 }
 
-export default homepage;
+export default Homepage;

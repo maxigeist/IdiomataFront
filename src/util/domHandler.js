@@ -8,6 +8,10 @@ export function saveTokenToDom(token){
     localStorage.setItem("currentToken", token)
 }
 
+export function saveLanguageToDom(Lang){
+    localStorage.setItem("currentLanguage", Lang)
+}
+
 /**
  * This function gets the user token saved in Dom
  * 

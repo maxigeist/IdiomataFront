@@ -15,7 +15,7 @@ class FillInTheGaps extends Component{
     constructor(props){
         super(props)
         this.state= ({language:"", category:"", difficulty:"", sentence_parts:[], sentence_blanks:[], shownParts: [], shownBlanks: [], inputs:[], answers: [], isCorrect:[]})
-
+        this.t = this.props.t;
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this)
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
@@ -39,15 +39,15 @@ class FillInTheGaps extends Component{
 
             <div className="container p-4 col-6">
                 <div className="card" style={{ border:"none"}}>
-                    <h4 className="card-header text-white bg-primary">Fill in the Gaps</h4>
+                    <h4 className="card-header text-white bg-primary">{this.t("global:header:Fill-in-the-gaps")}</h4>
                     <div className="card-body">
                     <div className="container">
                                 <div className="row align-items-start">
                                 <div className="col">
-                                    <LanguageSelector func={this.handleLanguageChange}/>
+                                    <LanguageSelector func={this.handleLanguageChange} t={this.t}/>
                                 </div>
                                 <div className="col">
-                                    <DifficultySelector func={this.handleDifficultyChange}/>
+                                    <DifficultySelector func={this.handleDifficultyChange} t={this.t}/>
                                 </div>
 
                                 </div>
@@ -57,8 +57,8 @@ class FillInTheGaps extends Component{
                         <form onSubmit={this.handleCheck} className="pt-3">
                             <this.showSentence shownParts={this.state.shownParts} shownBlanks={this.state.shownBlanks} isCorrect={this.state.isCorrect}/>
                         </form>
-                        <button className="btn btn-success m-2" onClick={this.handleCheck}>Check</button>
-                        <button className="btn btn-primary" onClick={this.nextSentence}>Next Sentence</button>
+                        <button className="btn btn-success m-2" onClick={this.handleCheck}>{this.t("global:header:Check")}</button>
+                        <button className="btn btn-primary" onClick={this.nextSentence}>{this.t("global:header:Next-sentence")}</button>
                     </div>
                 
                 </div>

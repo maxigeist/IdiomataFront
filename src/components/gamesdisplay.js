@@ -12,6 +12,7 @@ class GamesDisplay extends Component{
 
     constructor(props){
         super(props);
+        this.t = this.props.t;
 
         this.handleRaWClick = this.handleRaWClick.bind(this);
         this.handleFillInTheGapsClick = this.handleFillInTheGapsClick.bind(this);
@@ -36,14 +37,14 @@ class GamesDisplay extends Component{
     <li class="nav-item mb-5 press fs-5" >
     <li class="nav-link text-white" style={{justifyContent:"center", textAlign:"center"}} onClick={this.handleRaWClick} >
     <i class="bi bi-translate" style={{paddingRight:"10px"}}></i>
-    Translate It
+    {this.t("global:header:Translate-it")}
     </li>
     </li>
     <li class="nav-item mb-5 press fs-5">
     <li class="nav-link text-white"  style={{justifyContent:"center", textAlign:"center"}} onClick={this.handleFillInTheGapsClick}>
     <i class="bi bi-pencil-square" style={{paddingRight:"10px"}}></i>
     
-    Fill in the Gaps
+    {this.t("global:header:Fill-in-the-gaps")}
 
     </li>
     </li>
@@ -58,15 +59,15 @@ class GamesDisplay extends Component{
     </ul>
     </div>
         <div className="RAW-div" style = {{display:"none", width:"100%"}}>
-            <ReadAndWrite/>
+            <ReadAndWrite t = {this.t}/>
 
         </div>
         <div className="FIG-div" style = {{display:"none", width:"100%"}}>
-            <FillInTheGaps/>
+            <FillInTheGaps t = {this.t}/>
         </div>
 
         <div className="MEMO-div" style={{display:"none", width:"100%"}}>
-            <Memotest/>
+            <Memotest t = {this.t}/>
         </div>
 
 

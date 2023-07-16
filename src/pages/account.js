@@ -8,7 +8,7 @@ import { pageAuth } from "../util/pageAuth";
 
 
 
-class account extends Component{
+class Account extends Component{
 
     requester = new UserRequester();
 
@@ -18,6 +18,7 @@ class account extends Component{
         super(props)
 
         this.handleAuth()
+        this.t = this.props.t;
 
         this.state = {}
         this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -33,19 +34,19 @@ class account extends Component{
     render(){
         return(
             <div>
-                <NavBar selected = "account"/>
+                <NavBar selected = "account" t={this.props.t}/>
                 <div className="col-6 p-4">
                     <div className="card">
-                        <h3 className="card-header mb-3 bg-warning">Profile</h3>
+                        <h3 className="card-header mb-3 bg-warning">{this.t("global:header:Profile")}</h3>
                         <div className="card-body">
-                            <h4 className="mb-5">Name: {this.state.name}</h4>
+                            <h4 className="mb-5">{this.t("global:header:Name")}: {this.state.name}</h4>
                             <div className="row mb-5">
                                 <h4 className="col">Email: {this.state.email}</h4>
-                                <button onClick={this.handleEmailChange} type="button" className="btn btn-warning col-2">Change</button>
+                                <button onClick={this.handleEmailChange} type="button" className="btn btn-warning col-2">{this.t("global:header:Change")}</button>
                             </div>
                             <div className="row mb-5">
-                                <h4 className="col">Password: ****</h4>
-                                <button onClick={this.handlePasswordChange} type="button" className="btn btn-warning col-2">Change</button>
+                                <h4 className="col">{this.t("global:header:Password")}: ****</h4>
+                                <button onClick={this.handlePasswordChange} type="button" className="btn btn-warning col-2">{this.t("global:header:Change")}</button>
                             </div>
                             <div>
                                 
@@ -61,11 +62,11 @@ class account extends Component{
 
     async handlePasswordChange(){
         Swal.fire({
-            title: 'Insert new password',
+            title: this.t('global:header:Insert-new-password'),
             input: 'password',
             showCancelButton: true,
-            confirmButtonText: 'Save',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: this.t('global:header:Save'),
+            cancelButtonText: this.t('global:header:Cancel'),
         })
         .then(async result => {
             if(result.value){
@@ -74,16 +75,16 @@ class account extends Component{
                 if(response !== 200){
                     Swal.fire({
                         icon: 'error',
-                        titleText: 'Update Failed',
-                        text: 'Invalid password',
+                        titleText: this.t('global:header:Update-Failed'),
+                        text: this.t('global:header:Invalid-password'),
                         position:"top",
                         padding: "3em 3em 3em 3em"
                     })
                 }else{
                     Swal.fire({
                         icon: 'success',
-                        titleText: 'Password Updated',
-                        text: 'Your password has been updated successfully',
+                        titleText: this.t('global:header:Password-Updated'),
+                        text: this.t('global:header:Your-password-has-been-updated-successfully'),
                         position:"top",
                         padding: "3em 3em 3em 3em"
                     })
@@ -95,11 +96,11 @@ class account extends Component{
 
     async handleEmailChange(){
         Swal.fire({
-            title: 'Insert new email',
+            title: this.t('global:header:Insert-new-email'),
             input: 'email',
             showCancelButton: true,
-            confirmButtonText: 'Save',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: this.t('global:header:Save'),
+            cancelButtonText: this.t('global:header:Cancel'),
         })
         .then(async result => {
             
@@ -109,16 +110,16 @@ class account extends Component{
                 if(response.status !== 200){
                     Swal.fire({
                         icon: 'error',
-                        titleText: 'Update Failed',
-                        text: 'Email is already taken',
+                        titleText: this.t('global:header:Update-Failed'),
+                        text: this.t('global:header:Email-is-already-taken'),
                         position:"top",
                         padding: "3em 3em 3em 3em"
                     })
                 }else{
                     Swal.fire({
                         icon: 'success',
-                        titleText: 'Email Updated',
-                        text: 'Your email has been updated successfully',
+                        titleText: this.t('global:header:Email-Updated'),
+                        text: this.t('global:header:Your-email-has-been-updated-successfully'),
                         position:"top",
                         padding: "3em 3em 3em 3em"
                     })
@@ -136,12 +137,12 @@ class account extends Component{
         if(invalid)
             Swal.fire({
                 icon: "warning",
-                titleText: "Session expired",
-                text: "You must login again",
+                titleText: this.t("global:header:Session-expired"),
+                text: this.t("global:header:You-must-login-again"),
                 position:"top",
                 padding: "3em 3em 3em 3em"
             }).then(() => {window.location.href = "/";})
     }
 }
 
-export default account;
+export default Account;

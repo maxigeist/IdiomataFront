@@ -15,6 +15,7 @@ class Register extends Component{
 
     constructor(props) {
         super(props);
+        this.t = this.props.t;
         this.state = {name: "", email: "", password: "", password_2: "", language:""};
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -38,15 +39,15 @@ class Register extends Component{
                     />
                 </div>
                 
-                <h2 className='titulo'>Register</h2>
+                <h2 className='titulo'>{this.t("global:header:Register")}</h2>
                 <div className='formulario-de-registro'>
                     <form className="formulario"> 
-                        <input className="form-input" type="text" placeholder="Name" id ='name' required onChange={this.handleNameChange} autoComplete="off"/>
+                        <input className="form-input" type="text" placeholder={this.t("global:header:Name")} id ='name' required onChange={this.handleNameChange} autoComplete="off"/>
                         <input className="form-input" type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange} autoComplete="off"/>
-                        <input className="form-input" type="password"  placeholder="Password" id='password' required onChange={this.handlePasswordChange} value={this.state.password}/>
-                        <input className="form-input" type="password" placeholder="Repeat password" id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
-                        <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>Create Account</button>
-                        <button className='main-buttons buttons-submit text-black back-button' onClick={this.relocate}>Back </button>
+                        <input className="form-input" type="password"  placeholder={this.t("global:header:Password")} id='password' required onChange={this.handlePasswordChange} value={this.state.password}/>
+                        <input className="form-input" type="password" placeholder={this.t("global:header:Repeat-Password")} id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
+                        <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>{this.t("global:header:Create-Account")}</button>
+                        <button className='main-buttons buttons-submit text-black back-button' onClick={this.relocate}>{this.t("global:header:Back")}</button>
                     </form>
                 </div>
             </div>
@@ -77,21 +78,21 @@ class Register extends Component{
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if(this.state.password !== this.state.password_2){
-            alert('error',"The passwords are different","Error")
+            alert('error',this.t("global:header:The-passwords-are-different"))
             this.setState({password_2: ""});
         } 
         else if(this.state.password === ""){
-            alert('error', 'Password missing', 'Error')
+            alert('error',this.t("global:header:Password-missing"))
             this.setState({password: ""})
             this.setState({password_2: ""})
         }
         else if(this.state.password.includes(" ")){
-            alert('error', 'Password must not contain blank spaces', 'Error')
+            alert('error', this.t("global:header:Password-must-not-contain-blank-spaces"))
             this.setState({password: ""})
             this.setState({password_2: ""})
         }
         else if(!emailRegex.test(this.state.email)){
-            alert('error',"The email is not valid","Error")
+            alert('error',this.t("global:header:The-email-is-not-valid"))
             this.setState({email: ""});
         }
         else{
@@ -104,16 +105,16 @@ class Register extends Component{
             if(response.status !== 200){
                 Swal.fire({
                     icon: 'error',
-                    titleText: "Registration Failed",
-                    text: "Email is already taken",
+                    titleText: this.t("global:header:Registration-failed"),
+                    text: this.t("global:header:Email-is-already-taken"),
                     position:"top",
                     padding: "3em 3em 3em 3em"
                 })
             }else{
                 Swal.fire({
                     icon: 'success',
-                    titleText: "You can now log in to your account",
-                    text: "Registration Succesfully",
+                    titleText: this.t("global:header:You-can-now-log-in-to-your-account"),
+                    text: this.t("global:header:Registration-succesfully"),
                     position:"top",
                     padding: "3em 3em 3em 3em"
                 }).then(() => {window.location.href="/";})

@@ -10,12 +10,14 @@ const wordRequester = new WordRequester()
 //This class renders 3 React components, one for each use case
 export class Word extends React.Component{
 
+
+
     render(){
         return(
             <div className="row">
-                <AddWord/>
-                <AddTranslation/>
-                <SearchWord/>
+                <AddWord t={this.props.t}/>
+                <AddTranslation t={this.props.t}/>
+                <SearchWord t={this.props.t}/>
             </div>
         )}
 }
@@ -24,6 +26,7 @@ export class Word extends React.Component{
 class AddWord extends React.Component{
     constructor(props){
         super(props)
+        this.t = this.props.t;
 
         this.state = {addWordInput: "", addWordCategory: ""}
         this.handleWordChange = this.handleWordChange.bind(this)
@@ -36,14 +39,14 @@ class AddWord extends React.Component{
         return (
         <div className="container col-3">
             <div className="card">
-                <h4 className="card-header">Add/Delete Word</h4>
+                <h4 className="card-header">{this.t("global:header:Add/Delete-word")}</h4>
                 <div className="p-2">
-                    <label className="form-label">Enter word in english</label>
+                    <label className="form-label">{this.t("global:header:Enter-word-in-english")}</label>
                     <input className="form-control shadow-none" onChange={this.handleWordChange}/>
 
                     <br/>
 
-                    <CategorySelector func={this.handleCategoryChange}/>
+                    <CategorySelector func={this.handleCategoryChange} t={this.t}/>
 
                     <br/>
                     
@@ -64,25 +67,25 @@ class AddWord extends React.Component{
 
     async handleSubmit(){
         if(this.state.addWordCategory.length === 0){
-            alert('warning', "Please select catedory")
+            alert('warning', this.t("global:header:Please-select-category"))
             return
         }
         const status = await wordRequester.createWord(this.state.addWordInput, this.state.addWordCategory)
         if(status === 200){
-            alert('success', 'Word added successfully', '')
+            alert('success', this.t("global:header:Word-added-successfully"))
         }
         else{
-            alert('error', 'An error occurred', 'An error occurred when adding word')
+            alert('error', this.t("global:header:An-error-occurred"), this.t("global:header:An-error-occurred-when-adding-word"))
         }
     }
 
     async handleDelete(){
         const status = await wordRequester.deleteWord(this.state.addWordInput)
         if(status === 200){
-            alert('success', 'Word deleted successfully', '')
+            alert('success', this.t('global:header:Word-deleted-successfully'))
         }
         else{
-            alert('error', 'An error occurred', 'The word was not deleted correctly')
+            alert('error',this.t("global:header:An-error-occurred"), this.t("global:header:The-word-was-not-deleted-correctly"))
         }
     }
 }
@@ -91,7 +94,7 @@ class AddWord extends React.Component{
 class AddTranslation extends React.Component{
     constructor(props){
         super(props)
-
+        this.t = this.props.t
         this.state = {word: "", translation: "", dif: "", lang: ""}
 
         this.handleWordChange = this.handleWordChange.bind(this)
@@ -105,28 +108,28 @@ class AddTranslation extends React.Component{
         return (
             <div className="container col-3">
             <div className="card">
-                <h4 className="card-header">Add Translation</h4>
+                <h4 className="card-header">{this.t("global:header:Add-translation")}</h4>
                 <div className="p-2">
-                    <label className="form-label">Enter word in english</label>
+                    <label className="form-label">{this.t("global:header:Enter-word-in-english")}</label>
                     <input className="form-control shadow-none" onChange={this.handleWordChange}/>
 
                     <br/>
 
-                    <label className="form-label">Enter translation</label>
+                    <label className="form-label">{this.t("global:header:Enter-translation")}</label>
                     <input className="form-control shadow-none" onChange={this.handleTranslationChange}/>
 
                     <br/>
 
                     <select className="form-select shadow-none" onChange={this.handleDifChange}>
-                        <option>Select Difficulty</option>
-                        <option value={"HARD"}>Hard</option>
-                        <option value={"MID"}>Medium</option>
-                        <option value={"EASY"}>Easy</option>
+                        <option>{this.t("global:header:Difficulty")}</option>
+                        <option value={"HARD"}>{this.t("global:header:HARD")}</option>
+                        <option value={"MID"}>{this.t("global:header:MID")}</option>
+                        <option value={"EASY"}>{this.t("global:header:EASY")}</option>
                     </select>
 
                     <br/>
 
-                    <LanguageSelector func={this.handleLangChange}/>
+                    <LanguageSelector func={this.handleLangChange} t={this.t}/>
 
                     <br/>
 
@@ -155,19 +158,19 @@ class AddTranslation extends React.Component{
 
     async handleSubmit(){
         if(this.state.dif.length === 0){
-            alert('warning', "Select difficulty")
+            alert('warning', this.t("global:header:Please-select-difficulty"))
             return
         }
         if(this.state.lang.length === 0){
-            alert('warning', "Select language")
+            alert('warning', this.t("global:header:Please-select-language"))
             return
         }
         const status = await wordRequester.addTranslation(this.state.word, this.state.translation, this.state.dif, this.state.lang)
         if(status === 200){
-            alert('success', 'Translation added successfully', '')
+            alert('success', this.t("global:header:Translation-added-successfully"))
         }
         else{
-            alert('error', 'An error occurred', 'An error occurred when adding translation')
+            alert('error',this.t("global:header:An-error-occurred"), this.t("global:header:An-error-occurred-when-adding-translation"))
         }
     }
 }
@@ -180,7 +183,7 @@ class SearchWord extends React.Component{
         super(props)
 
         this.state = {word: "", status: "",  category: "", translations: [], result: ""}
-
+        this.t = this.props.t;
         this.handleWordChange = this.handleWordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleWordUpdate = this.handleWordUpdate.bind(this)
@@ -190,9 +193,9 @@ class SearchWord extends React.Component{
         return (
             <div className="container col-3">
             <div className="card">
-                <h4 className="card-header">Search Word</h4>
+                <h4 className="card-header">{this.t("global:header:Search-word")}</h4>
                 <div className="p-2">
-                    <label className="form-label">Enter word in english</label>
+                    <label className="form-label">{this.t("global:header:Enter-word-in-english")}</label>
                     <form onSubmit={this.handleSubmit}>
                     <input className="form-control shadow-none" onChange={this.handleWordChange}/>
                     </form>
@@ -204,7 +207,7 @@ class SearchWord extends React.Component{
                     <br/>
                     <br/>
 
-                   <SearchResult wordInfo={this.state.result}/>
+                   <SearchResult wordInfo={this.state.result} t={this.t}/>
                     
                 </div>
             </div>
@@ -222,27 +225,27 @@ class SearchWord extends React.Component{
         const response = await wordRequester.searchWord(this.state.word)
         console.log(response)
         if(response.status !== 200){
-            alert("error", "Word not found", "")
+            alert("error", this.t("global:header:Word-not-found"))
         }
         this.setState({result: response.data})
     }
 
     async handleWordUpdate(){
         Swal.fire({
-            title:"Insert new word",
+            title: this.t("global:header:Insert-new-word"),
             input: 'text',
             showCancelButton: true,
-            confirmButtonText: 'Save',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: this.t("global:header:Save"),
+            cancelButtonText: this.t("global:header:Cancel"),
         }).then(async result => { 
             if(result.value){
                 const response = await wordRequester.updateWord(this.state.word, result.value)
                 if(response === 200){
-                    alert("success", "Word updated succesfully")
+                    alert("success", this.t("global:header:Word-updated-succesfully"))
                     return
                 }
             }
-            alert("error", "Could not update word")
+            alert("error", this.t("global:header:Could-not-update-word"))
             return
         })
     }
@@ -252,7 +255,9 @@ class SearchWord extends React.Component{
 //Component for displaying word info
 class SearchResult extends React.Component{
     constructor(props){
+        
         super(props)
+        this.t = this.props.t;
 
         this.languages = []
         this.translationsByLang = []
@@ -309,10 +314,10 @@ class SearchResult extends React.Component{
     async handleTranslationDelete(){
         const response = await wordRequester.deleteTranslation(this.state.translation)
         if(response === 200){
-            alert('success', 'Translation deleted successfully', '')
+            alert('success', this.t('global:header:Translation-deleted-successfully'))
         }
         else{
-            alert('error', 'Translation not found', '')
+            alert('error', this.t('global:header:Translation-not-found'))
         }
     }
 }
