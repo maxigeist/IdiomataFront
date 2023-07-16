@@ -47,9 +47,6 @@ class FillInTheGaps extends Component{
                     <div className="container">
                                 <div className="row align-items-start">
                                 <div className="col">
-                                    <LanguageSelector func={this.handleLanguageChange} t={this.t}/>
-                                </div>
-                                <div className="col">
                                     <DifficultySelector func={this.handleDifficultyChange} t={this.t}/>
                                 </div>
 

@@ -146,39 +146,7 @@ class AddWord extends React.Component{
         }
     }
 
-    handleFileChange(event) {
-        // Update the state
-        this.setState({ selectedFile: event.target.files[0] });
-    }
 
-    async handleFileSubmit() {
-        if(this.state.selectedFile === null){
-            alert('warning', "Please select file")
-            return
-        }else if(this.state.selectedFile.type !== "text/csv"){
-            alert('warning', "Please select csv file")
-            return
-        }else{
-            const response = await wordRequester.uploadFileForWords(this.state.selectedFile)
-            if(response.status !== 200){
-                return alert('error', 'Something went wrong', "Make sure that the format of the csv is 'word,category'")
-            }else{
-                console.log(response.data)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'File uploaded successfully',
-                    html: `<div>
-                              <p><strong>Words added:</strong> ${response.data.lines}</p>
-                              <p><strong>Categories not found:</strong> ${response.data.categoriesNotFound.toString()}</p>
-                              <p><strong>Existing words:</strong> ${response.data.existingWords}</p>
-                           </div>`
-                  });
-                  
-                this.setState({ showCsvLoadModal: false , selectedFile: null})
-                return
-            }
-        }
-    }
 }
 
 //Component for creating new translation
@@ -287,41 +255,7 @@ class AddTranslation extends React.Component{
         }
     }
 
-    handleFileChange(event) {
-        // Update the state
-        this.setState({ selectedFile: event.target.files[0] });
-    }
-
-    async handleFileSubmit() {
-        if(this.state.selectedFile === null){
-            alert('warning', "Please select file")
-            return
-        }else if(this.state.selectedFile.type !== "text/csv"){
-            alert('warning', "Please select csv file")
-            return
-        }else{
-            const response = await wordRequester.uploadFileForTranslations(this.state.selectedFile)
-            if(response.status !== 200){
-                return alert('error', 'Something went wrong', "Make sure that the format of the csv is 'wordInEnglish, translation, language, difficulty'")
-            }else{
-                console.log(response.data)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'File uploaded successfully',
-                    html: `<div>
-                              <p><strong>Translations added:</strong> ${response.data.lines}</p>
-                              <p><strong>Words not found:</strong> ${response.data.wordsNotFound.toString()}</p>
-                              <p><strong>Translation with invalid language:</strong> ${response.data.translationWithInvalidLanguages.toString()}</p>
-                              <p><strong>Words with invalid difficulty:</strong> ${response.data.translationsWithInvalidDifficulty.toString()}</p>
-                           </div>`
-                  });
-                  
-                this.setState({ showCsvLoadModal: false , selectedFile: null})
-                return
-            }
-        }
-    }
-
+    
     handleFileChange(event) {
         // Update the state
         this.setState({ selectedFile: event.target.files[0] });
