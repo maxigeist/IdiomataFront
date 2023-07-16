@@ -1,4 +1,4 @@
-import React, { Component, useRef } from "react";
+import React, { Component } from "react";
 
 import "../style/memotest.css"
 import CategorySelector from "../components/categorySelector";
