@@ -8,6 +8,7 @@ class User extends React.Component{
     constructor(props){
         super(props)
         this.state = {userEmail: ""}
+        this.t=this.props.t;
 
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
@@ -18,9 +19,9 @@ class User extends React.Component{
         return(
             <div className="container col-3">
             <div className="card">
-                <h4 className="card-header">Delete User</h4>
+                <h4 className="card-header">{this.t("global:header:Delete-user")}</h4>
                 <div className="p-2">
-                    <label className="form-label">Enter user email:</label>
+                    <label className="form-label">{this.t("global:header:Enter-user-email")}</label>
                     <input className="form-control shadow-none" onChange={this.handleEmailChange}/>
 
                     <br/>
@@ -38,10 +39,10 @@ class User extends React.Component{
     async handleDelete(){
         const status = await userRequester.deleteUser(this.state.userEmail)
         if(status === 200){
-            alert('success', 'User deleted successfully', '')
+            alert('success', this.t('global:header:User-deleted-successfully'), '')
         }
         else{
-            alert('error', 'An error occurred', 'User not found')
+            alert('error', this.t('global:header:An-error-occurred'), this.t('global:header:User-not-found'))
         }
     }
     

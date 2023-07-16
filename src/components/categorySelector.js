@@ -11,6 +11,7 @@ class CategorySelector extends Component{
         super(props)
 
         this.state = {categories: []}
+        this.t = this.props.t;
 
         this.componentDidMount = this.componentDidMount.bind(this)
         this.makeSelectOptions = this.makeSelectOptions.bind(this);
@@ -24,7 +25,7 @@ class CategorySelector extends Component{
     render(){
         return(
             <select required className="form-select shadow-none" style={{margin:`${this.props.margin}`}}onChange={this.props.func}>
-                <option value="">Category</option>
+                <option value="">{this.t("global:header:Category")}</option>
                 <this.makeSelectOptions/>
             </select>
         );

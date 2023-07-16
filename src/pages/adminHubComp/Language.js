@@ -9,6 +9,7 @@ class Language extends Component{
 
         super(props);
         this.state = {active:"", languages:[]};
+        this.t=this.props.t;
 
         
 
@@ -33,7 +34,7 @@ class Language extends Component{
         var options ="";
         options = this.state.languages.map((language, index) => (
             
-            <li className="list-group-item " id={language} onClick={this.makeActive} key={index} value={language} style={{userSelect:"none"}}>{this.state.languages[index]}</li>
+            <li className="list-group-item " id={language} onClick={this.makeActive} key={index} value={language} style={{userSelect:"none"}}>{this.t(`global:header:${this.state.languages[index]}`)}</li>
         ));
 
             

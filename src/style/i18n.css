@@ -1,0 +1,9 @@
+.select-box{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    
+}
+.select-box:focus {
+    outline: none;
+  }
+  

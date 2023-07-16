@@ -18,6 +18,7 @@ class AdminHub extends Component{
     constructor(props){
         super(props)
         this.state = {to:""}
+        this.t = this.props.t;
 
         this.handleAuth()
 
@@ -33,7 +34,7 @@ class AdminHub extends Component{
                     <h1 className="display-6">ABM</h1>
                     </div>
                     <div class="d-flex flex-column align-items-end">
-                    <button type="button" class="btn btn-danger float-right btn-sm bts" onClick={this.handleLogOut}>Log out</button>
+                    <button type="button" class="btn btn-danger float-right btn-sm bts" onClick={this.handleLogOut}>{this.t("global:header:Log-Out")}</button>
                     </div>
                     </div>
                         
@@ -41,16 +42,16 @@ class AdminHub extends Component{
                         <ul class="nav d-flex justify-content-evenly ">
                             
                             <li class="nav-item">
-                                <label class="nav-link fs-2 navbar" id="Category" onClick={this.handleFirstOp}>Category</label>
+                                <label class="nav-link fs-2 navbar" id="Category" onClick={this.handleFirstOp}>{this.t("global:header:Category")}</label>
                             </li>
                             <li class="nav-item">
-                                <label class="nav-link fs-2 navbar" id="Word" onClick={this.handleFirstOp}>Word</label>
+                                <label class="nav-link fs-2 navbar" id="Word" onClick={this.handleFirstOp}>{this.t("global:header:Word")}</label>
                             </li>
                             <li class="nav-item">
-                                <label class="nav-link fs-2 navbar" id="Language" onClick={this.handleFirstOp} >Language</label>
+                                <label class="nav-link fs-2 navbar" id="Language" onClick={this.handleFirstOp} >{this.t("global:header:Language")}</label>
                             </li>
                             <li class="nav-item">
-                                <label class="nav-link fs-2 navbar" id="User" onClick={this.handleFirstOp}>User</label>
+                                <label class="nav-link fs-2 navbar" id="User" onClick={this.handleFirstOp}>{this.t("global:header:User")}</label>
                             </li>
                         </ul>
                             {/* <ul className="nav justify-content-center"></ul>
@@ -59,7 +60,7 @@ class AdminHub extends Component{
                             <li className="Language nav-item"onClick={this.handleFirstOp}>Language</li>
                             <li className="User nav-item" onClick={this.handleFirstOp}>User</li> */}
                         </div>
-                        <div className="first-op"><FirstOp to = {this.state.to}></FirstOp></div>
+                        <div className="first-op"><FirstOp to = {this.state.to} t={this.t}></FirstOp></div>
                                             
             </div>
             
@@ -90,12 +91,13 @@ class AdminHub extends Component{
     //This function, need a backEnd part, specifyng that the user has left the session.
     handleLogOut(){
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You are going to Log Out",
+            title: this.t("global:header:Are-you-sure"),
+            text: this.t("global:header:You-are-going-to-Log-Out"),
             type: 'warning',
             showDenyButton:true,
             showConfirmButton:true,
-            confirmButtonText:"Yes"
+            confirmButtonText:this.t("global:header:Yes"),
+            denyButtonText: this.t("global:header:No"),
           }).then((value) =>{
             if(value.isConfirmed){
                 adminRequester.logOut()
@@ -110,8 +112,8 @@ class AdminHub extends Component{
         if(invalid)
         Swal.fire({
             icon: "warning",
-            titleText: "Session expired",
-            text: "You must login again",
+            titleText: this.t("global:header:Session-expired"),
+            text: this.t("global:header:You-must-login-again"),
             position:"top",
             padding: "3em 3em 3em 3em"
         }).then(() => {window.location.href = "/admin";})
@@ -125,6 +127,7 @@ class FirstOp extends Component{
 
     constructor(props){
         super(props)
+        this.t = this.props.t;
 
         this.state = {sentence: false}
         this.handleSwitch = this.handleSwitch.bind(this)
@@ -136,13 +139,13 @@ class FirstOp extends Component{
         //Como tienen el mismo ABM uso el mismo código para los dos
         if(this.props.to === "Category"){
             return(
-                <Category/>
+                <Category t={this.props.t}/>
             );
         }
 
         if(this.props.to==="Language"){
             return(
-                <Language/>
+                <Language t={this.props.t}/>
             );
         }
         if(this.props.to === "Word"){
@@ -154,7 +157,7 @@ class FirstOp extends Component{
                             <this.sentenceSwitch/>
                         </div>
                         <div className="row">
-                            <Sentence/>
+                            <Sentence t={this.t}/>
                         </div>
                     </div>
                         
@@ -167,7 +170,7 @@ class FirstOp extends Component{
                             <this.sentenceSwitch/>
                         </div>
                         <div className="row">
-                            <Word/>
+                            <Word t={this.t}/>
                         </div>
                     </div>
                 )
@@ -176,7 +179,7 @@ class FirstOp extends Component{
 
         if(this.props.to === "User"){
             return(
-               <User/> 
+               <User t={this.t}/> 
             )
         }
     }
@@ -185,7 +188,7 @@ class FirstOp extends Component{
         return(
             <div className="container col-2 mb-2">
                     <div class="form-check form-switch">
-                    <label class="form-check-label h4 text-muted">Sentence</label>
+                    <label class="form-check-label h4 text-muted">{this.t("global:header:Sentence")}</label>
                     <input class="form-check-input shadow-none" type="checkbox" role="switch" id="flexSwitchCheckDefault" onClick={this.handleSwitch}/>
                 </div>
             </div>

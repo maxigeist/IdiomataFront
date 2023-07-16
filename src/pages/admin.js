@@ -11,6 +11,7 @@ class Admin extends Component{
     constructor(props){
         super(props)
         this.state = {email:"", password:""}
+        this.t = this.props.t;
 
         this.handleLogIn = this.handleLogIn.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -31,23 +32,23 @@ class Admin extends Component{
             // </div>
             <div className="form-div">
                 <div className="form-div2">
-                <h2>Admin Log In</h2>
+                <h2>{this.t("global:header:Admin-Log-In")}</h2>
                 
                 
                 <div class="form-floating mb-3 ">
                     <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={this.handleEmailChange} autoComplete="off"/>
-                    <label for="floatingInput">Email address</label>
+                    <label for="floatingInput">{this.t("global:header:Email")}</label>
                 </div>
                 <form onSubmit={this.handleLogIn}>
                 <div class="form-floating">
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password" onChange={this.handlePasswordChange}/>
-                    <label for="floatingPassword">Password</label>
+                    <label for="floatingPassword">{this.t("global:header:Password")}</label>
                 </div>
                 </form>
                 
                 <div class="row-cols-auto mt-2">
-                <button type="button" class="btn btn-success m-1 " onClick={this.handleLogIn}>Log In</button>
-                <button type="button" className="btn btn-primary m-1   " onClick={this.handleBack}>Back</button>
+                <button type="button" class="btn btn-success m-1 " onClick={this.handleLogIn}>{this.t("global:header:Login")}</button>
+                <button type="button" className="btn btn-primary m-1   " onClick={this.handleBack}>{this.t("global:header:Back")}</button>
                 </div>
                 
                 
@@ -67,7 +68,7 @@ class Admin extends Component{
             window.location.href = "/adminpage";
         }
         else{
-            alert('error', "Login failed", "Check your email and password")
+            alert('error', this.t("global:header:Login-failed"),this.t("global:header:Check-your-email-and-password"))
         }
     }
 

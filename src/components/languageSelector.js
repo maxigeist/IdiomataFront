@@ -9,6 +9,7 @@ class LanguageSelector extends Component{
 
     constructor(props){
         super(props)
+        this.t = this.props.t
 
         this.state = {languages: []}
 
@@ -19,12 +20,13 @@ class LanguageSelector extends Component{
     async componentDidMount(){
         const languages = await this.requester.getAllLanguages();
         this.setState({languages: languages})
+     
     }
 
     render(){
         return(
-            <select required className="form-select shadow-none" style={{margin:`${this.props.margin}`, width:`${this.props.width}`}}onChange={this.props.func}>
-                <option value="">Language</option>
+            <select required className="form-select shadow-none" style={{margin:`${this.props.margin}`, width:`${this.props.width}`}}onChange={this.props.func} >
+                <option value="">{this.t("global:header:Language")}</option>
                 <this.makeSelectOptions/>
             </select>
         );
@@ -32,11 +34,13 @@ class LanguageSelector extends Component{
 
     makeSelectOptions(){
         const options = this.state.languages.map((language, index) => (
-            <option key={index} value={language}>{this.state.languages[index]}</option>
+            <option key={index} value={language}>{this.t(`global:header:${this.state.languages[index]}`)}</option>
         ));
+        
         return(
             options
         )
+
     }
 }
 

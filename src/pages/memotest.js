@@ -27,6 +27,7 @@ class Memotest extends Component{
     constructor(props) {
         super(props);
         this.state = {language: "", category: "", difficulty: "", words:[], translations:[],limit: undefined, answerCorrectly: null, elements:"", flipped_elements_qty:0, tries:0, bestTime: ""};
+        this.t = this.props.t;
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this)
         this.flipButton = this.flipButton.bind(this)
@@ -72,15 +73,15 @@ class Memotest extends Component{
                             </div>
                         </div>
                         <div className="col">
-                                <CategorySelector func={this.handleCategoryChange}margin="1%"/>
+                             <CategorySelector func={this.handleCategoryChange}margin="1%" t={this.t}/>
                         </div>
                         <div className="col">
-                            <DifficultySelector func={this.handleDifficultyChange}margin="1%"/>
+                            <DifficultySelector func={this.handleDifficultyChange}margin="1%" t={this.t}/>
                         </div> 
                     </div>
                 </div>
                 <div className="d-flex justify-content-center w-100">
-                <h1 className="ftp">Find the pairs!</h1>
+                <h1 className="ftp">{this.t("global:header:Find-the-pairs")}</h1>
                 </div>
                 </div>
                 

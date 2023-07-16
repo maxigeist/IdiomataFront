@@ -9,6 +9,7 @@ class Category extends Component{
 
     constructor(props){
         super(props);
+        this.t= this.props.t;
         this.state = {active:"",categories:[]};
         this.refresh = this.refresh.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);

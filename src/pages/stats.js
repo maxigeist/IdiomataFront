@@ -25,7 +25,7 @@ class Stats extends Component{
         super(props)
 
         this.state = {percentage:0, attempts:0,language: "", category: "", game: "", list_with_five_words : []}
-
+        this.t = this.props.t;
         this.handleAuth();
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -74,13 +74,14 @@ class Stats extends Component{
     render(){
         return(
             <div>
-            <NavBar selected="stats"/>
+            <NavBar selected="stats" t={this.props.t}/>
             <div class="container w-100 mt-5 text-center">
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="w-75 position-relative top-50 start-0 translate-middle-y" >
-                            <GameSelector func={this.handleGameChange} margin="3%"/>
-                            <CategorySelector func={this.handleCategoryChange} margin="3%"/>
+                            <GameSelector func={this.handleGameChange} margin="3%" t={this.t}/>
+                            
+                            <CategorySelector func={this.handleCategoryChange} margin="3%" t={this.t}/>
                         </div>                    
                     </div>
                     <div class="col-sm m-4">
@@ -88,7 +89,7 @@ class Stats extends Component{
                         <div className="row">
                     
                             
-                            <h1 className="accuracy-title">Accuracy Rate</h1>
+                            <h1 className="accuracy-title">{this.t("global:header:Accuracy-rate")}</h1>
                             
                             </div>
                             <div className="row">
@@ -106,14 +107,14 @@ class Stats extends Component{
                     
                     </div>
                     <div class="col-sm div-five-words bg-primary ms-4 p-0" >
-                    <h2 className="five-words-h2 mb-4">Five words that you struggle the most with</h2>
+                    <h2 className="five-words-h2 mb-4">{this.t("global:header:Five-words-struggle")}</h2>
                     <div className="container text-center">
                     <div className="row align-items-start">
-                        <div className="col"><h4 className="h4-word-att">Word</h4></div><div className="col"><h4 className="h4-word-att">Mistakes</h4></div>
+                        <div className="col"><h4 className="h4-word-att">{this.t("global:header:Word")}</h4></div><div className="col"><h4 className="h4-word-att">{this.t("global:header:Mistakes")}</h4></div>
                     </div>
                     </div>
                     <this.makeFiveWords/>
-                    <h3 className="attempts-title">Total Attempts:{this.state.attempts}</h3>
+                    <h3 className="attempts-title">{this.t("global:header:Total-attempts")}:{this.state.attempts}</h3>
                     
                     </div>
                 </div>
@@ -146,8 +147,8 @@ class Stats extends Component{
         if(invalid)
             Swal.fire({
                 icon: "warning",
-                titleText: "Session expired",
-                text: "You must login again",
+                titleText: this.t("global:header:Session-expired"),
+                text: this.t("global:header:You-must-login-again"),
                 position:"top",
                 padding: "3em 3em 3em 3em"
             }).then(() => {window.location.href = "/";})      

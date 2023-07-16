@@ -1,0 +1,72 @@
+.progressbar{
+	position: relative;
+	overflow: hidden;
+    display: flex;
+    margin-top: 10%;
+	width: 100%;
+    justify-content: flex-start; /* Align the progress from left-to-right */
+    align-items: center;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #eee;
+    direction: ltr; /* Set the direction to right-to-left */
+    border: none;
+
+}
+
+.progressPercent{
+    font-weight: bold;
+	
+	font-family:'Arial';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	color: black;
+	
+}
+.fire-animation {
+    position: relative;
+    background: radial-gradient(ellipse at center, #ff6600, #ff0000);
+    overflow: hidden;
+    box-shadow: inset;
+    border: none;
+  }
+
+  .flame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+  }
+  
+  .flame::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #ffcc00, transparent);
+    animation: flicker 1s infinite;
+            
+    
+  }
+  
+
+  
+  
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+}
+}
+.box-with-shadow {
+    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Apply the box shadow */
+  }
+
+  
+
+  
