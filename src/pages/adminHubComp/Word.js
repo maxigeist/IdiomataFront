@@ -40,7 +40,7 @@ class AddWord extends React.Component{
         <div className="container col-3">
             <div className="card">
                 <h4 className="card-header">Add/Delete Word</h4>
-                <div className="p-2">
+                <div className="p-2" style={{ height: '500px', overflowY: 'auto' }}>
                     <label className="form-label">Enter word in english</label>
                     <input className="form-control shadow-none" onChange={this.handleWordChange}/>
 
@@ -54,7 +54,7 @@ class AddWord extends React.Component{
                     <button className="btn btn-danger fs-5 w-25" onClick={this.handleDelete}><i class="bi bi-trash"></i></button>
                     <br/>
                     <br/>
-                    <button className="btn btn-info" onClick={() => this.setState({showCsvLoadModal: true})}>Load CSV File</button>
+                    <button className="btn btn-info" style={{position: "absolute", bottom: 10, right: 5}} onClick={() => this.setState({showCsvLoadModal: true})}>Load CSV File</button>
                     <Modal show={this.state.showCsvLoadModal} onHide={() => this.setState({ showCsvLoadModal: false })}>
                         <Modal.Header closeButton>
                             <Modal.Title>Upload File</Modal.Title>
@@ -165,7 +165,7 @@ class AddTranslation extends React.Component{
             <div className="container col-3">
             <div className="card">
                 <h4 className="card-header">Add Translation</h4>
-                <div className="p-2">
+                <div className="p-2" style={{ height: '500px', overflowY: 'auto' }}>
                     <label className="form-label">Enter word in english</label>
                     <input className="form-control shadow-none" onChange={this.handleWordChange}/>
 
@@ -192,7 +192,7 @@ class AddTranslation extends React.Component{
                     <button className="btn btn-success fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-plus-square"></i></button>
                     <br/>
                     <br/>
-                    <button className="btn btn-info" onClick={() => this.setState({showCsvLoadModal: true})}>Load CSV File</button>
+                    <button className="btn btn-info" style={{position: "absolute", bottom: 10, right: 5}} onClick={() => this.setState({showCsvLoadModal: true})}>Load CSV File</button>
                     <Modal show={this.state.showCsvLoadModal} onHide={() => this.setState({ showCsvLoadModal: false })}>
                         <Modal.Header closeButton>
                             <Modal.Title>Upload File</Modal.Title>
@@ -293,11 +293,13 @@ class SearchWord extends React.Component{
     constructor(props){
         super(props)
 
-        this.state = {word: "", status: "",  category: "", translations: [], result: ""}
+        this.state = {word: "", status: "",  category: "", translations: [], result: "", showWordsModal: false, wordsInModal: []}
 
         this.handleWordChange = this.handleWordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleWordUpdate = this.handleWordUpdate.bind(this)
+        this.loadWords = this.loadWords.bind(this)
+        this.handleSeeAllWords = this.handleSeeAllWords.bind(this)
     }
 
     render(){
@@ -305,7 +307,7 @@ class SearchWord extends React.Component{
             <div className="container col-3">
             <div className="card">
                 <h4 className="card-header">Search Word</h4>
-                <div className="p-2">
+                <div className="p-2" style={{ height: '500px', overflowY: 'auto' }}>
                     <label className="form-label">Enter word in english</label>
                     <form onSubmit={this.handleSubmit}>
                     <input className="form-control shadow-none" onChange={this.handleWordChange}/>
@@ -319,6 +321,25 @@ class SearchWord extends React.Component{
                     <br/>
 
                    <SearchResult wordInfo={this.state.result}/>
+
+                   <br/>
+
+                    <button className="btn btn-info" style={{position: "absolute", bottom: 10, right: 5}} onClick={this.handleSeeAllWords}>See All words</button>
+
+                    <Modal show={this.state.showWordsModal} onHide={() => this.setState({ showWordsModal: false })}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>All words</Modal.Title>
+                        </Modal.Header>
+                            <Modal.Body>
+                            <br/>
+                            <ul style={{height: "400px", overflowY: "auto"}}>{this.state.wordsInModal}</ul>
+                            </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={() => this.setState({ showWordsModal: false })}>
+                            Close
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                     
                 </div>
             </div>
@@ -359,6 +380,16 @@ class SearchWord extends React.Component{
             alert("error", "Could not update word")
             return
         })
+    }
+
+    async handleSeeAllWords(){
+        this.loadWords(); 
+        this.setState({showWordsModal: true})
+    }
+
+    async loadWords(){
+        const response = await wordRequester.getAllWordsInEnglish()
+        this.setState({wordsInModal: response.map((word) => <li>{word.inEnglish}</li>)})
     }
 }
 

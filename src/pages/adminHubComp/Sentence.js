@@ -39,7 +39,7 @@ class CreateSentence extends React.Component{
     render(){
         return(
             <div className="container col-3">
-                <div className="card">
+                <div className="card" style={{ height: '575px', overflowY: 'auto' }}>
                     <h4 className="card-header">Create Sentence</h4>
                     <div className="p-2">
 
@@ -160,7 +160,7 @@ class SearchSentence extends React.Component{
     render(){
         return (
             <div className="container col-3">
-                <div className="card">
+                <div className="card" style={{height: "575px", overflowY: "auto"}}>
                     <h4 className="card-header">Search Sentence</h4>
                     
                     <div className="p-2">

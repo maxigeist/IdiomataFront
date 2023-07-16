@@ -120,6 +120,15 @@ export class WordRequester{
 
         }
     }
+
+    async getAllWordsInEnglish(){
+        try {
+            const response = await axios.get("http://localhost:3001/api/word/all")
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default WordRequester
