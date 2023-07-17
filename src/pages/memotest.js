@@ -52,7 +52,7 @@ class Memotest extends Component{
     render(){
         return(
             <div className="container w-100 h-100">
-                <div className="row h-25 w-100">
+                <div className="row h-25">
                 <div  className="container pt-4">
                     <div className="row">
                         <div className="col-2" style={{width:"14%"}}>
