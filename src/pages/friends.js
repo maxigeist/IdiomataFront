@@ -142,10 +142,10 @@ class FriendRequests extends React.Component{
             {request.requester.email}
             <div>
               <button className="btn btn-primary" onClick={() => this.acceptRequest(request.requester.id)}>
-                Accept
+                {this.t('global:header:Accept')}
               </button>
               <button className="btn btn-danger" onClick={() => this.rejectRequest(request.requester.id)}>
-                Reject
+                {this.t('global:header:Reject')}
               </button>
             </div>
           </li>
@@ -245,9 +245,9 @@ class FriendList extends React.Component{
             {this.state.friends.map((friend, index) => (
             <li className="list-group-item d-flex justify-content-between align-items-center" key={friend.id}>
             {index + 1}. {friend.name} 
-            <button className='btn btn-info' onClick={() => this.handleShowFriendsStats(friend.id, friend.name)}>See Stats</button>
+            <button className='btn btn-info' onClick={() => this.handleShowFriendsStats(friend.id, friend.name)}>{this.t('global:header:See-Stats')}</button>
             <button className="btn btn-danger" onClick={() => this.removeFriend(friend.id)}>
-              Remove
+            {this.t('global:header:Remove')}
             </button>
             </li>
             ))}
@@ -255,7 +255,7 @@ class FriendList extends React.Component{
         </div>
         <Modal className="modal-xl" show={this.state.showFriendStats} onHide={() => this.setState({ showFriendStats: false })}>
               <Modal.Header closeButton>
-                  <Modal.Title>{this.state.friendShownName}'s Stats</Modal.Title>
+                  <Modal.Title>{this.t('global:header:Stats-of')} {this.state.friendShownName}</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <FriendStats friendId={this.state.friendShownId}/>
@@ -318,7 +318,7 @@ async componentDidMount() {
                       <div className="row">
                   
                           
-                          <h1 className="accuracy-title">Accuracy Rate</h1>
+                          <h1 className="accuracy-title">{this.t('global:header:Accuracy-rate')}</h1>
                           
                           </div>
                           <div className="row">
@@ -336,14 +336,14 @@ async componentDidMount() {
                   
                   </div>
                   <div class="col-sm div-five-words bg-primary ms-4 p-0" >
-                  <h2 className="five-words-h2 mb-4">Five words that your friend struggles the most with</h2>
+                  <h2 className="five-words-h2 mb-4">{this.t('global:header:Five-words-that-your-friend-struggles-the-most-with')}</h2>
                   <div className="container text-center">
                   <div className="row align-items-start">
-                      <div className="col"><h4 className="h4-word-att">Word</h4></div><div className="col"><h4 className="h4-word-att">Mistakes</h4></div>
+                      <div className="col"><h4 className="h4-word-att">{this.t('global:header:Word')}</h4></div><div className="col"><h4 className="h4-word-att">{this.t('global:header:Mistakes')}</h4></div>
                   </div>
                   </div>
                   <this.makeFiveWords/>
-                  <h3 className="attempts-title">Total Attempts:{this.state.attempts}</h3>
+                  <h3 className="attempts-title">{this.t("global:header:Total-attempts")}:{this.state.attempts}</h3>
                   
                   </div>
               </div>
@@ -374,11 +374,11 @@ async componentDidMount() {
       const invalid = await pageAuth();
       if(invalid)
           Swal.fire({
-              icon: "warning",
-              titleText: "Session expired",
-              text: "You must login again",
-              position:"top",
-              padding: "3em 3em 3em 3em"
+            icon: "warning",
+            titleText: this.t("global:header:Session-expired"),
+            text: this.t("global:header:You-must-login-again"),
+            position:"top",
+            padding: "3em 3em 3em 3em"
           }).then(() => {window.location.href = "/";})      
   }
   makeFiveWords(){

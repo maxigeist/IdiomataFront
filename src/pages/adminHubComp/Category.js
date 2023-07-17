@@ -45,7 +45,7 @@ class Category extends Component{
                     
                     </ul>
                 </div>
-                <AbsCateLan to="Category" active={this.state.active} refresh={this.refresh}/>
+                <AbsCateLan to="Category" active={this.state.active} refresh={this.refresh} t={this.t}/>
 
 
         </div>
