@@ -160,7 +160,9 @@
         "Reject": "Rechazar",
         "See-Stats": "Ver estadísticas",
         "Stats-of": "Estadísticas de",
-        "Five-words-that-your-friend-struggles-the-most-with": "Cinco palabras con las que tu amigo tiene más dificultades"
-    
+        "Five-words-that-your-friend-struggles-the-most-with": "Cinco palabras con las que tu amigo tiene más dificultades",
+        "Select-a-language":"Selecciona un lenguaje",
+        "No-language-selected": "Ningún idioma seleccionado",
+        "Language-changed": "Idioma cambiado"
 }
 }

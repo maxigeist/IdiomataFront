@@ -159,9 +159,10 @@
         "Reject":"Reject",
         "See-Stats":"See Stats",
         "Stats-of":"Stats of",
-        "Five-words-that-your-friend-struggles-the-most-with":"Five words that your friend struggles the most with"
-        
-             
+        "Five-words-that-your-friend-struggles-the-most-with":"Five words that your friend struggles the most with",
+        "Select-a-language":"Select a language",
+        "No-language-selected": "No language selected",
+        "Language-changed":"Language-changed"
 
         
     }

@@ -156,7 +156,7 @@ class Account extends Component{
     }
 
     handleShowLanguageModal(){
-        this.setState({showLanguageSelector: true, swal: {show: true, title: "Select a language", text: "", icon: "", showCancelButton: true, showConfirmButton: true}})
+        this.setState({showLanguageSelector: true, swal: {show: true, title: this.t("global:header:Select-a-language"), text: "", icon: "", showCancelButton: true, cancelButtonText: this.t("global:header:Cancel"), showConfirmButton: true, confirmButtonText: this.t("global:header:Save")}})
     }
 
     async handleLanguageChange(event){
@@ -167,7 +167,7 @@ class Account extends Component{
         const language = this.state.languageSelected
         this.setState({showLanguageSelector: false, languageSelected: "", swal: {show: false, title: "", text: "", icon: "", showCancelButton: false, showConfirmButton: false}})
         if(!language || language.length === 0){
-            Swal.fire({icon: "warning", title:"No language selected"})
+            Swal.fire({icon: "warning", title:this.t("global:header:No-language-selected")})
             return
         }
 
@@ -175,10 +175,10 @@ class Account extends Component{
         if(code === 200){
             this.setState({showLanguageSelector: false, languageSelected: "", })
             this.componentDidMount();
-            Swal.fire({icon: "success", title:"Language changed"})
+            Swal.fire({icon: "success", title:this.t("global:header:Language-changed")})
             return
         }else{
-            Swal.fire({icon: "error", title:"Something went wrong"})
+            Swal.fire({icon: "error", title:this.t("global:header:Something-went-wrong")})
             return
         }
     }
