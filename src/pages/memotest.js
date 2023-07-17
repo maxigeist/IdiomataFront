@@ -42,7 +42,6 @@ class Memotest extends Component{
         console.log("componentDidMount")
         this.setState({answerCorrectly:null, elements:"" , flipped_elements_qty: 0, tries: 0})
         await this.loadWords();
-        this.cards = this.createCards();
         this.flipped_elements = [];
         await this.getBestTime();
         this.chronometerRef.current.resetChronometer();
@@ -109,14 +108,18 @@ class Memotest extends Component{
 
         this.setState({language: language.language})
 
-        const words = await this.wordRequester.getWords(language.language, this.state.category, this.state.difficulty, this.state.limit)
+        let words = await this.wordRequester.getWords(language.language, this.state.category, this.state.difficulty, this.state.limit)
         
+        console.log(words)
+
+        words = this.shuffleArray(words)
+
         const translations_aux = []
         for(var i=0; i<10; i++){
             translations_aux.push(words[i].translations[0])
         }
-        this.setState({words: words.slice(0,10), translations: translations_aux}, async () => {if(this.state.words.length !== 0 && this.state.words === 10) this.createCards()})
-        
+        this.setState({words: words.slice(0,10), translations: translations_aux})
+        this.cards = this.createCards(words.slice(0,10), translations_aux)
     }
 
     handleCategoryChange(event){
@@ -141,6 +144,8 @@ class Memotest extends Component{
             
             x.classList.add("text")
             x.innerHTML = (`${event.target.value}`)
+
+            console.log(this.state.words)
             
             if(this.first_card === ""){
                 this.first_card = event.target;
@@ -151,7 +156,10 @@ class Memotest extends Component{
 
                 //Checks if first card has id and then checks if the words match
                 if(this.first_card.id !== ""){  
+                    
                     if (this.state.translations[this.first_card.id].translated !== this.second_card.value){
+                        console.log(this.state.translations[this.first_card.id].translated)
+                        console.log(this.second_card.value)
                         this.flip_card(this.first_card, this.second_card); 
                     }
                     //In case it matches
@@ -164,6 +172,8 @@ class Memotest extends Component{
                 //Checks if second_card has id and then checks if the words match
                 else if (this.second_card.id !== ""){
                     if(this.state.translations[this.second_card.id].translated !== this.first_card.value){
+                        console.log(this.state.translations[this.second_card.id].translated)
+                        console.log(this.first_card.value)
                         this.flip_card(this.first_card, this.second_card);
                     }
                     //In case it matches
@@ -218,7 +228,7 @@ class Memotest extends Component{
     
     
 
-     createCards(){
+     createCards(words, translations){
 
         if(this.state.words.length !== 0){
 
@@ -248,11 +258,11 @@ class Memotest extends Component{
                         
                         <div className="col-3 w-auto justify-content-center">
                             
-                        <button id={random_indexes[i]} className="memo-card w-75" onClick={this.flipButton}  value={this.state.words[random_indexes[i]].inEnglish}>
+                        <button id={random_indexes[i]} className="memo-card w-75" onClick={this.flipButton}  value={words[random_indexes[i]].inEnglish}>
                             <label className="p-text" id={i} style={{pointerEvents:"none"}}></label>
                         </button>
                         
-                        <button className = "memo-card w-75"  onClick={this.flipButton}  value={this.state.translations[random_translations_index[i]].translated}>
+                        <button className = "memo-card w-75"  onClick={this.flipButton}  value={translations[random_translations_index[i]].translated}>
                         <label className="p-text"  style={{pointerEvents:"none"}} ></label>
                         </button>
                         </div>
