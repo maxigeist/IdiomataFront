@@ -20,10 +20,12 @@ class AbsCateLan extends Component{
 
     constructor(props){
         super(props);
+        this.t = this.props.t;
 
         this.handleAddButton = this.handleAddButton.bind(this);
         this.handleDeleteButton = this.handleDeleteButton.bind(this);
         this.handleModifyButton = this.handleModifyButton.bind(this);
+        this.updateName = this.updateName.bind(this);
         
         
         }
@@ -46,42 +48,62 @@ class AbsCateLan extends Component{
         event.preventDefault()
         if(this.props.to === "Category"){
             Swal.fire({
-                title:`Insert new ${this.props.to}`,
+                title: `${this.t('global:header:Insert-new')} ${this.t('global:header:' + this.props.to)}`,
                 html:
-                    '<input id="categoryName" type="text" class="swal2-input">' +
-                    '<input id="categoryImage" type="file" class="swal2-input">',
+                  
+                  '<input id="categoryName" type="text" class="swal2-input-name">' +
+                  '<br></br>' + 
+                  `<label class="btn" for="file-input" id="file-label" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">${this.t("global:header:Choose-file")}</label>` +
+                  '<label id="file-name" class="m-2"></label>' +
+                  '<input id="file-input" type="file" class="swal2-input-image" style="display:none;">',
+                focusConfirm: false,
                 showCancelButton: true,
-                confirmButtonText: 'Save',
-                cancelButtonText: 'Cancel',
-                focusConfirm: true,
+                confirmButtonText: this.t('global:header:Save'),
+                cancelButtonText: this.t('global:header:Cancel'),
                 preConfirm: () => ({
-                    name: document.getElementById('categoryName').value,
-                    img: document.getElementById('categoryImage').files[0]
-                })
+                  name: document.getElementsByClassName('swal2-input-name')[0].value,
+                  img: document.getElementsByClassName('swal2-input-image')[0].files[0],
+                }),
+                willOpen: () => {
+                    document.getElementById('file-input').addEventListener('change', () => {
+                    document.getElementById('file-name').innerHTML = document.getElementById('file-input').value.slice(12);
+                  });
+                }
             }).then(async result => { 
                 console.log(result.value)
                 if(result.value){
                     const formData = new FormData();
                     formData.append('file', result.value.img);
-                    await categorydataRequester.createCategory(result.value.name, result.value.img).then(alert("success",`New ${this.props.to} created`))
+                    console.log(result.value.img)
+                    await categorydataRequester.createCategory(result.value.name, result.value.img).then(alert("success",`${this.t('global:header:New')} ${this.props.to} ${this.t('global:header:created')}`))
                     this.props.refresh();
                 }
             })
         }
         if(this.props.to === "Language"){
             Swal.fire({
-                title:`Insert new ${this.props.to}`,
+                title:`${this.t('global:header:Insert-new')} ${this.t("global:header:" + this.props.to)}`,
                 input: 'text',
                 showCancelButton: true,
-                confirmButtonText: 'Save',
-                cancelButtonText: 'Cancel',
+                confirmButtonText: this.t("global:header:Save"),
+                cancelButtonText: this.t("global:header:Cancel"),
             }).then(async result => { 
                 console.log(result.value)
                 if(result.value){
-                    await languagedataRequester.createLanguage(result.value).then(alert("success",`New ${this.props.to} created`));
+                    await languagedataRequester.createLanguage(result.value).then(alert("success",`${this.t('global:header:New')} ${this.props.to} this.t('global:header:created')`));
                     this.props.refresh();
                 }
             })
+        }
+    }
+
+    updateName(){
+        try{
+        document.getElementById("file-name").innerHTML = document.getElementById("file-input").value.slice(12)
+        console.log(document.getElementById("file-input").value.slice(12))
+        }
+        catch(error){
+            console.log(error)
         }
     }
         
@@ -94,7 +116,7 @@ class AbsCateLan extends Component{
             
             Swal.fire({
                 icon :"success",
-                title : `The ${this.props.to} was deleted`,
+                title : `${this.t('global:header:The')} ${this.props.to} ${this.t('global:header:Was-deleted')}`,
                 timer:3000
             })
             this.props.refresh();
@@ -115,17 +137,17 @@ class AbsCateLan extends Component{
         if(this.checkActive()){
             event.preventDefault()
             Swal.fire({
-                title:`Insert new name for the ${this.props.to}`,
+                title:`${this.t('global:header:Insert-new-name-for-the')} ${this.props.to}`,
                 input: 'text',
                 showCancelButton: true,
-                confirmButtonText: 'Save',
-                cancelButtonText: 'Cancel',
+                confirmButtonText: this.t('global:header:Save'),
+                cancelButtonText: this.t('global:header:Cancel'),
             }).then(async result => {
                 if(result.value){
                     (this.props.to === "Category") ? await categorydataRequester.modifyCategory(this.props.active, result.value) : await languagedataRequester.modifyLanguage(this.props.active,result.value);
                     Swal.fire({
                         icon: 'success',
-                        titleText: `Name of the ${this.props.to} changed`,
+                        titleText: `${this.t('global:header:Name-of-the')} ${this.props.to} ${this.t('global:header:changed')}`,
                         position:"top",
                         padding: "3em 3em 3em 3em"
                     })
@@ -147,7 +169,7 @@ class AbsCateLan extends Component{
             return true;
         }
         else{
-            return alert("error", `Please select a ${this.props.to}`)
+            return alert("error", `${this.t('global:header:Please-select-a')} ${this.props.to}`)
         }
     }
 

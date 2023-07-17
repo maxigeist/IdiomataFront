@@ -51,30 +51,31 @@ class Memotest extends Component{
     render(){
         return(
             <div className="container w-100 h-100">
-                <div className="row h-25">
+                <div className="row h-25 w-100">
                 <div  className="container pt-4">
                     <div className="row">
-                        <div className="col-2">
-                                <button className="btn btn-warning" onClick={() => {this.componentDidMount()}}>Restart Game</button>
+                        <div className="col-2" style={{width:"14%"}}>
+                                <button className="btn btn-warning" onClick={() => {this.componentDidMount()}}>{this.t('global:header:Restart-Game')}</button>
                         </div>
-                        <div className="row col-7">
-                            <div className="col">
+                        <div className="row col-6">
+                            <div className="col-sm-2" >
                                 <h4>✅: {this.state.flipped_elements_qty/2}</h4>
                             </div>
-                            <div className="col">
+                            <div className="col-sm-2 " style={{width:"15%"}}>
                                 <h4>❌: {this.state.tries - (this.state.flipped_elements_qty/2)}</h4>
                             </div>
-                            <div className="col">
+                            <div className="col-sm-3" style={{width:"23%"}}>
                                 <Chronometer ref={this.chronometerRef}/>
                             </div>
-                            <div className="col">
-                                <h4>Best: {this.state.bestTime}</h4>
+                            <div className="col-5">
+                                <h4>{this.t('global:header:Best-time')}: {this.state.bestTime}</h4>
                             </div>
-                        </div>
-                        <div className="col">
+                        </div>      
+                        
+                        <div className="col-sm-2">
                              <CategorySelector func={this.handleCategoryChange}margin="1%" t={this.t}/>
                         </div>
-                        <div className="col">
+                        <div className="col-sm-2  ">
                             <DifficultySelector func={this.handleDifficultyChange}margin="1%" t={this.t}/>
                         </div> 
                     </div>
@@ -119,6 +120,7 @@ class Memotest extends Component{
             translations_aux.push(words[i].translations[0])
         }
         this.setState({words: words.slice(0,10), translations: translations_aux})
+        
         this.cards = this.createCards(words.slice(0,10), translations_aux)
     }
 
@@ -194,7 +196,7 @@ class Memotest extends Component{
                         const time = this.chronometerRef.current.state.seconds
                         await this.statsRequester.saveMemotestTime(time);
                         Swal.fire({
-                            title: '🎉Congratulations! You won!🎉',
+                            title: this.t("global:header:Congratulations-you-won"),
                             html: `
                             <div className="row">
                                 <div className="col">
@@ -207,7 +209,7 @@ class Memotest extends Component{
                                     <h4>⌛: ${this.format(time)}</h4>
                                 </div>
                             </div>`,
-                            confirmButtonText: 'Play again!',
+                            confirmButtonText: this.t("global:header:Play-again"),
                         }).then(async ()=>{ await this.componentDidMount()})
                         }
 
@@ -229,6 +231,7 @@ class Memotest extends Component{
     
 
      createCards(words, translations){
+        
 
         if(this.state.words.length !== 0){
 

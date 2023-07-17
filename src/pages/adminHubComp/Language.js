@@ -48,7 +48,7 @@ class Language extends Component{
                     
                     </ul>
                 </div>
-                <AbsCateLan to="Language" active={this.state.active} refresh={this.refresh}/>
+                <AbsCateLan to="Language" active={this.state.active} refresh={this.refresh} t={this.t}/>
 
 
         </div>

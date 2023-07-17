@@ -57,21 +57,33 @@ class AddWord extends React.Component{
                     <button className="btn btn-danger fs-5 w-25" onClick={this.handleDelete}><i class="bi bi-trash"></i></button>
                     <br/>
                     <br/>
-                    <button className="btn btn-info" style={{position: "absolute", bottom: 10, right: 5}} onClick={() => this.setState({showCsvLoadModal: true})}>Load CSV File</button>
+                    <button className="btn btn-info" style={{position: "absolute", bottom: 10, right: 5}} onClick={() => this.setState({showCsvLoadModal: true})}>{this.t('global:header:Load-CSV-File')}</button>
                     <Modal show={this.state.showCsvLoadModal} onHide={() => this.setState({ showCsvLoadModal: false })}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Upload File</Modal.Title>
+                            <Modal.Title>{this.t('global:header:Upload-File')}</Modal.Title>
                         </Modal.Header>
                             <Modal.Body>
-                            <p>Note that files must be .csv format, with the fields <b>"word, category"</b></p>
-                            <input type="file" onChange={this.handleFileChange} />
+                            <p>{this.t('global:header:Note-that-files-must-be-.csv-format,-with-the-fields')}<b> "{this.t('global:header:Word-category')}"</b></p>
+                            
+                            <label for="file-input" id="file-label"style={{
+                                display: 'inline-block',
+                                padding: '10px 20px',
+                                backgroundColor: '#007bff',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                            }}>{this.t('global:header:Choose-file')}</label>
+                            <label id="file-name" className="m-2"> </label>
+                            <input type="file" id="file-input" onChange={this.handleFileChange} style={{"display":"none"}}></input>
+                            
                             </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={() => this.setState({ showCsvLoadModal: false })}>
-                            Close
+                            {this.t('global:header:Close')}
                             </Button>
                             <Button variant="secondary" onClick={this.handleFileSubmit}>
-                            Save
+                            {this.t('global:header:Save')}
                             </Button>
                         </Modal.Footer>
                     </Modal>
@@ -114,29 +126,34 @@ class AddWord extends React.Component{
 
     handleFileChange(event) {
         // Update the state
+
         this.setState({ selectedFile: event.target.files[0] });
+        this.updateNameLabel();
+    }
+    updateNameLabel(){
+        document.getElementById("file-name").innerHTML = document.getElementById("file-input").value.slice(12)
     }
 
     async handleFileSubmit() {
         if(this.state.selectedFile === null){
-            alert('warning', "Please select file")
+            alert('warning', this.t('global:header:Please-select-file'))
             return
         }else if(this.state.selectedFile.type !== "text/csv"){
-            alert('warning', "Please select csv file")
+            alert('warning', this.t('global:header:Please-select-csv-file'))
             return
         }else{
             const response = await wordRequester.uploadFileForWords(this.state.selectedFile)
             if(response.status !== 200){
-                return alert('error', 'Something went wrong', "Make sure that the format of the csv is 'word,category'")
+                return alert('error', this.t('global:header:Something-went-wrong'), this.t('global:header:Make-sure-that-the-format-of-the-csv-is') +  " " + this.t('global:header:Word-category'))
             }else{
                 console.log(response.data)
                 Swal.fire({
                     icon: 'success',
-                    title: 'File uploaded successfully',
+                    title: this.t('global:header:File-uploaded-successfully'),
                     html: `<div>
-                              <p><strong>Words added:</strong> ${response.data.lines}</p>
-                              <p><strong>Categories not found:</strong> ${response.data.categoriesNotFound.toString()}</p>
-                              <p><strong>Existing words:</strong> ${response.data.existingWords}</p>
+                              <p><strong>${this.t('global:header:Words-added')}:</strong> ${response.data.lines}</p>
+                              <p><strong>${this.t('global:header:Categories-not-found')}:</strong> ${response.data.categoriesNotFound.toString()}</p>
+                              <p><strong>${this.t('global:header:Existing-words')}:</strong> ${response.data.existingWords}</p>
                            </div>`
                   });
                   
@@ -197,21 +214,33 @@ class AddTranslation extends React.Component{
                     <button className="btn btn-success fs-5 w-25" onClick={this.handleSubmit}><i class="bi bi-plus-square"></i></button>
                     <br/>
                     <br/>
-                    <button className="btn btn-info" style={{position: "absolute", bottom: 10, right: 5}} onClick={() => this.setState({showCsvLoadModal: true})}>Load CSV File</button>
+                    <button className="btn btn-info" style={{position: "absolute", bottom: 10, right: 5}} onClick={() => this.setState({showCsvLoadModal: true})}>{this.t("global:header:Load-CSV-File")}</button>
                     <Modal show={this.state.showCsvLoadModal} onHide={() => this.setState({ showCsvLoadModal: false })}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Upload File</Modal.Title>
+                            <Modal.Title>{this.t('global:header:Upload-File')}</Modal.Title>
                         </Modal.Header>
                             <Modal.Body>
-                            <p>Note that files must be .csv format, with the fields <b>"wordInEnglish, translation, language, difficulty"</b></p>
-                            <input type="file" onChange={this.handleFileChange} />
+                            <p>{this.t('global:header:Note-that-files-must-be-.csv-format,-with-the-fields')} <b>"{this.t('global:header:WordInEnglish-translation-language-difficulty')}"</b></p>
+                            <label for="file-input" id="file-label"style={{
+                                display: 'inline-block',
+                                padding: '10px 20px',
+                                backgroundColor: '#007bff',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                            }}>{this.t('global:header:Choose-file')}</label>
+                            <label id="file-name" className="m-2"> </label>
+                            <input type="file" id="file-input" onChange={this.handleFileChange} style={{"display":"none"}}></input>
+                            
+                            
                             </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={() => this.setState({ showCsvLoadModal: false })}>
-                            Close
+                            {this.t('global:header:Close')}
                             </Button>
                             <Button variant="secondary" onClick={this.handleFileSubmit}>
-                            Save
+                            {this.t('global:header:Save')}
                             </Button>
                         </Modal.Footer>
                     </Modal>
@@ -259,29 +288,33 @@ class AddTranslation extends React.Component{
     handleFileChange(event) {
         // Update the state
         this.setState({ selectedFile: event.target.files[0] });
+        this.updateNameLabel();
     }
 
+    updateNameLabel(){
+        document.getElementById("file-name").innerHTML = document.getElementById("file-input").value.slice(12)
+    }
     async handleFileSubmit() {
         if(this.state.selectedFile === null){
-            alert('warning', "Please select file")
+            alert('warning', this.t('global:header:Please-select-file'))
             return
         }else if(this.state.selectedFile.type !== "text/csv"){
-            alert('warning', "Please select csv file")
+            alert('warning', this.t('global:header:Please-select-csv-file'))
             return
         }else{
             const response = await wordRequester.uploadFileForTranslations(this.state.selectedFile)
             if(response.status !== 200){
-                return alert('error', 'Something went wrong', "Make sure that the format of the csv is 'wordInEnglish, translation, language, difficulty'")
+                return alert('error', this.t('global:header:Something-went-wrong'), this.t('global:header:Make-sure-that-the-format-of-the-csv-is') + " "+  this.t('global:header:WordInEnglish-translation-language-difficulty'))
             }else{
                 console.log(response.data)
                 Swal.fire({
                     icon: 'success',
                     title: 'File uploaded successfully',
                     html: `<div>
-                              <p><strong>Translations added:</strong> ${response.data.lines}</p>
-                              <p><strong>Words not found:</strong> ${response.data.wordsNotFound.toString()}</p>
-                              <p><strong>Translation with invalid language:</strong> ${response.data.translationWithInvalidLanguages.toString()}</p>
-                              <p><strong>Words with invalid difficulty:</strong> ${response.data.translationsWithInvalidDifficulty.toString()}</p>
+                              <p><strong>${this.t('global:header:Translations-added')}:</strong> ${response.data.lines}</p>
+                              <p><strong>${this.t('global:header:Word-or-words-not-found')}:</strong> ${response.data.wordsNotFound.toString()}</p>
+                              <p><strong>${this.t('global:header:Translation-with-invalid-language')}:</strong> ${response.data.translationWithInvalidLanguages.toString()}</p>
+                              <p><strong>${this.t('global:header:Words-with-invalid-difficulty')}:</strong> ${response.data.translationsWithInvalidDifficulty.toString()}</p>
                            </div>`
                   });
                   
@@ -330,11 +363,11 @@ class SearchWord extends React.Component{
 
                    <br/>
 
-                    <button className="btn btn-info" style={{position: "absolute", bottom: 10, right: 5}} onClick={this.handleSeeAllWords}>See All words</button>
+                    <button className="btn btn-info" style={{position: "absolute", bottom: 10, right: 5}} onClick={this.handleSeeAllWords}>{this.t('global:header:See-all-words')}</button>
 
                     <Modal show={this.state.showWordsModal} onHide={() => this.setState({ showWordsModal: false })}>
                         <Modal.Header closeButton>
-                            <Modal.Title>All words</Modal.Title>
+                            <Modal.Title>{this.t('global:header:All-words')}</Modal.Title>
                         </Modal.Header>
                             <Modal.Body>
                             <br/>
@@ -426,9 +459,9 @@ class SearchResult extends React.Component{
                     {this.translationsByLang}
                 </ul>
                 <br/>
-                <h5>Delete translation by id:</h5>
+                <h5>{this.t('global:header:Delete-translation-by-id')}:</h5>
                 <br/>
-                <label className="form-label">Enter translation id:</label>
+                <label className="form-label">{this.t('global:header:Enter-translation-id')}:</label>
                 <input className="form-control shadow-none" onChange={this.handleTranslationChange}></input>
                 <br/>
                 <button type="button" className="btn btn-danger fs-5 w-25"onClick={this.handleTranslationDelete} ><i class="bi bi-trash"></i></button>
