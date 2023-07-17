@@ -148,7 +148,7 @@ class Account extends Component{
                 onConfirm={this.handleLanguageSave}
                 didClose={() => {this.setState({swal: {show: false, title: "", text: "", icon: "", showCancelButton: false, showConfirmButton: false}})}}>
 
-                {<LanguageSelector func={this.handleLanguageChange}/>}
+                {<LanguageSelector func={this.handleLanguageChange} t={this.t}/>}
                                 
             </SweetAlert2>
             )
