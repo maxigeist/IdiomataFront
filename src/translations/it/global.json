@@ -169,7 +169,10 @@
       "Please-insert-a-valid-category": "Per favore, inserisci una categoria valida",
       "No-language-selected": "Nessuna lingua selezionata",
       "Language-changed": "Lingua cambiata",
-      "Removal-completed": "Rimozione completata"
+      "Removal-completed": "Rimozione completata",
+      "Please-insert-word": "Inserisci parola",
+      "Please-insert-translation": "Inserisci traduzione",
+      "Please-insert-a-valid-word": "Per favore, inserisci una parola valida"
     }
   }
   

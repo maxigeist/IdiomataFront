@@ -3,7 +3,6 @@ import categoryRequester from "../../util/requester/categoryRequester";
 import languageRequester from "../../util/requester/languageRequester";
 import Swal from "sweetalert2";
 import { alert } from "../../util/alert";
-import { timeout } from "q";
 
 
 
