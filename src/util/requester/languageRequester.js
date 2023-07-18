@@ -11,7 +11,9 @@ import {alert} from "../alert";
      */
 
 class languageRequester{
-    async createLanguage(name){
+
+
+    async createLanguage(name, t_func){
         try{
             const response = await axios.post('http://localhost:3001/api/language',{
                 name:name
@@ -19,7 +21,7 @@ class languageRequester{
             console.log(response)
         }
         catch(error){
-            return alert("error", "Language already exists");
+            return alert("error", t_func("global:header:Language-already-exists"));
         }
         
     }

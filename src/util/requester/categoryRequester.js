@@ -10,7 +10,7 @@ class categoryRequester{
      */
 
 
-    async createCategory(name, img){
+    async createCategory(name, img, t_func){
         try{
             const formData = new FormData();
             formData.append('file', img);
@@ -21,7 +21,7 @@ class categoryRequester{
             
         }
         catch(error){
-            return alert("error", "Category already exists");
+            return alert("error", t_func("this.t('global:header:Category-already-exists"));
         }
     }
 

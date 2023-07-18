@@ -77,7 +77,7 @@ class AbsCateLan extends Component{
                     const formData = new FormData();
                     formData.append('file', result.value.img);
                     console.log(result.value.img)
-                    await categorydataRequester.createCategory(result.value.name, result.value.img).then(alert("success",`${this.t('global:header:New-category-created')}`))
+                    await categorydataRequester.createCategory(result.value.name, result.value.img, this.t).then(alert("success",`${this.t('global:header:New-category-created')}`))
                     this.props.refresh();
                 }
                 else{
@@ -101,7 +101,7 @@ class AbsCateLan extends Component{
             }).then(async result => { 
                 console.log(result.value)
                 if(result.value){
-                    await languagedataRequester.createLanguage(result.value).then(alert("success",`${this.t('global:header:New-language-created')} `));
+                    await languagedataRequester.createLanguage(result.value, this.t).then(alert("success",`${this.t('global:header:New-language-created')} `));
                     this.props.refresh();
                 }
             })
@@ -127,7 +127,7 @@ class AbsCateLan extends Component{
             
             Swal.fire({
                 icon :"success",
-                title : `${this.t('global:header:The')} ${this.props.to} ${this.t('global:header:Was-deleted')}`,
+                title : this.t('global:header:Removal-completed'),
                 timer:3000
             })
             this.props.refresh();
