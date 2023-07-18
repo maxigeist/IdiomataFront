@@ -32,6 +32,7 @@ class ReadAndWrite extends Component{
         this.showWords = this.showWords.bind(this)
         this.handleWordInput = this.handleWordInput.bind(this)
         this.handleCheck = this.handleCheck.bind(this)
+        this.disableCategories = this.disableCategories.bind(this);
     }
 
     async componentDidMount(){
@@ -42,10 +43,10 @@ class ReadAndWrite extends Component{
         if(this.state.showGame){
         return(
             
-            <div className="row">
-                <div className="col-2">
+            <div className="d-flex" style={{height:"100%"}}>
+                {/* <div className="col-2"> */}
                     <CategorySelectorWithImages func={this.handleCategoryChange}/>
-                </div>                
+                {/* </div>                 */}
 
                 <div className="col principal-container w-100 h-100">
                     <div className="container p-4 col-6">
@@ -85,10 +86,10 @@ class ReadAndWrite extends Component{
         
         else{
             return(
-                <div className="row">
-                        <div className="col-2">
-                        <CategorySelectorWithImages func={this.handleCategoryChange}/>
-                        </div>
+                <div className="d-flex" style={{height:"100%"}}>
+                        
+                        <CategorySelectorWithImages  func={this.handleCategoryChange}/>
+                        
                         
                 </div>
                 
@@ -106,6 +107,19 @@ class ReadAndWrite extends Component{
     handleCategoryChange(event){
         this.setState({category: event.target.value}, async() => {await this.loadWords()});
         this.setState({showGame: true})
+        this.disableCategories();
+        event.target.classList.add("after-click")
+        
+
+    }
+
+    disableCategories(){
+        try{
+            document.querySelector(".after-click").classList.remove("after-click")
+        }
+        catch(error){
+            console.log(error)
+        }
     }
 
     handleDifficultyChange(event){

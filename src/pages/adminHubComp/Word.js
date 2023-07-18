@@ -309,7 +309,7 @@ class AddTranslation extends React.Component{
                 console.log(response.data)
                 Swal.fire({
                     icon: 'success',
-                    title: 'File uploaded successfully',
+                    title: this.t('global:header:File-uploaded-successfully'),
                     html: `<div>
                               <p><strong>${this.t('global:header:Translations-added')}:</strong> ${response.data.lines}</p>
                               <p><strong>${this.t('global:header:Word-or-words-not-found')}:</strong> ${response.data.wordsNotFound.toString()}</p>

@@ -35,7 +35,7 @@
 
 .formulario-de-registro{
   margin-top: 10px;
-  height: 380px;
+  height: 430px;
   width: auto;
   border: #2e5894 solid 5px;
   border-radius: 10px;
@@ -213,4 +213,16 @@ html,body{
 .admin-log-in:hover{
   cursor: pointer;
   color: black;
+}
+
+.lan-selector{
+  background-color: #1199ff;
+  width: 100%;
+  border: 4px  rgba(0, 0, 0, 0.376) ;
+  color: black;
+  width: 100%;
+  font-weight: 550;
+  font-family: system-ui;
+  font-size: 19px;
+  
 }

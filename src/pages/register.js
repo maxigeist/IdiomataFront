@@ -47,7 +47,9 @@ class Register extends Component{
                         <input className="form-input" type="email" placeholder="Email" id = 'email' required onChange={this.handleEmailChange} autoComplete="off"/>
                         <input className="form-input" type="password"  placeholder={this.t("global:header:Password")} id='password' required onChange={this.handlePasswordChange} value={this.state.password}/>
                         <input className="form-input" type="password" placeholder={this.t("global:header:Repeat-Password")} id='password_2' required onChange={this.handlePassword2Change} value={this.state.password_2}/>
+                        <div className="lan-div">
                         <LanguageSelector func={this.handleLanguageChange} t={this.t}/>
+                        </div>
                         <button className='main-buttons buttons-submit' onClick={this.handleSubmit}>{this.t("global:header:Create-Account")}</button>
                         <button className='main-buttons buttons-submit text-black back-button' onClick={this.relocate}>{this.t("global:header:Back")}</button>
                     </form>

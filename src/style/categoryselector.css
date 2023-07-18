@@ -1,0 +1,25 @@
+.catimages{
+    font-weight: 500;
+    border-bottom: none;
+    border:none;
+    transition: color 0.40s ease-in-out,background-color 0.40s ease-in-out,border-color 0.40s ease-in-out;
+    
+    
+}
+
+
+
+.catimages:hover{
+    
+    cursor: pointer;
+    background-color: #0d6efd;
+    
+    color: white;
+}
+
+.after-click{
+    background-color: #0d6efd;
+    
+    color: white;
+
+}
