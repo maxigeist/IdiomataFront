@@ -267,6 +267,14 @@ class AddTranslation extends React.Component{
     }
 
     async handleSubmit(){
+        if(this.state.word.length === 0){
+            alert('warning', this.t("global:header:Please-insert-word"))
+            return
+        }
+        if(this.state.translation.length === 0){
+            alert('warning', this.t("global:header:Please-insert-translation"))
+            return
+        }
         if(this.state.dif.length === 0){
             alert('warning', this.t("global:header:Please-select-difficulty"))
             return
