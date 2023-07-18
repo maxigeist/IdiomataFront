@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import categoryRequester from "../util/requester/categoryRequester";
+import "../style/categoryselector.css"
 
 class CategorySelectorWithImages extends Component{
     requester = new categoryRequester();
@@ -30,7 +31,7 @@ class CategorySelectorWithImages extends Component{
     render(){
         return(
             <div>
-                <div style={{height: "621px", overflowY: "auto", width: "230px"}}>
+                <div className="d-flex flex-column flex-shrink-0 " style={{height:"100%",overflowY: "auto", width: "230px"}}>
                 <this.makeOptions/>
                 </div>
             </div>
@@ -41,10 +42,10 @@ class CategorySelectorWithImages extends Component{
         console.log(this.state.urls)
         const options = this.state.categories.map((category, index) => (
             <div>
-            <button value={category} key={index} className="w-100 btn btn-light rounded-0" style={{textAlign: "start"}} onClick={this.props.func}><img src={this.state.urls[index]} style={{height: 30, width: 30}}></img>{this.state.categories[index]}</button>
+            <button value={category} key={index} className="w-100 btn btn-light rounded-0 catimages" style={{textAlign: "start"}} onClick={this.props.func}><img src={this.state.urls[index]} style={{height: 30, width: 30}}></img>{this.state.categories[index]}</button>
             </div>
         ))
-        const result = [<button value={""} className="w-100 btn btn-light rounded-0" style={{textAlign: "start"}} onClick={this.props.func}><img></img>All categories</button>]
+        const result = [<button value={""} className="w-100 btn btn-light rounded-0 catimages h-100" style={{textAlign: "start"}} onClick={this.props.func}><img></img><i class="bi bi-shuffle m-2" ></i>All categories</button>]
         return result.concat(options)
     }
 }

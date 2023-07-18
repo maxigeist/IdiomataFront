@@ -58,7 +58,7 @@ class GamesDisplay extends Component{
     
     </ul>
     </div>
-        <div className="RAW-div" style = {{display:"none", width:"100%"}}>
+        <div className="RAW-div" style = {{display:"none", width:"100%", height:"auto"}}>
             <ReadAndWrite t = {this.t}/>
 
         </div>
