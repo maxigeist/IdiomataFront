@@ -34,7 +34,7 @@ class LanguageSelector extends Component{
 
     makeSelectOptions(){
         const options = this.state.languages.map((language, index) => (
-            <option key={index} value={language}>{this.t(`global:header:${this.state.languages[index]}`)}</option>
+            <option key={index} value={language}>{this.state.languages[index]}</option>
         ));
         
         return(

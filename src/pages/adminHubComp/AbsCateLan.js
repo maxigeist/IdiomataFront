@@ -48,7 +48,7 @@ class AbsCateLan extends Component{
         event.preventDefault()
         if(this.props.to === "Category"){
             Swal.fire({
-                title: `${this.t('global:header:Insert-new')} ${this.t('global:header:' + this.props.to)}`,
+                title: `${this.t('global:header:Insert-new-category')}`,
                 html:
                   
                   '<input id="categoryName" type="text" class="swal2-input-name">' +
@@ -69,28 +69,38 @@ class AbsCateLan extends Component{
                     document.getElementById('file-name').innerHTML = document.getElementById('file-input').value.slice(12);
                   });
                 }
+                
             }).then(async result => { 
                 console.log(result.value)
-                if(result.value){
+                if(result.value.name !== ""){
                     const formData = new FormData();
                     formData.append('file', result.value.img);
                     console.log(result.value.img)
-                    await categorydataRequester.createCategory(result.value.name, result.value.img).then(alert("success",`${this.t('global:header:New')} ${this.props.to} ${this.t('global:header:created')}`))
+                    await categorydataRequester.createCategory(result.value.name, result.value.img).then(alert("success",`${this.t('global:header:New-category-created')}`))
                     this.props.refresh();
+                }
+                else{
+                    alert("error", this.t("global:header:Please-insert-a-valid-category"))
                 }
             })
         }
         if(this.props.to === "Language"){
             Swal.fire({
-                title:`${this.t('global:header:Insert-new')} ${this.t("global:header:" + this.props.to)}`,
+                title:`${this.t('global:header:Insert-new-language')}`,
                 input: 'text',
                 showCancelButton: true,
                 confirmButtonText: this.t("global:header:Save"),
                 cancelButtonText: this.t("global:header:Cancel"),
+                inputValidator: (value) => {
+                    // Verificar si el valor es vacío
+                    if (!value) {
+                      return this.t("global:header:Please-insert-a-valid-language");
+                    }
+                  },
             }).then(async result => { 
                 console.log(result.value)
                 if(result.value){
-                    await languagedataRequester.createLanguage(result.value).then(alert("success",`${this.t('global:header:New')} ${this.props.to} this.t('global:header:created')`));
+                    await languagedataRequester.createLanguage(result.value).then(alert("success",`${this.t('global:header:New-language-created')} `));
                     this.props.refresh();
                 }
             })
@@ -169,7 +179,7 @@ class AbsCateLan extends Component{
             return true;
         }
         else{
-            return alert("error", `${this.t('global:header:Please-select-a')} ${this.props.to}`)
+            return alert("error", `${this.t('global:header:Please-select')} ${this.t("global:header:"+ this.props.to)}`)
         }
     }
 

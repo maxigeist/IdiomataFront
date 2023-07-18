@@ -147,7 +147,7 @@
         "Best-time": "🥇⌛️",
         "Congratulations-you-won": "🎉¡Felicidades! ¡Has ganado!🎉",
         "Play-again": "Jugar de nuevo",
-        "Insert-new": "Insertar nuevo",
+        "Insert": "Insertar",
         "New": "Nuevo",
         "created": "creado",
         "The": "El",
@@ -155,12 +155,18 @@
         "Insert-new-name-for-the": "Insertar nuevo nombre para el",
         "Name-of-the": "Nombre del",
         "changed": "cambiado",
-        "Please-select-a": "Por favor, selecciona un",
+        "Please-select": "Por favor, seleccione",
         "Accept": "Aceptar",
         "Reject": "Rechazar",
         "See-Stats": "Ver estadísticas",
         "Stats-of": "Estadísticas de",
-        "Five-words-that-your-friend-struggles-the-most-with": "Cinco palabras con las que tu amigo tiene más dificultades"
+        "Five-words-that-your-friend-struggles-the-most-with": "Cinco palabras con las que tu amigo tiene más dificultades",
+        "Insert-new-category":"Inserte nueva categoría",
+        "Insert-new-language":"Inserte nuevo idioma",
+        "New-category-created": "Nueva categoría creada",
+        "New-language-created": "Nuevo idioma creado",
+        "Please-insert-a-valid-language": "Por favor, inserte un idioma válido",
+        "Please-insert-a-valid-category": "Por favor, inserte una categoría válida"
     
 }
 }

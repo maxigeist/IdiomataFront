@@ -146,7 +146,7 @@
         "Best-time": "🥇⌛️",
         "Congratulations-you-won":"🎉Congratulations! You won!🎉",
         "Play-again":"Play again!",
-        "Insert-new":"Insert new",
+        "Insert":"Insert",
         "New":"New",
         "created":"created",
         "The":"The",
@@ -154,12 +154,18 @@
         "Insert-new-name-for-the":"Insert new name for the",
         "Name-of-the":"Name of the",
         "changed":"changed",
-        "Please-select-a":"Please select a",
+        "Please-select":"Please select",
         "Accept":"Accept",
         "Reject":"Reject",
         "See-Stats":"See Stats",
         "Stats-of":"Stats of",
-        "Five-words-that-your-friend-struggles-the-most-with":"Five words that your friend struggles the most with"
+        "Five-words-that-your-friend-struggles-the-most-with":"Five words that your friend struggles the most with",
+        "Insert-new-category":"Insert new category",
+        "Insert-new-language":"Insert new language",
+        "New-category-created":"New category created",
+        "New-language-created":"New language created",
+        "Please-insert-a-valid-language":"Please insert a valid Language",
+        "Please-insert-a-valid-category":"Please insert a valid category"
         
              
 
