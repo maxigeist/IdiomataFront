@@ -30,7 +30,9 @@ class CategorySelectorWithImages extends Component{
     render(){
         return(
             <div>
+                <div style={{height: "621px", overflowY: "auto", width: "230px"}}>
                 <this.makeOptions/>
+                </div>
             </div>
         );
     }
@@ -39,11 +41,11 @@ class CategorySelectorWithImages extends Component{
         console.log(this.state.urls)
         const options = this.state.categories.map((category, index) => (
             <div>
-            <button value={category} key={index} onClick={this.props.func}><img src={this.state.urls[index]} style={{height: 30, width: 30}}></img>{this.state.categories[index]}</button>
+            <button value={category} key={index} className="w-100 btn btn-light rounded-0" style={{textAlign: "start"}} onClick={this.props.func}><img src={this.state.urls[index]} style={{height: 30, width: 30}}></img>{this.state.categories[index]}</button>
             </div>
         ))
-        options.push(<button value={""} onClick={this.props.func}><img></img>All categories</button>)
-        return options
+        const result = [<button value={""} className="w-100 btn btn-light rounded-0" style={{textAlign: "start"}} onClick={this.props.func}><img></img>All categories</button>]
+        return result.concat(options)
     }
 }
 

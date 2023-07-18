@@ -40,7 +40,7 @@ class Category extends Component{
 
             <div class="d-flex div-1 col-sm" >
                 <div class="w-25 ms-5">
-                    <ul className="list-group">
+                    <ul className="list-group" style={{height: "200px", overflowY: "auto"}}>
                     {options}
                     
                     </ul>

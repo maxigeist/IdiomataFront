@@ -159,15 +159,16 @@
         "Reject":"Reject",
         "See-Stats":"See Stats",
         "Stats-of":"Stats of",
-        "Five-words-that-your-friend-struggles-the-most-with":"Five words that your friend struggles the most with",
+        "Five-words-that-your-friend-struggles-the-most-with":"Five words that your friend struggles the most with",,
         "Insert-new-category":"Insert new category",
         "Insert-new-language":"Insert new language",
         "New-category-created":"New category created",
         "New-language-created":"New language created",
         "Please-insert-a-valid-language":"Please insert a valid Language",
-        "Please-insert-a-valid-category":"Please insert a valid category"
-        
-             
+        "Please-insert-a-valid-category":"Please insert a valid category",
+        "Select-a-language":"Select a language",
+        "No-language-selected": "No language selected",
+        "Language-changed":"Language-changed"
 
         
     }

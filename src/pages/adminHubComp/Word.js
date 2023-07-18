@@ -43,7 +43,7 @@ class AddWord extends React.Component{
         <div className="container col-3">
             <div className="card">
                 <h4 className="card-header">{this.t("global:header:Add/Delete-word")}</h4>
-                <div className="p-2" style={{ height: '500px', overflowY: 'auto' }}>
+                <div className="p-2" style={{ height: '470px', overflowY: 'auto' }}>
                     <label className="form-label">{this.t("global:header:Enter-word-in-english")}</label>
                     <input className="form-control shadow-none" onChange={this.handleWordChange}/>
 

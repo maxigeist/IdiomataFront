@@ -42,47 +42,42 @@ class ReadAndWrite extends Component{
         if(this.state.showGame){
         return(
             
-            <div>
-                <CategorySelectorWithImages func={this.handleCategoryChange}/>
-                
+            <div className="row">
+                <div className="col-2">
+                    <CategorySelectorWithImages func={this.handleCategoryChange}/>
+                </div>                
 
-            <div className="principal-container w-100 h-100">
-                
-            
+                <div className="col principal-container w-100 h-100">
+                    <div className="container p-4 col-6">
+                        <div className="card" style={{ border:"none"}}>
+                            <h4 className="card-header text-white bg-primary">{this.t("global:header:Translate-it")}</h4>
+                            <div className="card-body ">
+                                <div className="container">
+                                    <div className="row">
+                                    <div className="col-5">
+                                        <DifficultySelector func={this.handleDifficultyChange} t={this.t}/>
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                                <br/>
+                                <form onSubmit={this.handleCheck}>
+                                <div className="form-label">{this.state.shownword}</div>
+                                <input className={"form-control shadow-none " + this.state.validation} onChange={this.handleWordInput} value={this.state.wordInput}></input>
+                                </form>
+                                <br/>
 
-                <div className="container p-4 col-6">
-                    <div className="card" style={{ border:"none"}}>
-                        <h4 className="card-header text-white bg-primary">{this.t("global:header:Translate-it")}</h4>
-                        <div className="card-body ">
-                            <div className="container">
-                                <div className="row">
-                                <div className="col">
-                                    <DifficultySelector func={this.handleDifficultyChange} t={this.t}/>
-                                </div>
-                                </div>
-                                
+                                {this.state.answerCorrectly === false && <p className="">{this.t('global:header:You-answered-incorrectly-the-correct-answer-is')}"{this.state.correctAnswer}".</p>}
+                                <button className="btn btn-success m-2" onClick={this.handleCheck}>{this.t("global:header:Check")}</button>
+                                <button className="btn btn-primary" onClick={this.showWords}>{this.t("global:header:Next-word")}</button>
                             </div>
-                            <form onSubmit={this.handleCheck}>
-                            <div className="form-label">{this.state.shownword}</div>
-                            <input className={"form-control shadow-none " + this.state.validation} onChange={this.handleWordInput} value={this.state.wordInput}></input>
-                            </form>
-                            <br/>
-
-                            {this.state.answerCorrectly === false && <p className="">{this.t('global:header:You-answered-incorrectly-the-correct-answer-is')}"{this.state.correctAnswer}".</p>}
-                            <button className="btn btn-success m-2" onClick={this.handleCheck}>{this.t("global:header:Check")}</button>
-                            <button className="btn btn-primary" onClick={this.showWords}>{this.t("global:header:Next-word")}</button>
+                        
                         </div>
-                    
+
+                        
                     </div>
-
                     
                 </div>
-                <div className="container p-4 col-10">
-                <Progressbar className="w-100" count="20"></Progressbar>
-
-                </div>
-                
-            </div>
             </div>
         );
         }
@@ -90,9 +85,13 @@ class ReadAndWrite extends Component{
         
         else{
             return(
-                <div>
-                    <CategorySelectorWithImages func={this.handleCategoryChange}/>
+                <div className="row">
+                        <div className="col-2">
+                        <CategorySelectorWithImages func={this.handleCategoryChange}/>
+                        </div>
+                        
                 </div>
+                
             )
         }
     }

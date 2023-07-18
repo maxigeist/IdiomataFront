@@ -7,6 +7,7 @@ import WordRequester from "../util/requester/wordRequester";
 import UserRequester from "../util/requester/userRequester";
 import {StatsRequester} from "../util/requester/statsRequester";
 import Swal from "sweetalert2";
+import { alert } from "../util/alert";
 
 
 
@@ -51,7 +52,7 @@ class Memotest extends Component{
     render(){
         return(
             <div className="container w-100 h-100">
-                <div className="row h-25 w-100">
+                <div className="row h-25">
                 <div  className="container pt-4">
                     <div className="row">
                         <div className="col-2" style={{width:"14%"}}>
@@ -113,6 +114,11 @@ class Memotest extends Component{
         
         console.log(words)
 
+        if(words.length < 10){
+            alert("warning", "Not enough words", "There are not enough words to play, please select another category and difficulty combination")
+            words = await this.wordRequester.getWords(language.language, "", "", undefined)
+        }
+
         words = this.shuffleArray(words)
 
         const translations_aux = []
@@ -126,10 +132,10 @@ class Memotest extends Component{
 
     handleCategoryChange(event){
         
-        this.setState({category: event.target.value}, async() => {await this.loadWords()});
+        this.setState({category: event.target.value}, async() => {await this.componentDidMount()});
     }
     handleDifficultyChange(event){
-        this.setState({difficulty: event.target.value}, async()=> {await this.loadWords()});
+        this.setState({difficulty: event.target.value}, async()=> {await this.componentDidMount()});
         
     }
     async flipButton(event) {
