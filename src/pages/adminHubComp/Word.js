@@ -383,7 +383,7 @@ class SearchWord extends React.Component{
                             </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={() => this.setState({ showWordsModal: false })}>
-                            Close
+                            {this.t('global:header:Close')}
                             </Button>
                         </Modal.Footer>
                     </Modal>

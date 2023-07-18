@@ -151,7 +151,7 @@
         "created":"created",
         "The":"The",
         "Was-deleted":"was deleted",
-        "Insert-new-name-for-the":"Insert new name for the",
+        "Insert-new-name-for-the":"Insert new name for",
         "Name-of-the":"Name of the",
         "changed":"changed",
         "Please-select":"Please select",
@@ -168,7 +168,10 @@
         "Please-insert-a-valid-category":"Please insert a valid category",
         "Select-a-language":"Select a language",
         "No-language-selected": "No language selected",
-        "Language-changed":"Language changed"
+        "Language-changed":"Language changed",
+        "Language-already-exists":"Language already exists",
+        "Category-already-exists":"Category already exists",
+        "Removal-completed":"Removal completed"
 
         
     }

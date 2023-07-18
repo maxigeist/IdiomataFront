@@ -10,18 +10,28 @@ class Category extends Component{
     constructor(props){
         super(props);
         this.t= this.props.t;
-        this.state = {active:"",categories:[]};
+        this.state = {active:"",categories:[], urls: []};
         this.refresh = this.refresh.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.inactiveElements = this.inactiveElements.bind(this);
         this.makeLiOptions = this.makeLiOptions.bind(this);
         this.makeActive = this.makeActive.bind(this);
         this.refresh = this.refresh.bind(this);
+        this.getURLs = this.getURLs.bind(this);
     }
 
     async componentDidMount(){
         const categories = await categorydataRequester.getAllCategories();
-        this.setState({categories: categories})        
+        this.setState({categories: categories})  
+        this.setState({urls: this.getURLs(categories)})      
+    }
+
+    getURLs(categories){
+        const urls = []
+        for (const category in categories) {
+            urls.push('http://localhost:3001/api/category/images/'+categories[category])
+        }
+        return urls
     }
 
     render(){
@@ -33,7 +43,7 @@ class Category extends Component{
     makeLiOptions(){    
         var options ="";
             options = this.state.categories.map((category, index) => (
-                <li className="list-group-item " id={category} onClick={this.makeActive} key={index} value={category} style={{userSelect:"none"}}>{this.state.categories[index]}</li>
+                <li className="list-group-item " id={category} onClick={this.makeActive} key={index} value={category} style={{userSelect:"none"}}><img src={this.state.urls[index]} style={{height: 20, width: 20}}></img> {this.state.categories[index]}</li>
             ));
         
         return(
@@ -80,7 +90,6 @@ class Category extends Component{
     async refresh(){
         this.inactiveElements();
         await this.componentDidMount();
-        
     }
     
 

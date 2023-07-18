@@ -20,12 +20,14 @@ class LanguageSelector extends Component{
     async componentDidMount(){
         const languages = await this.requester.getAllLanguages();
         this.setState({languages: languages})
+        console.log(document.querySelector(".form-select"))
+        document.querySelector(".form-select").classList.add(this.props.register)
      
     }
 
     render(){
         return(
-            <select required className="form-select shadow-none lan-selector" style={{margin:`${this.props.margin}`, width:`${this.props.width}`}}onChange={this.props.func} >
+            <select required className="form-select shadow-none" style={{margin:`${this.props.margin}`, width:`${this.props.width}`}}onChange={this.props.func} >
                 <option value="">{this.t("global:header:Language")}</option>
                 <this.makeSelectOptions/>
             </select>
@@ -40,6 +42,7 @@ class LanguageSelector extends Component{
         return(
             options
         )
+        
 
     }
 }

@@ -99,7 +99,7 @@ class SendFriendRequest extends React.Component{
     const response = await friendsRequester.sendFriendRequest(this.state.emailSearched)
     if(response.status === 200){alert('success', this.t('global:header:Request-Sent'))}
     else if(response.status === 404){alert('warning', this.t('global:header:Email-not-found'))}
-    else{alert('error', this.t('global:header:Something-Went-Wrong'))}
+    else{alert('error', this.t('global:header:Something-went-wrong'))}
   }
 }
 
@@ -164,13 +164,13 @@ class FriendRequests extends React.Component{
   async acceptRequest(id) {
     const response = await friendsRequester.addFriend(id);
     if(response.status === 200){Swal.fire(this.t('global:header:Friend-Accepted'), '', 'success').then(() => {window.location.href = "/friends";})}
-    else{alert('error', this.t('global:header:Something-Went-Wrong'), '')}
+    else{alert('error', this.t('global:header:Something-went-wrong'), '')}
   }
 
   async rejectRequest(id) {
     const response = await friendsRequester.rejectRequest(id);
     if(response.status === 200){alert('success', this.t('global:header:Friend-Rejected')); await this.fetchRequests()}
-    else{alert('error',this.t('global:header:Something-Went-Wrong'))}
+    else{alert('error',this.t('global:header:Something-went-wrong'))}
   }
 }
 
@@ -209,7 +209,7 @@ class FriendList extends React.Component{
     // Handle remove friend logic
     const response = await userRequester.removeFriend(id);
     if(response.status === 200){alert('success', this.t('global:header:Friend-Removed')); await this.loadFriends()}
-    else{alert('error', this.t('global:header:Something-Went-Wrong'))}
+    else{alert('error', this.t('global:header:Something-went-wrong'))}
 
   }
 

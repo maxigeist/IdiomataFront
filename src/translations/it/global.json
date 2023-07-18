@@ -151,7 +151,7 @@
       "created": "creato",
       "The": "Il",
       "Was-deleted": "è stato eliminato",
-      "Insert-new-name-for-the": "Inserisci nuovo nome per il",
+      "Insert-new-name-for-the": "Inserisci nuovo nome per",
       "Name-of-the": "Nome del",
       "changed": "cambiato",
       "Please-select": "Seleziona",
@@ -166,9 +166,10 @@
       "New-category-created": "Nuova categoria creata",
       "New-language-created": "Nuovo linguaggio creato",
       "Please-insert-a-valid-language": "Per favore, inserisci una lingua valida",
-    "Please-insert-a-valid-category": "Per favore, inserisci una categoria valida",
+      "Please-insert-a-valid-category": "Per favore, inserisci una categoria valida",
       "No-language-selected": "Nessuna lingua selezionata",
-      "Language-changed": "Lingua cambiata"
+      "Language-changed": "Lingua cambiata",
+      "Removal-completed": "Rimozione completata"
     }
   }
   
