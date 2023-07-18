@@ -200,7 +200,7 @@ class AbsCateLan extends Component{
                 }).then(async result => { 
                     console.log(result.value)
                     if(result.value){
-                        await languagedataRequester.modifyLanguage(result.value).then(alert("success",`${this.t('global:header:Name-of-the')} ${this.props.to} ${this.t('global:header:changed')} `));
+                        await languagedataRequester.modifyLanguage(this.props.active, result.value).then(alert("success",`${this.t('global:header:Name-of-the')} ${this.props.to} ${this.t('global:header:changed')} `));
                         this.props.refresh();
                     }
                 })
