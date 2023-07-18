@@ -52,12 +52,13 @@ class categoryRequester{
      * @param {String} Category name
      * @param {String} new Category name
      */
-    async modifyCategory(name, new_name){
+    async modifyCategory(name, new_name, img){
         try{
-            const response = await axios.put('http://localhost:3001/api/category',{
-                name:name,
-                new_name:new_name 
-            });
+            const formData = new FormData();
+            formData.append('file', img)
+            formData.append('new_name', new_name)
+            formData.append('name', name)
+            const response = await axios.put('http://localhost:3001/api/category', formData);
             console.log(response);
         }
         catch(error){
