@@ -173,6 +173,7 @@
         "Category-already-exists":"Category already exists",
         "Removal-completed":"Removal completed",
         "Please-insert-word":"Please insert word",
-        "Please-insert-translation":"Please insert translation"
+        "Please-insert-translation":"Please insert translation",
+        "Please-insert-a-valid-word": "Please insert a valid word"
     }
 }

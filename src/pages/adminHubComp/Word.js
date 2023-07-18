@@ -410,6 +410,10 @@ class SearchWord extends React.Component{
     }
 
     async handleWordUpdate(){
+        if(this.state.word.length === 0){
+            alert('warning', this.t("global:header:Please-insert-word"))
+            return
+        }
         Swal.fire({
             title: this.t("global:header:Insert-new-word"),
             input: 'text',
@@ -417,15 +421,18 @@ class SearchWord extends React.Component{
             confirmButtonText: this.t("global:header:Save"),
             cancelButtonText: this.t("global:header:Cancel"),
         }).then(async result => { 
-            if(result.value){
+            if(result.value && result["isConfirmed"]){
                 const response = await wordRequester.updateWord(this.state.word, result.value)
                 if(response === 200){
                     alert("success", this.t("global:header:Word-updated-succesfully"))
                     return
+                }else{
+                    alert("error", this.t("global:header:Could-not-update-word"))
                 }
+            }else{
+                alert("warning", this.t("global:header:Please-insert-a-valid-word"))
+                return
             }
-            alert("error", this.t("global:header:Could-not-update-word"))
-            return
         })
     }
 
