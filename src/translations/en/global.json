@@ -171,8 +171,8 @@
         "Language-changed":"Language changed",
         "Language-already-exists":"Language already exists",
         "Category-already-exists":"Category already exists",
-        "Removal-completed":"Removal completed"
-
-        
+        "Removal-completed":"Removal completed",
+        "Please-insert-word":"Please insert word",
+        "Please-insert-translation":"Please insert translation"
     }
 }

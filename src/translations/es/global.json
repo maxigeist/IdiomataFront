@@ -172,6 +172,8 @@
         "Language-changed": "Idioma cambiado",
         "Language-already-exists": "El idioma ya existe",
         "Category-already-exists": "La categoría ya existe",
-        "Removal-completed": "Eliminación completada"
+        "Removal-completed": "Eliminación completada",
+        "Please-insert-word": "Por favor, inserta palabra",
+        "Please-insert-translation":"Por favor, inserta traducción"
 }
 }
