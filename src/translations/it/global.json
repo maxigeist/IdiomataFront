@@ -172,7 +172,10 @@
       "Removal-completed": "Rimozione completata",
       "Please-insert-word": "Inserisci parola",
       "Please-insert-translation": "Inserisci traduzione",
-      "Please-insert-a-valid-word": "Per favore, inserisci una parola valida"
+      "Please-insert-a-valid-word": "Per favore, inserisci una parola valida",
+      "Not-enough-words": "Non ci sono abbastanza parole",
+      "There-are-not-enough-words-to-play-please-select-another-category-and-difficulty-combination": "Non ci sono abbastanza parole per giocare, per favore seleziona un'altra combinazione di categoria e difficoltà",
+      "Start-Playing-Choose-a-game-now": "Inizia a giocare! Scegli un gioco ora!"
     }
   }
   

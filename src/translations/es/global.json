@@ -175,6 +175,9 @@
         "Removal-completed": "Eliminación completada",
         "Please-insert-word": "Por favor, inserta palabra",
         "Please-insert-translation":"Por favor, inserta traducción",
-        "Please-insert-a-valid-word": "Por favor, inserte una palabra válida"
+        "Please-insert-a-valid-word": "Por favor, inserte una palabra válida",
+        "Not-enough-words": "No hay suficientes palabras",
+        "There-are-not-enough-words-to-play-please-select-another-category-and-difficulty-combination": "No hay suficientes palabras para jugar, por favor selecciona otra combinación de categoría y dificultad",
+        "Start-Playing-Choose-a-game-now": "¡Comienza a jugar! ¡Elige un juego ahora!"
 }
 }

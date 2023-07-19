@@ -115,7 +115,7 @@ class Memotest extends Component{
         console.log(words)
 
         if(words.length < 10){
-            alert("warning", "Not enough words", "There are not enough words to play, please select another category and difficulty combination")
+            alert("warning", this.t('global:header:Not-enough-words'), this.t('global:header:There-are-not-enough-words-to-play-please-select-another-category-and-difficulty-combination'))
             words = await this.wordRequester.getWords(language.language, "", "", undefined)
         }
 

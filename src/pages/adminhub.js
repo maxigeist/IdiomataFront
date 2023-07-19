@@ -42,7 +42,7 @@ class AdminHub extends Component{
                         <ul class="nav d-flex justify-content-evenly ">
                             
                             <li class="nav-item">
-                                <label class="nav-link fs-2 navbar" id="Category" onClick={this.handleFirstOp} style={{color: 'white'}}>{this.t("global:header:Category")}</label>
+                                <label class="nav-link fs-2 navbar" id="Category" onClick={this.handleFirstOp} style={{color:"white"}}>{this.t("global:header:Category")}</label>
                             </li>
                             <li class="nav-item">
                                 <label class="nav-link fs-2 navbar" id="Word" onClick={this.handleFirstOp}>{this.t("global:header:Word")}</label>
@@ -60,7 +60,7 @@ class AdminHub extends Component{
                             <li className="Language nav-item"onClick={this.handleFirstOp}>Language</li>
                             <li className="User nav-item" onClick={this.handleFirstOp}>User</li> */}
                         </div>
-                        <div className="first-op" style={{display: 'flex'}}><FirstOp to = {this.state.to} t={this.t}></FirstOp></div>
+                        <div className="first-op" style={{display:"flex"}}><FirstOp to = {this.state.to} t={this.t} ></FirstOp></div>
                                             
             </div>
             
@@ -72,20 +72,19 @@ class AdminHub extends Component{
         We can take out the alert from here it is optional to leave it
         */
     handleFirstOp(event){
-        if(this.state.to === "" || this.state.to === event.target.id){
-            
-            document.querySelector(`#${event.target.id}`).style.color = "white";
-            var firstop = document.querySelector(".first-op")
-            firstop.style.display = "flex";
-            this.setState({to: event.target.id})
-        }
-        else{
+        // if(this.state.to === "" || this.state.to === event.target.id){
+        //     document.querySelector(`#${event.target.id}`).style.color = "white";
+        //     var firstop = document.querySelector(".first-op")
+        //     firstop.style.display = "flex";
+        //     this.setState({to: event.target.id})
+        // }
+        // else{
             document.querySelector(`#${this.state.to}`).style.color = "lightblue";
             (this.setState({to: event.target.id}));
             document.querySelector(`#${event.target.id}`).style.color = "white";
 
             
-        }
+        // }
     }
 
     //This function, need a backEnd part, specifyng that the user has left the session.
