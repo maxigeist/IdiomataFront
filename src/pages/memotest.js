@@ -59,10 +59,10 @@ class Memotest extends Component{
                                 <button className="btn btn-warning" onClick={() => {this.componentDidMount()}}>{this.t('global:header:Restart-Game')}</button>
                         </div>
                         <div className="row col-6">
-                            <div className="col-sm-2" >
+                            <div className="col" >
                                 <h4>✅: {this.state.flipped_elements_qty/2}</h4>
                             </div>
-                            <div className="col-sm-2 " style={{width:"15%"}}>
+                            <div className="col" style={{width:"15%"}}>
                                 <h4>❌: {this.state.tries - (this.state.flipped_elements_qty/2)}</h4>
                             </div>
                             <div className="col-sm-3" style={{width:"23%"}}>
