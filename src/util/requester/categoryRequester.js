@@ -21,7 +21,7 @@ class categoryRequester{
             
         }
         catch(error){
-            return alert("error", t_func("this.t('global:header:Category-already-exists"));
+            return alert("error", t_func("global:header:Category-already-exists"));
         }
     }
 
