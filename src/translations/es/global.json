@@ -180,6 +180,8 @@
         "There-are-not-enough-words-to-play-please-select-another-category-and-difficulty-combination": "No hay suficientes palabras para jugar, por favor selecciona otra combinación de categoría y dificultad",
         "Start-Playing-Choose-a-game-now": "¡Comienza a jugar! ¡Elige un juego ahora!",
         "All-categories": "Todas las categorías",
-        "Choose-a-category": "Elige una categoría"
+        "Choose-a-category": "Elige una categoría",
+        "Name-of-the-category-changed": "Nombre de la categoría cambiado",
+        "Name-of-the-language-changed": "Nombre del idioma cambiado"
 }
 }

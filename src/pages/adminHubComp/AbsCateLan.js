@@ -179,7 +179,7 @@ class AbsCateLan extends Component{
                         await categorydataRequester.modifyCategory(this.props.active, result.value.name, result.value.img)
                         Swal.fire({
                             icon:'success',
-                            title: `${this.t('global:header:Name-of-the')} ${this.t(`global:header:${this.props.to}`)} ${this.t('global:header:changed')}`,
+                            title: this.t('global:header:Name-of-the-category-changed'),
                             showConfirmButton: true
                         }).then((result) => {
                             if (result.isConfirmed) {
@@ -209,7 +209,7 @@ class AbsCateLan extends Component{
                 }).then(async result => { 
                     console.log(result.value)
                     if(result.value){
-                        await languagedataRequester.modifyLanguage(this.props.active, result.value).then(alert("success",`${this.t('global:header:Name-of-the')} ${this.t(`global:header:${this.props.to}`)} ${this.t('global:header:changed')} `));
+                        await languagedataRequester.modifyLanguage(this.props.active, result.value).then(alert("success",this.t('global:header:Name-of-the-language-changed')));
                         this.props.refresh();
                     }
                 })

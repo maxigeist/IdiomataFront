@@ -179,6 +179,8 @@
         "Please-insert-translation":"Please insert translation",
         "Please-insert-a-valid-word": "Please insert a valid word",
         "All-categories": "All categories",
-        "Choose-a-category": "Choose a category"
+        "Choose-a-category": "Choose a category",
+        "Name-of-the-category-changed": "Name of the category changed",
+        "Name-of-the-language-changed": "Name of the language changed"
     }
 }
