@@ -3,7 +3,6 @@ import categoryRequester from "../../util/requester/categoryRequester";
 import languageRequester from "../../util/requester/languageRequester";
 import Swal from "sweetalert2";
 import { alert } from "../../util/alert";
-import { timeout } from "q";
 
 
 
@@ -177,9 +176,18 @@ class AbsCateLan extends Component{
                         const formData = new FormData();
                         formData.append('file', result.value.img);
                         console.log(result.value.img)
-                        await categorydataRequester.modifyCategory(this.props.active, result.value.name, result.value.img).then(alert("success",`${this.t('global:header:Name-of-the')} ${this.props.to} ${this.t('global:header:changed')}`))
-                        this.props.refresh();
-                    }
+                        await categorydataRequester.modifyCategory(this.props.active, result.value.name, result.value.img)
+                        Swal.fire({
+                            icon:'success',
+                            title: `${this.t('global:header:Name-of-the')} ${this.props.to} ${this.t('global:header:changed')}`,
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                              this.props.refresh();
+                              window.location.reload();
+                            }
+                          })
+                        }
                     else{
                         alert("error", this.t("global:header:Please-insert-a-valid-category"))
                     }
@@ -201,7 +209,7 @@ class AbsCateLan extends Component{
                 }).then(async result => { 
                     console.log(result.value)
                     if(result.value){
-                        await languagedataRequester.modifyLanguage(result.value).then(alert("success",`${this.t('global:header:Name-of-the')} ${this.props.to} ${this.t('global:header:changed')} `));
+                        await languagedataRequester.modifyLanguage(this.props.active, result.value).then(alert("success",`${this.t('global:header:Name-of-the')} ${this.props.to} ${this.t('global:header:changed')} `));
                         this.props.refresh();
                     }
                 })
