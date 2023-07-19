@@ -3,7 +3,6 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Login from "../pages/login";
 import Register from "../pages/register";
 import Homepage from "../pages/homepage";
-import ReadAndWrite from "../pages/readAndWrite";
 import Admin from "../pages/admin";
 import AdminHub from "../pages/adminhub";
 import Account from "../pages/account";
@@ -23,7 +22,6 @@ class OurRoutes extends Component{
                     <Route exact path="/" Component={(props) => <Login t={t} />}></Route>
                     <Route exact path="/register" Component={(props)=> <Register t={t}/>}></Route>
                     <Route exact path ="homepage" Component={(props)=> <Homepage t={t}/>}></Route>
-                    <Route exact path ="/readAndWrite" Component={(props)=> <ReadAndWrite t ={t}/>}></Route>
                     <Route exact path = "/account" Component={(props)=> <Account t={t}/>}></Route>
                     <Route exact path ="/admin" Component={(props)=> <Admin t={t}/>}></Route>
                     <Route exact path ="/adminpage" Component={(props) => <AdminHub t={t}/>}></Route>
