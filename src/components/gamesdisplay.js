@@ -58,6 +58,7 @@ class GamesDisplay extends Component{
     
     </ul>
     </div>
+        <div className="title-choose w-100" style={{justifyContent:"center", marginTop:"100px", display:"flex"}}><h1 className="d-flex" style={{color:"white"}}><h1 className="arrow" style={{marginRight:"20px"}}>⬅</h1>{this.t('global:header:Start-Playing-Choose-a-game-now')}</h1></div>
         <div className="RAW-div" style = {{display:"none", width:"100%", height:"auto"}}>
             <ReadAndWrite t = {this.t}/>
 
@@ -121,6 +122,8 @@ class GamesDisplay extends Component{
         document.querySelector(".RAW-div").style.display = "none";
         document.querySelector(".FIG-div").style.display = "none";
         document.querySelector(".MEMO-div").style.display = "none";
+        document.querySelector(".title-choose").style.display = "none";
+        
         
         // const elements = Array.from(document.querySelectorAll('li')).filter(element => element.classList.contains('active'));
         

@@ -169,7 +169,10 @@
       "Please-insert-a-valid-category": "Per favore, inserisci una categoria valida",
       "No-language-selected": "Nessuna lingua selezionata",
       "Language-changed": "Lingua cambiata",
-      "Removal-completed": "Rimozione completata"
+      "Removal-completed": "Rimozione completata",
+      "Not-enough-words": "Non ci sono abbastanza parole",
+      "There-are-not-enough-words-to-play-please-select-another-category-and-difficulty-combination": "Non ci sono abbastanza parole per giocare, per favore seleziona un'altra combinazione di categoria e difficoltà",
+      "Start-Playing-Choose-a-game-now": "Inizia a giocare! Scegli un gioco ora!"
     }
   }
   

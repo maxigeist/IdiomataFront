@@ -29,21 +29,28 @@
     cursor:pointer;
     position: relative;
     top: 0;
-    transition: top ease 0.5s;
+    
+    border: none;
+    transition: transform 0.7s;
+    
   }
 
 .nav-li:hover{
-
    color: white;
-   top: -10px;
+   
+   transform: translateY(-10px); 
+   
+   
+   
 }
 
-.navicon{
-    padding: 5px;
-}
 
 
 .selected-li{
     /* border-bottom: 4px solid #D79700; */
     color: white;
+}
+
+.navicon{
+    padding: 5px;
 }

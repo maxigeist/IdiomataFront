@@ -171,7 +171,10 @@
         "Language-changed":"Language changed",
         "Language-already-exists":"Language already exists",
         "Category-already-exists":"Category already exists",
-        "Removal-completed":"Removal completed"
+        "Removal-completed":"Removal completed",
+        "Not-enough-words":"Not enough words",
+        "There-are-not-enough-words-to-play-please-select-another-category-and-difficulty-combination":"There are not enough words to play, please select another category and difficulty combination",
+        "Start-Playing-Choose-a-game-now":"Start Playing! Choose a game now!"
 
         
     }

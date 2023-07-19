@@ -172,6 +172,9 @@
         "Language-changed": "Idioma cambiado",
         "Language-already-exists": "El idioma ya existe",
         "Category-already-exists": "La categoría ya existe",
-        "Removal-completed": "Eliminación completada"
+        "Removal-completed": "Eliminación completada",
+        "Not-enough-words": "No hay suficientes palabras",
+        "There-are-not-enough-words-to-play-please-select-another-category-and-difficulty-combination": "No hay suficientes palabras para jugar, por favor selecciona otra combinación de categoría y dificultad",
+        "Start-Playing-Choose-a-game-now": "¡Comienza a jugar! ¡Elige un juego ahora!"
 }
 }
