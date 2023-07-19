@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import DifficultySelector from "../components/difficultySelector";
 import UserRequester from "../util/requester/userRequester";
 import CategorySelectorWithImages from "../components/categorySelectorWithImages";
-import Progressbar from "../util/progressbar.js";
+
 
 
 
@@ -45,7 +45,7 @@ class ReadAndWrite extends Component{
             
             <div className="d-flex" style={{height:"100%"}}>
                 {/* <div className="col-2"> */}
-                    <CategorySelectorWithImages func={this.handleCategoryChange}/>
+                    <CategorySelectorWithImages func={this.handleCategoryChange} t={this.t}/>
                 {/* </div>                 */}
 
                 <div className="col principal-container w-100 h-100">
@@ -88,7 +88,8 @@ class ReadAndWrite extends Component{
             return(
                 <div className="d-flex" style={{height:"100%"}}>
                         
-                        <CategorySelectorWithImages  func={this.handleCategoryChange}/>
+                        <CategorySelectorWithImages  func={this.handleCategoryChange} t={this.t}/>
+                        <div className="title-choose w-100 h-100" style={{alignItems:"center",justifyContent:"center", display:"flex"}} ><h1 className="d-flex" style={{color:"white"}}><h1 className="arrow" style={{marginRight:"20px"}}>⬅</h1>{this.t('global:header:Choose-a-category')}</h1></div>
                         
                         
                 </div>

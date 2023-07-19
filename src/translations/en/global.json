@@ -177,6 +177,8 @@
         "Start-Playing-Choose-a-game-now":"Start Playing! Choose a game now!",
         "Please-insert-word":"Please insert word",
         "Please-insert-translation":"Please insert translation",
-        "Please-insert-a-valid-word": "Please insert a valid word"
+        "Please-insert-a-valid-word": "Please insert a valid word",
+        "All-categories": "All categories",
+        "Choose-a-category": "Choose a category"
     }
 }

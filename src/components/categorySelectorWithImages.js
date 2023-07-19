@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import categoryRequester from "../util/requester/categoryRequester";
 import "../style/categoryselector.css"
 
+import suprisebox from "../resources/surprise-box.png"
+
 class CategorySelectorWithImages extends Component{
     requester = new categoryRequester();
 
     constructor(props){
         super(props)
-
+        this.t = this.props.t;
         this.state = {categories: [], urls: []}
         this.componentDidMount = this.componentDidMount.bind(this)
         this.makeOptions = this.makeOptions.bind(this)
@@ -42,10 +44,10 @@ class CategorySelectorWithImages extends Component{
         console.log(this.state.urls)
         const options = this.state.categories.map((category, index) => (
             <div>
-            <button value={category} key={index} className="w-100 btn btn-light rounded-0 catimages" style={{textAlign: "start"}} onClick={this.props.func}><img src={this.state.urls[index]} style={{height: 30, width: 30}}></img>{this.state.categories[index]}</button>
+            <button value={category} key={index} className="w-100 btn btn-light rounded-0 catimages" style={{textAlign: "start"}} onClick={this.props.func}><img src={this.state.urls[index]} style={{height: 30, width: 30, marginRight:10}} alt="category"></img>{this.state.categories[index]}</button>
             </div>
         ))
-        const result = [<button value={""} className="w-100 btn btn-light rounded-0 catimages h-100" style={{textAlign: "start"}} onClick={this.props.func}><img></img><i class="bi bi-shuffle m-2" ></i>All categories</button>]
+        const result = [<button value={""} className="w-100 btn btn-light rounded-0 catimages h-100" style={{textAlign: "start"}} onClick={this.props.func}><img src={suprisebox}   style={{height: 30, width: 30, marginRight:10}} alt="random"></img>{this.t('global:header:All-categories')}</button>]
         return result.concat(options)
     }
 }
