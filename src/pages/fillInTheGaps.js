@@ -14,7 +14,7 @@ class FillInTheGaps extends Component{
 
     constructor(props){
         super(props)
-        this.state= ({language:"", category:"", difficulty:"", sentence_parts:[], sentence_blanks:[], shownParts: [], shownBlanks: [], inputs:[], answers: [], isCorrect:[]})
+        this.state= ({language:"", category:"", difficulty:"", sentence_parts:[], sentence_blanks:[], shownParts: [], shownBlanks: [], inputs:[], answers: [], isCorrect:[], showAnswers: false})
         this.t = this.props.t;
 
         this.handleCategoryChange = this.handleCategoryChange.bind(this)
@@ -57,6 +57,10 @@ class FillInTheGaps extends Component{
                         <form onSubmit={this.handleCheck} className="pt-3">
                             <this.showSentence shownParts={this.state.shownParts} shownBlanks={this.state.shownBlanks} isCorrect={this.state.isCorrect}/>
                         </form>
+
+                        {this.state.showAnswers && this.state.shownBlanks.map((blank, index) => {return <p>{(index+1)+". "+blank[1]}</p>})}
+                                        
+                        
                         <button className="btn btn-success m-2" onClick={this.handleCheck}>{this.t("global:header:Check")}</button>
                         <button className="btn btn-primary" onClick={this.nextSentence}>{this.t("global:header:Next-sentence")}</button>
                     </div>
@@ -127,7 +131,7 @@ class FillInTheGaps extends Component{
 
         }
         
-        this.setState({isCorrect:[]})
+        this.setState({isCorrect:[], showAnswers: false})
         try{
             var inputs = document.querySelectorAll(".input-answer")
             inputs.forEach(function(element) {
@@ -193,6 +197,7 @@ class FillInTheGaps extends Component{
                 this.setState({isCorrect: newIsCorrect})
                 this.statsRequester.sendWordAttempt(inEnglish, this.state.language, null, false, "FillInTheGaps")
                 answerIndex ++;
+                this.setState({showAnswers: true})
             }
         })
     }
